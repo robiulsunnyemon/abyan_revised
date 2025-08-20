@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../api_services/form_api_services/form_api_services.dart';
@@ -47,12 +48,12 @@ class _NightlifeFormState extends State<NightlifeForm> {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: const CustomAppBar(title: 'Restaurants'),
+              child: const CustomAppBar(title: 'Nightlife'),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 30)),
+            SliverToBoxAdapter(child: SizedBox(height: 30.h)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextEditingFormField(
                   isReadOnly: true,
                   controller: venueController,
@@ -63,7 +64,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextEditingFormField(
                   controller: fullNameController,
                   headingText: "Name",
@@ -73,7 +74,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextEditingFormField(
                   controller: emailController,
                   headingText: "Email",
@@ -83,7 +84,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextEditingFormField(
                   controller: phoneController,
                   headingText: "Phone Number/WhatsApp",
@@ -93,7 +94,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextEditingFormFieldWithSuffix(
                   isReadOnly: true,
                   controller: dateOfPreController,
@@ -119,7 +120,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomTextFormFieldLevel(
                   onTap: () async {
                     final pickedTime = await showTimePicker(
@@ -146,7 +147,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -206,7 +207,7 @@ class _NightlifeFormState extends State<NightlifeForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   spacing: 5,
                   children: [

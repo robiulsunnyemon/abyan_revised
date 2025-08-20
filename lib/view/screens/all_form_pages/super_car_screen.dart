@@ -50,7 +50,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: carTypeController,
                   onTap: () {},
@@ -61,7 +61,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: destinationToController,
                   onTap: () {},
@@ -72,7 +72,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
@@ -130,7 +130,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -190,7 +190,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: contactController,
                   headingText: "Contacts",
@@ -200,7 +200,7 @@ class _SuperCarScreenState extends State<SuperCarScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [

@@ -1,17 +1,11 @@
-import 'dart:convert';
 
 import 'package:abyansf_asfmanagment_app/api_services/resend_otp_verification_screen/resend_otp_verification.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/themdata.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/loginScreen.dart';
 import 'package:abyansf_asfmanagment_app/view/auth/recovery_verification_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/signupScreen.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/verificationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ResendOTPScreen extends StatelessWidget {
   const ResendOTPScreen({super.key});

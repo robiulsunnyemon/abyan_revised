@@ -52,7 +52,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   isReadOnly: true,
                   controller: venueController,
@@ -63,7 +63,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: fullNameController,
                   headingText: "Name",
@@ -73,7 +73,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: emailController,
                   headingText: "Email",
@@ -83,7 +83,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: phoneController,
                   headingText: "Phone Number/WhatsApp",
@@ -93,7 +93,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   isReadOnly: true,
                   controller: dateOfPreController,
@@ -119,7 +119,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextFormFieldLevel(
                   onTap: () async {
                     final pickedTime = await showTimePicker(
@@ -139,14 +139,14 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                     }
                   },
                   headingText: "Preferred Time Slot",
-                  hintText: selectedTime, // toString() এর প্রয়োজন নেই
+                  hintText: selectedTime,
                   levelText: "From",
                 ),
               ),
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -206,7 +206,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [

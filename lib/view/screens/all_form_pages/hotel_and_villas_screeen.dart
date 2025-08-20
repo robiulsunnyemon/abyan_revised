@@ -60,7 +60,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: locationController,
                   headingText: "Location",
@@ -70,7 +70,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: hotelNameController,
                   onTap: () {},
@@ -81,12 +81,12 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 165.w,
+                      width: 160.w,
                       child: CustomTextFormFieldLevel(
                         onTap: () async {
                           final picked = await showDatePicker(
@@ -109,7 +109,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 165.w,
+                      width: 160.w,
                       child: CustomTextFormFieldLevel(
                         onTap: () async {
                           final picked = await showDatePicker(
@@ -138,7 +138,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -155,7 +155,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 165.w,
+                          width: 160.w,
                           child: SelectCounterCard(
                             counterText: adultNumber.toString(),
                             hintText: "Adults",
@@ -174,7 +174,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                           ),
                         ),
                         SizedBox(
-                          width: 165.w,
+                          width: 160.w,
                           child: SelectCounterCard(
                             counterText: childrenNumber.toString(),
                             hintText: "Child",
@@ -200,7 +200,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: contactController,
                   headingText: "Contacts",
@@ -210,12 +210,12 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal:16,vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 165.w,
+                      width: 160.w,
                       child: CancelButton(
                         onTap: () {
                           Get.back();
@@ -223,7 +223,7 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 165.w,
+                      width: 160.w,
                       child: RequestButton(
                         onTap: () async {
                           // Validation Logic

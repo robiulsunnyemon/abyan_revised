@@ -48,12 +48,12 @@ class _WellnessFormState extends State<WellnessForm> {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: const CustomAppBar(title: 'Restaurants'),
+              child: const CustomAppBar(title: 'Wellness'),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   isReadOnly: true,
                   controller: venueController,
@@ -64,7 +64,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: fullNameController,
                   headingText: "Name",
@@ -74,7 +74,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: emailController,
                   headingText: "Email",
@@ -84,7 +84,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: phoneController,
                   headingText: "Phone Number/WhatsApp",
@@ -94,7 +94,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   isReadOnly: true,
                   controller: dateOfPreController,
@@ -120,7 +120,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextFormFieldLevel(
                   onTap: () async {
                     final pickedTime = await showTimePicker(
@@ -147,7 +147,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: typeOfServicesController,
                   headingText: "Type of Service",
@@ -157,7 +157,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -217,7 +217,7 @@ class _WellnessFormState extends State<WellnessForm> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [

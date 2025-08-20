@@ -51,7 +51,7 @@ class _JetsScreenState extends State<JetsScreen> {
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: tripTypeController,
                   onTap: () {},
@@ -63,7 +63,7 @@ class _JetsScreenState extends State<JetsScreen> {
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
@@ -138,7 +138,7 @@ class _JetsScreenState extends State<JetsScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
@@ -193,7 +193,7 @@ class _JetsScreenState extends State<JetsScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -253,7 +253,7 @@ class _JetsScreenState extends State<JetsScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: contactController,
                   headingText: "Contacts",
@@ -263,7 +263,7 @@ class _JetsScreenState extends State<JetsScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [

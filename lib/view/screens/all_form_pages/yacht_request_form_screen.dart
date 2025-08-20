@@ -48,7 +48,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: tripTypeController,
                   onTap: () {},
@@ -59,7 +59,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: destinationToController,
                   onTap: () {},
@@ -70,7 +70,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
@@ -126,7 +126,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: numberOfPeopleController,
                   headingText: "Number of People",
@@ -136,7 +136,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: contactController,
                   headingText: "Contacts",
@@ -146,7 +146,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
