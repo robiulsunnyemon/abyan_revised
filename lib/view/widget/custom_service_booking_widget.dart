@@ -1,0 +1,149 @@
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
+import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+
+class CustomServiceBookingWidget extends StatelessWidget {
+  final String imageUrl;
+  final String status;
+  final String location;
+  final String title;
+  final String createdDate;
+  const CustomServiceBookingWidget({super.key, required this.imageUrl, required this.status, required this.location, required this.title, required this.createdDate,});
+  @override
+  Widget build(BuildContext context) {
+    DateTime parsedDateTime = DateTime.parse(createdDate.toString());
+    return Card(
+      color: AppColors.greyColor,
+      child: Container(
+        width: double.infinity,
+        height: 100.h,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              Container(
+                height: 60.h,
+                width: 60.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Image.network(imageUrl, fit: BoxFit.cover),
+              ),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Status: ',
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: AppStyles.fontXL,
+                          fontWeight: AppStyles.weightRegular,
+                          color: AppColors.lightWhite6,
+                        ),
+                      ),
+                      Text(
+                        status,
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: AppStyles.fontXL,
+                          fontWeight: AppStyles.weightRegular,
+                          color: AppColors.lightLaserColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontFamily: "PlayfairDisplay",
+                            fontSize: AppStyles.fontL,
+                            fontWeight: AppStyles.weightBold,
+                            color: AppColors.lightWhite6,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 16,
+                            color: AppColors.lightWhite6,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            location,
+                            style: TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: AppStyles.fontS,
+                              fontWeight: AppStyles.weightRegular,
+                              color: AppColors.lightWhite6,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              Spacer(),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment:MainAxisAlignment.end,
+                children: [
+                  Text(
+                    DateFormat('hh:mm a').format(parsedDateTime),
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontWeight: AppStyles.weightRegular,
+                      fontSize: AppStyles.fontM,
+                      color: AppColors.lightLaserColor,
+                      decoration: TextDecoration.underline,
+                      decorationColor: AppColors.lightLaserColor,
+                      decorationThickness: 1.0,
+                      height: 1.4,
+                    ),
+                  ),
+                  Text(
+                    DateFormat('EEEE').format(parsedDateTime),
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: AppStyles.fontXS,
+                      fontWeight: AppStyles.weightRegular,
+                      color: AppColors.lightWhite6,
+                    ),
+                  ),
+                  Text(
+                    DateFormat('d MMMM').format(parsedDateTime),
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: AppStyles.fontXS,
+                      fontWeight: AppStyles.weightRegular,
+                      color: AppColors.lightWhite6,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
