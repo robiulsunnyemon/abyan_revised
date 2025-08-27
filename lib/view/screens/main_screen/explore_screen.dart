@@ -4,6 +4,7 @@ import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/main_category_controller/main_category_controller.dart';
@@ -78,9 +79,9 @@ class ExploreScreen extends StatelessWidget {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                mainAxisSpacing: 4.0,
+                                mainAxisSpacing: 0,
                                 crossAxisSpacing: 14.0,
-                                childAspectRatio: 0.72,
+                                childAspectRatio: 0.85,
                               ),
                           itemBuilder: (context, index) {
                             SubCategory subCategory =
@@ -89,8 +90,6 @@ class ExploreScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 160,
-                                  width: 220,
                                   child: GestureDetector(
                                     onTap: () {
                                       if (subCategory.hasSpecificCategory) {
@@ -135,7 +134,7 @@ class ExploreScreen extends StatelessWidget {
                                       }
                                     },
                                     child:  SizedBox(
-                                      height: 169,
+                                      height: 120.h,
                                       width: double.infinity,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),

@@ -30,7 +30,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: 250,
+                      height: 220,
                       width: double.infinity,
                       child: Image.network(
                         _specificCategoryController
@@ -41,7 +41,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 10),
+                      padding: const EdgeInsets.only(top: 10, left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: IconButton(
@@ -65,7 +65,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: 280.h,
+                      height: 200.h,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,11 +103,11 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                                 );
                               },
                               options: CarouselOptions(
-                                height: 220.h,
+                                height: 150.h,
                                 autoPlay: true,
                                 enlargeCenterPage: false,
                                 aspectRatio: 16 / 9,
-                                viewportFraction: 0.83,
+                                viewportFraction: 0.74,
                                 autoPlayInterval: const Duration(seconds: 3),
                                 onPageChanged: (index, reason) {
                                   _specificCategoryController.changeSliderIndex(categoryIndex, index);

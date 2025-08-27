@@ -255,7 +255,6 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileCustomAppbar(
                       title: 'My Profile',
-
                       action: IconButton(
                         onPressed: () {
                           Get.to(EditProfile());

@@ -36,7 +36,7 @@ class ServiceBookingHistoryScreen extends StatelessWidget {
                           padding: EdgeInsets.all(6).r,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(50).r,
                           ),
                         ),
                         child: Text('All', style: AppTextStyle.regular16),
