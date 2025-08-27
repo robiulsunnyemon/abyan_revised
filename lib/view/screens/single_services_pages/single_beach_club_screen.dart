@@ -7,6 +7,7 @@ import 'package:abyansf_asfmanagment_app/view/screens/listing_form/beach_club_fo
 import 'package:abyansf_asfmanagment_app/view/screens/listing_form/nightlife_form.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/single_services_pages/menu_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/card_container.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/day_time_row.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/carousel_container.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -33,18 +34,38 @@ class SingleBeachClubScreen extends StatelessWidget {
         child: Obx(
           () => Column(
             children: [
-              Container(
-                width: double.infinity,
-                height: 290,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      _listingController.listingData.value?.mainImage ??
-                          AppConstants.defaultImageUrl,
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 290,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          _listingController.listingData.value?.mainImage ??
+                              AppConstants.defaultImageUrl,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    fit: BoxFit.cover,
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40, left: 10),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: Colors.white70.withAlpha(100),
+                          child: Icon(Icons.keyboard_arrow_left_outlined),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 4),
               Padding(
@@ -98,32 +119,28 @@ class SingleBeachClubScreen extends StatelessWidget {
                           ],
                         ),
 
-                        SizedBox(
-                          width: 100.w,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_listingController.listingData.value !=
-                                  null) {
-                                Get.to(
-                                      () => MenuScreen(
-                                    listingDetailData:
-                                    _listingController.listingData.value!,
-                                  ),
-                                );
-                              }
-                            },
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Menu"),
-                                Icon(
-                                  Icons.arrow_circle_right_outlined,
-                                  color: AppColors.blackColor,
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_listingController.listingData.value !=
+                                null) {
+                              Get.to(
+                                    () => MenuScreen(
+                                  listingDetailData:
+                                  _listingController.listingData.value!,
                                 ),
-                              ],
-                            ),
+                              );
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Menu"),
+                              Icon(
+                                Icons.arrow_circle_right_outlined,
+                                color: AppColors.blackColor,
+                              ),
+                            ],
                           ),
                         ),
                       ],
