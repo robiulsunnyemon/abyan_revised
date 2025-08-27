@@ -28,7 +28,7 @@ class CustomEventWidget extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          height: 112.h,
+          height: 95.h,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(14),
@@ -38,10 +38,16 @@ class CustomEventWidget extends StatelessWidget {
                   height: 70.h,
                   width: 70.w,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        event?.eventImg ?? AppConstants.defaultImageUrl,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: Image.network(event?.eventImg ?? AppConstants.defaultImageUrl, fit: BoxFit.cover),
-                ),
+                )
+                ,
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

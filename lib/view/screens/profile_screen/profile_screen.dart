@@ -444,13 +444,18 @@ class ProfileScreen extends StatelessWidget {
                   color: isRedColor ? Colors.red : Colors.black54,
                 ),
                 SizedBox(width: 15.w),
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: isRedColor ? Colors.red : const Color(0xFF454545),
-                    fontSize: 16.sp,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
+                SizedBox(
+                  width: 250.w,
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: isRedColor ? Colors.red : const Color(0xFF454545),
+                      fontSize: 16.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ),
               ],
