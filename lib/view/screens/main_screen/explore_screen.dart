@@ -36,16 +36,13 @@ class ExploreScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(
-                      top: 16,
-                      left: 0,
-                      right: 0,
-                      bottom: 8,
-                    ),
+                    padding: const EdgeInsets.only(top: 16, left: 0, right: 0, bottom: 8),
                     color: Colors.transparent,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text("Explore", style: AppTextStyle.bold24)],
+                      children: [
+                        Text("Explore", style: AppTextStyle.bold24),
+                      ],
                     ),
                   ),
                 ],
@@ -57,7 +54,7 @@ class ExploreScreen extends StatelessWidget {
                 MainCategory mainCategory =
                     _mainCategoryController.mainCategories[index];
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,9 +79,9 @@ class ExploreScreen extends StatelessWidget {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                mainAxisSpacing: 0,
-                                crossAxisSpacing: 14.0,
-                                childAspectRatio: 0.85,
+                                mainAxisSpacing: 0.0.h,
+                                crossAxisSpacing: 14.0.w,
+                                childAspectRatio: 0.70,
                               ),
                           itemBuilder: (context, index) {
                             SubCategory subCategory =
@@ -92,67 +89,50 @@ class ExploreScreen extends StatelessWidget {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (subCategory.hasSpecificCategory) {
-                                        _specificCategoryController
-                                            .fetchSubcategoryDetails(
-                                              subCategory.id,
-                                            );
-                                      } else if (subCategory.contractWhatsapp) {
-                                        _contactWhatsappController
-                                            .fetchServiceDetails(
-                                              subCategory.id,
-                                            );
-                                      } else if (subCategory.hasForm) {
-                                        if (subCategory.fromName == "Jets") {
-                                          Get.to(
-                                            () => JetsScreen(
-                                              subCategoryId: subCategory.id,
-                                            ),
+                                GestureDetector(
+                                  onTap: () {
+                                    if (subCategory.hasSpecificCategory) {
+                                      _specificCategoryController
+                                          .fetchSubcategoryDetails(
+                                            subCategory.id,
                                           );
-                                        } else if (subCategory.fromName ==
-                                            "Hotel & Villas") {
-                                          Get.to(
-                                            () => HotelAndVillasScreen(
-                                              subCategoryId: subCategory.id,
-                                            ),
+                                    } else if (subCategory.contractWhatsapp) {
+                                      _contactWhatsappController
+                                          .fetchServiceDetails(
+                                            subCategory.id,
                                           );
-                                        } else if (subCategory.fromName ==
-                                            "Yacht") {
-                                          Get.to(
-                                            () => YachtRequestFormScreen(
-                                              subCategoryId: subCategory.id,
-                                            ),
-                                          );
-                                        } else if (subCategory.fromName ==
-                                            "Super Car") {
-                                          Get.to(
-                                            () => SuperCarScreen(
-                                              subCategoryId: subCategory.id,
-                                            ),
-                                          );
-                                        }
-                                      } else if (subCategory
-                                          .hasMiniSubCategory) {
-                                        _miniSubCategoryController
-                                            .fetchMiniSubCategories(
-                                              subCategory.id,
-                                            );
+                                    } else if (subCategory.hasForm) {
+                                      if(subCategory.fromName=="Jets"){
+                                        Get.to(()=>JetsScreen(
+                                          subCategoryId: subCategory.id,
+                                        ));
                                       }
-                                    },
-                                    child: SizedBox(
-                                      height: 120.h,
-                                      width: double.infinity,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          subCategory.img,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
+                                      else if(subCategory.fromName=="Hotel & Villas"){
+                                        Get.to(()=>HotelAndVillasScreen(subCategoryId:subCategory.id,));
+                                      }
+                                      else if(subCategory.fromName=="Yacht"){
+                                        Get.to(()=>YachtRequestFormScreen(
+                                          subCategoryId: subCategory.id,
+                                        ));
+                                      }
+                                      else if(subCategory.fromName=="Super Car"){
+                                        Get.to(()=>SuperCarScreen(
+                                          subCategoryId: subCategory.id,
+                                        ));
+                                      }
+
+
+                                    } else if (subCategory
+                                        .hasMiniSubCategory) {
+                                      _miniSubCategoryController
+                                          .fetchMiniSubCategories(
+                                            subCategory.id,
+                                          );
+                                    }
+                                  },
+                                  child:  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(subCategory.img,fit: BoxFit.cover,width: double.infinity,height: MediaQuery.of(context).size.width/2,)
                                   ),
                                 ),
                                 Padding(
