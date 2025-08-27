@@ -104,8 +104,6 @@ class ExploreScreen extends StatelessWidget {
                                               subCategory.id,
                                             );
                                       } else if (subCategory.hasForm) {
-
-
                                         if(subCategory.fromName=="Jets"){
                                           Get.to(()=>JetsScreen(
                                             subCategoryId: subCategory.id,
