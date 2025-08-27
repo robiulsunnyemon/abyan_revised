@@ -53,6 +53,8 @@ class SignUpController extends GetxController {
 
 
         Get.to(() => RecoveryVerificationScreen());
+      }else{
+        Get.snackbar('Error', 'Registration failed: User with this email or whatsapp already exists');
       }
     } catch (e) {
       print(e.toString());

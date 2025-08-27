@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../api_services/form_api_services/form_api_services.dart';
@@ -48,9 +47,9 @@ class _NightlifeFormState extends State<NightlifeForm> {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: const CustomAppBar(title: 'Nightlife'),
+              child: const CustomAppBar(title: 'NightLife'),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 30.h)),
+            SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
