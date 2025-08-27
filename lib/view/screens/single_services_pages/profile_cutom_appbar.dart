@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/style/appColor.dart';
 import '../../../utils/style/app_text_styles.dart';
@@ -26,18 +27,18 @@ class ProfileCustomAppbar extends StatelessWidget implements PreferredSizeWidget
           showBack
               ? GestureDetector(
             child: Container(
-              height: 32,
-              width: 32,
+              height: 32.h,
+              width: 32.w,
               decoration: BoxDecoration(
               ),
             ),
           )
-              : const SizedBox(width: 40),
+              : SizedBox(width: 40.w),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  width: 200,
+                  width: 200.w,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

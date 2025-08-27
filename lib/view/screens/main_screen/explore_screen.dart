@@ -79,7 +79,7 @@ class ExploreScreen extends StatelessWidget {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                mainAxisSpacing: 4.0.h,
+                                mainAxisSpacing: 0.0.h,
                                 crossAxisSpacing: 14.0.w,
                                 childAspectRatio: 0.70,
                               ),
