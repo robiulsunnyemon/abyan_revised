@@ -48,111 +48,121 @@ class ExploreScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SliverList.builder(
-              itemCount: _mainCategoryController.mainCategories.length,
-              itemBuilder: (context, index) {
-                MainCategory mainCategory =
-                    _mainCategoryController.mainCategories[index];
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          mainCategory.name,
-                          style: AppTextStyle.bold24,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      if (mainCategory.subCategories.isEmpty)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(child: Text('No subcategories found')),
-                        ),
-                      if (mainCategory.subCategories.isNotEmpty)
-                        GridView.builder(
-                          itemCount: mainCategory.subCategories.length,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 4.0.h,
-                                crossAxisSpacing: 14.0.w,
-                                childAspectRatio: 0.70,
-                              ),
-                          itemBuilder: (context, index) {
-                            SubCategory subCategory =
-                                mainCategory.subCategories[index];
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (subCategory.hasSpecificCategory) {
-                                      _specificCategoryController
-                                          .fetchSubcategoryDetails(
-                                            subCategory.id,
-                                          );
-                                    } else if (subCategory.contractWhatsapp) {
-                                      _contactWhatsappController
-                                          .fetchServiceDetails(
-                                            subCategory.id,
-                                          );
-                                    } else if (subCategory.hasForm) {
-                                      if(subCategory.fromName=="Jets"){
-                                        Get.to(()=>JetsScreen(
-                                          subCategoryId: subCategory.id,
-                                        ));
-                                      }
-                                      else if(subCategory.fromName=="Hotel & Villas"){
-                                        Get.to(()=>HotelAndVillasScreen(subCategoryId:subCategory.id,));
-                                      }
-                                      else if(subCategory.fromName=="Yacht"){
-                                        Get.to(()=>YachtRequestFormScreen(
-                                          subCategoryId: subCategory.id,
-                                        ));
-                                      }
-                                      else if(subCategory.fromName=="Super Car"){
-                                        Get.to(()=>SuperCarScreen(
-                                          subCategoryId: subCategory.id,
-                                        ));
-                                      }
+           Obx((){
+
+             if (_mainCategoryController.isLoading.value) {
+               return SliverToBoxAdapter(
+                 child: Center(child: CircularProgressIndicator()),
+               );
+             }
+             else{
+               return SliverList.builder(
+                 itemCount: _mainCategoryController.mainCategories.length,
+                 itemBuilder: (context, index) {
+                   MainCategory mainCategory =
+                   _mainCategoryController.mainCategories[index];
+                   return Padding(
+                     padding: const EdgeInsets.all(16.0),
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Text(
+                             mainCategory.name,
+                             style: AppTextStyle.bold24,
+                           ),
+                         ),
+                         SizedBox(height: 10),
+                         if (mainCategory.subCategories.isEmpty)
+                           Padding(
+                             padding: const EdgeInsets.all(8.0),
+                             child: Center(child: Text('No subcategories found')),
+                           ),
+                         if (mainCategory.subCategories.isNotEmpty)
+                           GridView.builder(
+                             itemCount: mainCategory.subCategories.length,
+                             shrinkWrap: true,
+                             physics: NeverScrollableScrollPhysics(),
+                             gridDelegate:
+                             SliverGridDelegateWithFixedCrossAxisCount(
+                               crossAxisCount: 2,
+                               mainAxisSpacing: 4.0.h,
+                               crossAxisSpacing: 14.0.w,
+                               childAspectRatio: 0.70,
+                             ),
+                             itemBuilder: (context, index) {
+                               SubCategory subCategory =
+                               mainCategory.subCategories[index];
+                               return Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   GestureDetector(
+                                     onTap: () {
+                                       if (subCategory.hasSpecificCategory) {
+                                         _specificCategoryController
+                                             .fetchSubcategoryDetails(
+                                           subCategory.id,
+                                         );
+                                       } else if (subCategory.contractWhatsapp) {
+                                         _contactWhatsappController
+                                             .fetchServiceDetails(
+                                           subCategory.id,
+                                         );
+                                       } else if (subCategory.hasForm) {
+                                         if(subCategory.fromName=="Jets"){
+                                           Get.to(()=>JetsScreen(
+                                             subCategoryId: subCategory.id,
+                                           ));
+                                         }
+                                         else if(subCategory.fromName=="Hotel & Villas"){
+                                           Get.to(()=>HotelAndVillasScreen(subCategoryId:subCategory.id,));
+                                         }
+                                         else if(subCategory.fromName=="Yacht"){
+                                           Get.to(()=>YachtRequestFormScreen(
+                                             subCategoryId: subCategory.id,
+                                           ));
+                                         }
+                                         else if(subCategory.fromName=="Super Car"){
+                                           Get.to(()=>SuperCarScreen(
+                                             subCategoryId: subCategory.id,
+                                           ));
+                                         }
 
 
-                                    } else if (subCategory
-                                        .hasMiniSubCategory) {
-                                      _miniSubCategoryController
-                                          .fetchMiniSubCategories(
-                                            subCategory.id,
-                                          );
-                                    }
-                                  },
-                                  child:  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(subCategory.img,fit: BoxFit.cover,width: double.infinity,height: MediaQuery.of(context).size.width/2,)
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    subCategory.name,
-                                    style: AppTextStyle.bold16,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                                       } else if (subCategory
+                                           .hasMiniSubCategory) {
+                                         _miniSubCategoryController
+                                             .fetchMiniSubCategories(
+                                           subCategory.id,
+                                         );
+                                       }
+                                     },
+                                     child:  ClipRRect(
+                                         borderRadius: BorderRadius.circular(10),
+                                         child: Image.network(subCategory.img,fit: BoxFit.cover,width: double.infinity,height: MediaQuery.of(context).size.width/2,)
+                                     ),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.only(top: 10),
+                                     child: Text(
+                                       subCategory.name,
+                                       style: AppTextStyle.bold16,
+                                       maxLines: 1,
+                                       overflow: TextOverflow.ellipsis,
+                                     ),
+                                   ),
+                                 ],
+                               );
+                             },
+                           ),
+                       ],
+                     ),
+                   );
+                 },
+               );
+             }
+           })
           ],
         ),
       ),

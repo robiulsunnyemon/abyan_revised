@@ -7,8 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../widget/custom_app_bar.dart';
+import '../../widget/custom_drop_down.dart';
 import '../../widget/custom_text_editing_form_field.dart';
 import '../../widget/custom_text_form_field_date.dart';
+import '../../widget/drop_down_custom_widget.dart';
 import '../../widget/request_button.dart';
 import '../../widget/select_counter_card.dart';
 
@@ -52,7 +54,21 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: typeOfAccommodationController,
-                  onTap: () {},
+                  onTap: () async {
+                    final selected = await showMenu<String>(
+                      color: Colors.white,
+                      context: context,
+                      position: RelativeRect.fromLTRB(100, 300, 100, 100), // adjust position
+                      items: [
+                        PopupMenuItem(value: 'Hotel Paradise', child: Text('Hotel Paradise')),
+                        PopupMenuItem(value: 'Sea View Resort', child: Text('Sea View Resort')),
+                        PopupMenuItem(value: 'Mountain Inn', child: Text('Mountain Inn')),
+                      ],
+                    );
+                    if (selected != null) {
+                      typeOfAccommodationController.text = selected;
+                    }
+                  },
                   headingText: "Type of accommodation",
                   hintText: "Select accommodation",
                 ),
@@ -68,17 +84,35 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomTextEditingFormFieldWithSuffix(
-                  controller: hotelNameController,
-                  onTap: () {},
-                  headingText: "Name of hotel",
-                  hintText: "Name of hotel",
-                ),
-              ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CustomTextEditingFormFieldWithSuffix(
+              controller: hotelNameController,
+              isReadOnly: true,
+              onTap: () async {
+                final selected = await showMenu<String>(
+                  color: Colors.white,
+                  context: context,
+                  position: RelativeRect.fromLTRB(100, 300, 100, 100), // adjust position
+                  items: [
+                    PopupMenuItem(value: 'Hotel Paradise', child: Text('Hotel Paradise')),
+                    PopupMenuItem(value: 'Sea View Resort', child: Text('Sea View Resort')),
+                    PopupMenuItem(value: 'Mountain Inn', child: Text('Mountain Inn')),
+                  ],
+                );
+                if (selected != null) {
+                  hotelNameController.text = selected;
+                }
+              },
+              headingText: "Name of hotel",
+              hintText: "Select hotel",
             ),
+          ),
+        ),
+
+
+
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

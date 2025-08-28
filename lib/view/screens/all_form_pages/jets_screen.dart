@@ -54,7 +54,20 @@ class _JetsScreenState extends State<JetsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: tripTypeController,
-                  onTap: () {},
+                  onTap: () async {
+                    final selected = await showMenu<String>(
+                      context: context,
+                      position: RelativeRect.fromLTRB(100, 300, 100, 100), // adjust position
+                      items: [
+                        PopupMenuItem(value: 'Hotel Paradise', child: Text('Hotel Paradise')),
+                        PopupMenuItem(value: 'Sea View Resort', child: Text('Sea View Resort')),
+                        PopupMenuItem(value: 'Mountain Inn', child: Text('Mountain Inn')),
+                      ],
+                    );
+                    if (selected != null) {
+                      tripTypeController.text = selected;
+                    }
+                  },
                   headingText: "Trip type",
                   hintText: "Round/One-way trip",
                 ),

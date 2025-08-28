@@ -75,6 +75,8 @@ class SpecificCategoryController extends GetxController {
       print("fetch subcategory Details");
       final response = await SpecificCategoryApiServices.getSubcategoryDetails(subcategoryId);
       subcategory.value = response.data.subCategory;
+      print(response.data.subCategory);
+      print(response.data.specificCategories);
       specificCategories.assignAll(response.data.specificCategories);
 
 

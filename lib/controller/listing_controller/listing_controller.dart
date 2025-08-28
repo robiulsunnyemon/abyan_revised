@@ -28,4 +28,30 @@ class ListingDetailController extends GetxController {
       isLoading(false);
     }
   }
+  
+  Future<void> fetchListingDetailsForWhatsapp(int listingId) async {
+    try {
+      isLoading(true);
+      errorMessage('');
+      final response = await ListingApiServices.getListingDetails(listingId);
+      if(response.success){
+        listingData.value = response.data;
+
+      }
+    } catch (e) {
+      errorMessage(e.toString());
+      print(e.toString());
+      Get.snackbar('Error', 'Failed to fetch listing details: $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    listingData.close();
+    super.onClose();
+  }
+
 }

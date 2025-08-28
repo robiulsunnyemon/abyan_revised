@@ -142,6 +142,8 @@ class Listing {
   final int specificCategoryId;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final bool hasForm;
+  final bool contractWhatsapp;
   final String? formName;
   final bool isActive;
   final List<String> menuImages;
@@ -166,6 +168,8 @@ class Listing {
     required this.menuImages,
     required this.typeOfService,
     required this.venueName,
+    this.hasForm = false,
+    this.contractWhatsapp = false,
   });
 
   factory Listing.fromJson(Map<String, dynamic> json) {
@@ -187,6 +191,8 @@ class Listing {
       menuImages: List<String>.from(json['menuImages'] ?? []),
       typeOfService: _parseStringList(json['typeofservice'] ?? []),
       venueName: _parseStringList(json['venueName'] ?? []),
+      hasForm: json['hasForm'] ?? false,
+      contractWhatsapp: json['contractWhatsapp'] ?? false,
     );
   }
 

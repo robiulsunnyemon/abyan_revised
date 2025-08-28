@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../controller/listing_controller/listing_controller.dart';
+import '../../../controller/listing_whatsapp_controller/listing_whatsapp_controller.dart';
 import '../../../controller/specific_category_controller/specific_category_controller.dart';
 import '../../../utils/assets_path.dart';
 import '../../../utils/style/app_text_styles.dart';
-import '../../widget/carousel_container.dart';
 import '../../widget/specific_carausel_container.dart';
 import '../constant/constans.dart';
 
@@ -17,6 +17,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
 
   final _specificCategoryController = Get.put(SpecificCategoryController());
   final _listingController = Get.put(ListingDetailController());
+  final _listingWhatsappController= Get.put(ListingWhatsappController());
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,13 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                             final listingItem = _specificCategoryController.specificCategories[categoryIndex].listings[listingIndex];
                             return GestureDetector(
                               onTap: (){
-                                _listingController.fetchListingDetails(listingItem.id);
+                                if(listingItem.contractWhatsapp){
+                                  print("contract whatsapp");
+                                  _listingWhatsappController.fetchListingWhatsapp(listingItem.id);
+                                }else{
+                                  _listingController.fetchListingDetails(listingItem.id);
+                                }
+
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
