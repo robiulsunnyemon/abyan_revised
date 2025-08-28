@@ -88,7 +88,9 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                                 final listingItem = _specificCategoryController.specificCategories[categoryIndex].listings[listingIndex];
                                 return GestureDetector(
                                   onTap: (){
+
                                     _listingController.fetchListingDetails(listingItem.id);
+
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
