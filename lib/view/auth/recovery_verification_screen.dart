@@ -604,7 +604,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
                   onTap: _controller.start.value == 0
                       ? () {
                     _controller.startTimer();
-                    _clearAllOtpFields(); // Clear OTP fields when resend is tapped
+                    _clearAllOtpFields();
                     ResendOTPVerificationApiService.resendOTPRequest();
                   }
                       : null,

@@ -3,30 +3,35 @@ import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/custom_event_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 import '../../../controller/event_controller/event_controller.dart';
+import '../../widget/custom_event_card_two.dart';
 
-class EventHistoryIndividualPage extends StatelessWidget {
-  final Event event;
+class EventHistoryIndividualPage extends StatefulWidget {
+  Event event;
   final List<Event> eventList;
   EventHistoryIndividualPage({
     super.key,
     required this.event,
     required this.eventList,
   });
+
+  @override
+  State<EventHistoryIndividualPage> createState() => _EventHistoryIndividualPageState();
+}
+
+class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage> {
   final _eventController = Get.put(EventController());
 
   @override
   Widget build(BuildContext context) {
 
-    DateTime parsedDateTime = DateTime.parse(event.createdAt.toString());
+    DateTime parsedDateTime = DateTime.parse(widget.event.date.toString());
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -45,7 +50,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: NetworkImage(event.eventImg),
+                      image: NetworkImage(widget.event.eventImg),
                     ),
                   ),
                 ),
@@ -62,7 +67,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      event.time,
+                      widget.event.time,
                       style: TextStyle(
                         color: const Color(0xFF333333),
                         fontSize: 12,
@@ -80,7 +85,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      event.status,
+                      widget.event.status,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF00A600),
@@ -102,7 +107,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                         SizedBox(
                           width: 250.w,
                           child: Text(
-                            event.title,
+                            widget.event.title,
                             style: AppTextStyle.bold20,
                             maxLines: 1,
                           ),
@@ -122,7 +127,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              event.location,
+                              widget.event.location,
                               style: TextStyle(
                                 color: AppColors.lightLaserColor,
                                 fontSize: 12,
@@ -138,7 +143,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                       children: [
                         SvgPicture.asset(AssetPath.lsiconUserCrowd),
                         Text(
-                          'Max: ${event.maxPerson}',
+                          'Max: ${widget.event.maxPerson}',
                           style: TextStyle(
                             color: const Color(0xFF2E2E2E),
                             fontSize: 12,
@@ -151,9 +156,11 @@ class EventHistoryIndividualPage extends StatelessWidget {
                   ],
                 ),
                 Text('About This Event', style: AppTextStyle.bold20),
-                Text(event.description),
+                Text(widget.event.description),
                 SizedBox(height: 10),
-                Row(
+
+                if(widget.event.status=="Active")
+                  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
@@ -174,7 +181,7 @@ class EventHistoryIndividualPage extends StatelessWidget {
                       width: 180,
                       child: ElevatedButton(
                         onPressed: () async {
-                          _eventController.bookEvent(eventId: event.id);
+                          _eventController.bookEvent(eventId: widget.event.id);
                         },
                         style: ElevatedButton.styleFrom(),
                         child: Text('Attendance'),
@@ -182,26 +189,26 @@ class EventHistoryIndividualPage extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 SizedBox(height: 10),
-                Text('Upcoming Event', style: AppTextStyle.bold24),
-                SizedBox(
+                if(widget.eventList.isNotEmpty)
+                  Text('Upcoming Event', style: AppTextStyle.bold24),
+                  SizedBox(
                   height: 200.h,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: eventList.length,
+                    itemCount: widget.eventList.length,
                     itemBuilder: (context, index) {
+                      Event events = widget.eventList[index];
                       return InkWell(
                         onTap: () {
-                          Get.to(
-                            EventHistoryIndividualPage(
-                              event: eventList[index],
-                              eventList: eventList,
-                            ),
-                          );
+                          setState(() {
+                            widget.event=events;
+                          });
                         },
-                        child: CustomEventWidget(
+                        child: CustomEventCardTwo(
                           status: true,
-                          event: eventList[index],
+                          event: events,
                         ),
                       );
                     },

@@ -19,126 +19,147 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
   final _listingController = Get.put(ListingDetailController());
   final _listingWhatsappController= Get.put(ListingWhatsappController());
 
+
+  Future<void> _onRefresh() async {
+    _specificCategoryController.specificCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: Obx(
-              () => CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child:
-                Container(
-                  height: 160.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(_specificCategoryController
-                        .subcategory
-                        .value
-                        ?.heroSectionImg ?? AppConstants.defaultImageUrl,),fit: BoxFit.cover)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 10),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.white70.withAlpha(100),
-                          child: Icon(Icons.keyboard_arrow_left_outlined),
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        body: SafeArea(
+          child: Obx(
+                () => CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child:
+                  Container(
+                    height: 160.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: NetworkImage(_specificCategoryController
+                          .subcategory
+                          .value
+                          ?.heroSectionImg ?? AppConstants.defaultImageUrl,),fit: BoxFit.cover)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: CircleAvatar(
+                            radius: 18,
+                            backgroundColor: Colors.white70.withAlpha(100),
+                            child: Icon(Icons.keyboard_arrow_left_outlined),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SliverList.builder(
-                itemCount: _specificCategoryController.specificCategories.length,
-                itemBuilder: (context, categoryIndex) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
-                        child: Text(
-                          _specificCategoryController
-                              .specificCategories[categoryIndex]
-                              .name,
-                          style: AppTextStyle.bold24,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      SizedBox(
-                        child: CarouselSlider.builder(
-                          itemCount: _specificCategoryController.specificCategories[categoryIndex].listings.length,
-                          itemBuilder: (context, listingIndex, realIndex) {
-                            final listingItem = _specificCategoryController.specificCategories[categoryIndex].listings[listingIndex];
-                            return GestureDetector(
-                              onTap: (){
-                                if(listingItem.contractWhatsapp){
-                                  print("contract whatsapp");
-                                  _listingWhatsappController.fetchListingWhatsapp(listingItem.id);
-                                }else{
-                                  _listingController.fetchListingDetails(listingItem.id);
-                                }
-
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SpecificCarauselContainer(
-                                  imagePath: listingItem.mainImage,
-                                  title: listingItem.name,
-                                  location: listingItem.location,
-                                  personIcon: AssetPath.personImage,
-                                  clockIcon: AssetPath.clockImage,
-                                ),
-                              ),
-                            );
-                          },
-                          options: CarouselOptions(
-                            height: 150.h,
-                            autoPlay: true,
-                            enlargeCenterPage: false,
-                            aspectRatio: 16 / 9,
-                            viewportFraction: 0.70,
-                            autoPlayInterval: const Duration(seconds: 3),
-                            onPageChanged: (index, reason) {
-                              _specificCategoryController.changeSliderIndex(categoryIndex, index);
-                            },
+                if(_specificCategoryController.specificCategories.isNotEmpty)
+                    SliverList.builder(
+                  itemCount: _specificCategoryController.specificCategories.length,
+                  itemBuilder: (context, categoryIndex) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
+                          child: Text(
+                            _specificCategoryController
+                                .specificCategories[categoryIndex]
+                                .name,
+                            style: AppTextStyle.bold24,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
 
-                     Obx(()=> Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: List.generate(
-                         _specificCategoryController.specificCategories[categoryIndex].listings.length,
-                             (indicatorIndex) {
-                           final isActive = _specificCategoryController.sliderIndices[categoryIndex]?.value == indicatorIndex;
-                           return AnimatedContainer(
-                             duration: const Duration(milliseconds: 300),
-                             margin: const EdgeInsets.symmetric(horizontal: 4),
-                             width: isActive ? 16 : 6,
-                             height: 6,
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(30),
-                               color: isActive ? AppColors.primaryColor : AppColors.lightGrey,
-                             ),
-                           );
-                         },
-                       ),
-                     ),)
-                    ],
-                  );
-                },
-              ),
-            ],
+                        if(_specificCategoryController.specificCategories[categoryIndex].listings.isEmpty)
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("You have no listing"),
+                            ),
+                          ),
+
+
+                        if(_specificCategoryController.specificCategories[categoryIndex].listings.isNotEmpty)
+                          SizedBox(
+                          child: CarouselSlider.builder(
+                            itemCount: _specificCategoryController.specificCategories[categoryIndex].listings.length,
+                            itemBuilder: (context, listingIndex, realIndex) {
+                              final listingItem = _specificCategoryController.specificCategories[categoryIndex].listings[listingIndex];
+                              return GestureDetector(
+                                onTap: (){
+                                  if(listingItem.contractWhatsapp){
+                                    print("contract whatsapp");
+                                    _listingWhatsappController.fetchListingWhatsapp(listingItem.id);
+                                  }else{
+                                    _listingController.fetchListingDetails(listingItem.id);
+                                  }
+
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SpecificCarauselContainer(
+                                    imagePath: listingItem.mainImage,
+                                    title: listingItem.name,
+                                    location: listingItem.location,
+                                    personIcon: AssetPath.personImage,
+                                    clockIcon: AssetPath.clockImage,
+                                  ),
+                                ),
+                              );
+                            },
+                            options: CarouselOptions(
+                              height: 150.h,
+                              autoPlay: true,
+                              enlargeCenterPage: false,
+                              aspectRatio: 16 / 9,
+                              viewportFraction: 0.70,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              onPageChanged: (index, reason) {
+                                _specificCategoryController.changeSliderIndex(categoryIndex, index);
+                              },
+                            ),
+                          ),
+                        ),
+
+                        //indicator
+                        Obx(()=> Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            _specificCategoryController.specificCategories[categoryIndex].listings.length,
+                                (indicatorIndex) {
+                              final isActive = _specificCategoryController.sliderIndices[categoryIndex]?.value == indicatorIndex;
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                margin: const EdgeInsets.symmetric(horizontal: 4),
+                                width: isActive ? 16 : 6,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: isActive ? AppColors.primaryColor : AppColors.lightGrey,
+                                ),
+                              );
+                            },
+                          ),
+                        ),)
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

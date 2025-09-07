@@ -14,7 +14,7 @@ class MiniSubCategoryController extends GetxController {
       isLoading(true);
       final result = await MiniSubCategoryApiService.getMiniSubCategoriesBySubCategory(subCategoryId);
       miniSubCategories.assignAll(result);
-      Get.to(()=>MiniSubCategoryScreen());
+      Get.to(()=>MiniSubCategoryScreen(subCategoryId: subCategoryId,));
     } catch (e) {
       print("mini sub category error $e");
       Get.snackbar('Error', e.toString());
