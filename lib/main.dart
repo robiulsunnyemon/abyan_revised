@@ -1,5 +1,6 @@
 import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/themdata.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/hotel_and_villas_screeen.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/splash_creen/splash_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         initialBinding: AppBindings(),
         theme: themeData(),
-        home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
+        // home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
+        home: ManagementApp(widget: HotelAndVillasScreen(subCategoryId: 1)),
 
 
       )

@@ -46,14 +46,11 @@ class HomeScreen extends StatelessWidget {
 
 
    Future<void> _onRefresh() async {
-
      await _subCategoryController.fetchSubCategories();
      await highlightController.fetchHighlights();
      await _eventController.fetchUpcomingEvents();
 
    }
-
-
 
   @override
   Widget build(BuildContext context) {

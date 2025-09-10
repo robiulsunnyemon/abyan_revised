@@ -340,3 +340,67 @@ class _HotelAndVillasScreenState extends State<HotelAndVillasScreen> {
     );
   }
 }
+
+
+class DropDownNewCustomWidget extends StatelessWidget {
+  final String headingText;
+  final String hintText;
+  final List<DropdownMenuItem<String>> items;
+  final ValueChanged<String?> onChanged;
+
+  const DropDownNewCustomWidget({
+    Key? key,
+    required this.headingText,
+    required this.hintText,
+    required this.items,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          headingText,
+          style: TextStyle(
+            color: const Color(0xFF1A1A1A),
+            fontSize: 16,
+            fontFamily: 'PlayfairDisplay',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(height: 8.h),
+        Container(
+          height: 56.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: const Color(0xFFD1D5DB),
+              width: 1,
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              hint: Text(
+                hintText,
+                style: TextStyle(
+                  color: const Color(0xFF6B7280),
+                  fontSize: 16.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              items: items,
+              onChanged: onChanged,
+              icon: Icon(Icons.arrow_drop_down, color: Color(0xFF6B7280)),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

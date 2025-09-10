@@ -23,7 +23,6 @@ class SubCategoryController extends GetxController {
 
       final response = await SubCategoryApiService.getSubCategories();
 
-
       // Clear existing data
       subCategories.clear();
 
