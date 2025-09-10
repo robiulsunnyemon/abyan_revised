@@ -1,13 +1,21 @@
+import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_date_picker.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_drop_down.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../utils/style/appColor.dart';
 import '../../../utils/style/app_text_styles.dart';
-import '../../widget/increase_and_decrease.dart';
+import '../../../view_models/controller/counter_controller.dart';
+import '../../utils/style/appColor.dart';
+import '../widget/increase_and_decrease.dart';
 
-class LifeStyleScreen extends StatelessWidget {
-  const LifeStyleScreen({super.key});
+class NightLifeForm extends StatelessWidget {
+  NightLifeForm({super.key});
+  final List<String> type = ['Ac', 'NonAc', 'Premium'];
+  final int adults = 1;
+  final adultController = Get.put(CounterController(), tag: 'life_adults');
+  final childrenController = Get.put(CounterController(), tag: 'life_children');
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,10 @@ class LifeStyleScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(title: 'Dining'),
+                CustomAppBar(title: 'Nightlife'),
+                SizedBox(height: 20),
+                Text('Choose Venue', style: AppTextStyle.bold16),
+                CustomDropdown(type: type, hint: 'Select your Venue'),
                 Text('Name', style: AppTextStyle.bold16),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
@@ -67,58 +78,60 @@ class LifeStyleScreen extends StatelessWidget {
                   ),
                 ),
                 Text('Date of reservation', style: AppTextStyle.bold16),
-                Row(
-                  children: [
-                    CustomDatePicker(),
-                  ],
-                ),
+                Row(children: [CustomDatePicker()]),
                 Text('Time', style: AppTextStyle.bold16),
-                Row(
-                  children: [
-                    CustomDatePicker(),
-                  ],
-                ),
+                Row(children: [CustomDatePicker()]),
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    // IncreaseAndDecrease(type: 'Adults'),
-                    // SizedBox(width: 10),
-                    // IncreaseAndDecrease(type: 'Children'),
+                    IncreaseAndDecrease(
+                      type: 'Adults',
+                      counter: adultController,
+                    ),
+                    SizedBox(width: 10),
+                    IncreaseAndDecrease(
+                      type: 'Children',
+                      counter: childrenController,
+                    ),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back();
+                        },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.white,
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: AppColors.lightLaserColor,
-                                ),
-                                borderRadius: BorderRadiusGeometry.circular(4)
-                            )
+                          backgroundColor: AppColors.white,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: AppColors.lightLaserColor),
+                            borderRadius: BorderRadiusGeometry.circular(4),
+                          ),
                         ),
                         child: Text('Cancel'),
                       ),
                     ),
                     SizedBox(width: 10),
                     Expanded(
-                      child: ElevatedButton(onPressed: (){},
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(() => OrderPlaceScreen());
+                        },
                         style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.transparent
+                          shadowColor: Colors.transparent,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('Request'),
                             SizedBox(width: 10),
-                            Icon(Icons.arrow_circle_right_outlined)
+                            Icon(Icons.arrow_circle_right_outlined),
                           ],
-                        ),),
-                    )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
