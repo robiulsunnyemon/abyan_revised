@@ -1,7 +1,6 @@
 import 'package:abyansf_asfmanagment_app/api_services/resend_otp_verification_screen/resend_otp_verification.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/recovery_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,6 +10,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,30 +54,22 @@ class ForgetPasswordScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () async {
+                    onPressed: () async{
                       print(_emailController.text.trim());
                       final response=await ResendOTPVerificationApiService.forgetPasswordRequest(email: _emailController.text.trim());
                       if(response.statusCode==200){
-                       // Get.to(()=>ForgetPasswordVerificationScreen());
+                        // Get.to(()=>ForgetPasswordVerificationScreen());
                       }
                       else if(response.statusCode==400){
-                      final response =
-                          await ResendOTPVerificationApiService.forgetPasswordRequest(
-                            email: _emailController.text.trim(),
-                          );
-                      if (response.statusCode == 200) {
-                        Get.to(() => RecoveryVerificationScreen());
-                      } else if (response.statusCode == 400) {
                         print(response.statusCode);
                         print(response.body);
                         Get.snackbar("Error", "Your Email is not found!");
-                      } else {
+                      }
+
+                      else{
                         print(response.statusCode);
                         print(response.body);
-                        Get.snackbar(
-                          "Error",
-                          "Something went wrong ${response.body}",
-                        );
+                        Get.snackbar("Error", "Something went wrong ${response.body}");
                       }
                     },
                     style: ElevatedButton.styleFrom(
