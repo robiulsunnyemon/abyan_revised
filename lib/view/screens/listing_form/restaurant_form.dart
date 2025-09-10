@@ -220,14 +220,14 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                     Expanded(
                       child: RequestButton(
                         onTap: () async {
-                          // Validation Logic
+
                           if (fullNameController.text.isEmpty ||
                               emailController.text.isEmpty ||
                               phoneController.text.isEmpty ||
                               selectedTime.isEmpty ||
                               checkInDate.isEmpty ||
                               adultNumber == 0 && childrenNumber == 0) {
-                            // GetX Snackbar show
+
                             Get.snackbar(
                               "Validation Error",
                               "Please fill all required fields before sending request",

@@ -1,31 +1,25 @@
-import 'package:abyansf_asfmanagment_app/models/event_upcoming_model/event_upcoming_model.dart';
-import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../controller/event_controller/event_controller.dart';
-import '../screens/profile_screen/event_history_individual_screen.dart';
+import 'package:abyansf_asfmanagment_app/models/event_upcoming_model/event_upcoming_model.dart';
+import '../../utils/style/appColor.dart';
+import '../../utils/style/appStyle.dart';
+import '../screens/constant/constans.dart';
 
-class CustomEventWidget extends StatelessWidget {
+
+class CustomEventCardTwo extends StatelessWidget {
   final bool status;
-  final Event? event;
-   CustomEventWidget({super.key, this.status = false,  this.event});
-  final _eventController = Get.put(EventController());
+  final Event event;
+  const CustomEventCardTwo({super.key, this.status = false, required this.event});
+
   @override
   Widget build(BuildContext context) {
 
-    DateTime parsedDateTime = DateTime.parse(event?.createdAt.toString() ?? DateTime.now().toString());
+    DateTime parsedDateTime = DateTime.parse(event.createdAt.toString() ?? DateTime.now().toString());
 
     return Card(
-      color: AppColors.greyColor,
-      child: GestureDetector(
-        onTap: (){
-          Get.to(EventHistoryIndividualPage(event: event!,eventList:_eventController.upcomingEvents,));
-        },
+        color: AppColors.greyColor,
         child: Container(
           width: double.infinity,
           height: 95.h,
@@ -41,13 +35,14 @@ class CustomEventWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
                       image: NetworkImage(
-                        event?.eventImg ?? AppConstants.defaultImageUrl,
+                        event.eventImg ?? AppConstants.defaultImageUrl,
                       ),
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                SizedBox(width: 10.w),
+                )
+                ,
+                const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -55,9 +50,9 @@ class CustomEventWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 120.w,
+                          width: 100.w,
                           child: Text(
-                            event?.title ?? "Breakfast",
+                            event.title ?? "Breakfast",
                             style: TextStyle(
                               fontFamily: "PlayfairDisplay",
                               fontSize: AppStyles.fontL,
@@ -68,25 +63,23 @@ class CustomEventWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Row(
                           children: [
                             Icon(
                               Icons.location_on,
-                              size: 16.w,
+                              size: 16,
                               color: AppColors.lightWhite6,
                             ),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                             Text(
-                              event?.location??'Dubai',
+                              event.location??'Dubai',
                               style: TextStyle(
                                 fontFamily: "Inter",
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
                                 color: AppColors.lightWhite6,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
@@ -95,31 +88,31 @@ class CustomEventWidget extends StatelessWidget {
                     SizedBox(height: 12.h),
                     if(!status)
                       Row(
-                      children: [
-                        Text(
-                          'Attendance?',
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: AppStyles.fontS,
-                            fontWeight: AppStyles.weightRegular,
-                            color: AppColors.lightWhite6,
-                          ),
-                        ),
-                         SizedBox(width: 8.w),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            'Skip',
+                        children: [
+                          Text(
+                            'Attendance?',
                             style: TextStyle(
                               fontFamily: "Inter",
-                              color: AppColors.primaryColor,
                               fontSize: AppStyles.fontS,
                               fontWeight: AppStyles.weightRegular,
+                              color: AppColors.lightWhite6,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: 8.w),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                color: AppColors.primaryColor,
+                                fontSize: AppStyles.fontS,
+                                fontWeight: AppStyles.weightRegular,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
 
@@ -167,8 +160,8 @@ class CustomEventWidget extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      )
+        )
+
     );
   }
 }

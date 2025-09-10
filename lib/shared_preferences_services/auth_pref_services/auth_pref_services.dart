@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPrefService {
@@ -26,7 +27,19 @@ class AuthPrefService {
   static Future<void> saveToken(String newToken) async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      DateTime expiryDate = JwtDecoder.getExpirationDate(newToken);
+
       await prefs.setString(_tokenKey, newToken);
+      await prefs.setString("expiry_time", expiryDate.toIso8601String());
+      final duration = expiryDate.difference(DateTime.now());
+
+      Future.delayed(duration, () async {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove(_tokenKey);
+        await prefs.remove("expiry_time");
+        print("Token expired & deleted from SharedPreferences");
+      });
+
       token.value = newToken;
     } catch (e) {
       _handleError('Error saving token', e);
@@ -147,5 +160,22 @@ class AuthPrefService {
       _handleError('Error loading token', e);
     }
   }
+
+
+  static Future<bool> isTokenValid() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString(_tokenKey);
+
+    if (token == null) return false;
+
+    bool hasExpired = JwtDecoder.isExpired(token);
+    if (hasExpired) {
+      await prefs.remove(_tokenKey);
+      await prefs.remove("expiry_time");
+      return false;
+    }
+    return true;
+  }
+
 
 }

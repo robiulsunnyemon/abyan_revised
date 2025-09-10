@@ -58,14 +58,18 @@ class SpecificCarauselContainer extends StatelessWidget {
                   color: Colors.white, // AppColors.lightWhite6
                 )
                     : SizedBox(),
-                Text(
-                  location ?? '',
-                  style: const TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: AppStyles.fontXS,
-                    fontWeight: AppStyles.weightRegular,
-                    letterSpacing: 0.1,
-                    color: Colors.white70,
+                SizedBox(
+                  width: 130.w,
+                  child: Text(
+                    location ?? '',
+                    style: const TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: AppStyles.fontXS,
+                      fontWeight: AppStyles.weightRegular,
+                      letterSpacing: 0.1,
+                      color: Colors.white70,
+                    ),
+                    maxLines: 2,
                   ),
                 ),
                 const Spacer(),

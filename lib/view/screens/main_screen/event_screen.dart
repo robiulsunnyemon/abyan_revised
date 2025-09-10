@@ -9,12 +9,17 @@ import '../../../controller/event_controller/event_controller.dart';
 import '../../../models/event_upcoming_model/event_upcoming_model.dart';
 import '../../../utils/style/appColor.dart';
 
-
 class EventScreen extends StatelessWidget {
-   EventScreen({super.key});
+  EventScreen({super.key});
 
+  final _eventController = Get.put(EventController());
 
-  final _eventController=Get.put(EventController());
+  Future<void> _onRefresh() async {
+
+    await _eventController.fetchUpcomingEvents();
+    await _eventController.fetchPastEvents();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,78 +28,87 @@ class EventScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HomeAppBar(showTitle: true,),
-                const SizedBox(height: 15,),
-                Text(
-                  'Upcoming Event',
-                  style: AppTextStyle.bold24,
-                ),
-                const SizedBox(height: 10),
-               Obx((){
-                 if(_eventController.upcomingEvents.isEmpty){
-                   return Center(child: Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Text("There are no upcoming event"),
-                   ));
-                 }else{
-                   return ListView.builder(
-                     shrinkWrap: true,
-                     physics: NeverScrollableScrollPhysics(),
-                     itemCount: _eventController.upcomingEvents.length,
-                     itemBuilder: (context, index) {
-                       final Event upcomingEvent=_eventController.upcomingEvents[index];
-                       return InkWell(
-                           onTap: (){
-
-
-
-                             Get.to(()=>EventHistoryIndividualPage(event: upcomingEvent,eventList: _eventController.upcomingEvents,));
-                           },
-                           child: CustomEventWidget(event: upcomingEvent,));
-                     },
-                   );
-                 }
-               }),
-                const SizedBox(height: 10),
-                Text(
-                  'Past Event',
-                  style: AppTextStyle.bold24,
-                ),
-                const SizedBox(height: 10),
-                Obx((){
-                  if(_eventController.pastEvents.isEmpty){
-                    return Center(child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("You have no past event"),
-                    ));
-                  }else{
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: _eventController.pastEvents.length,
-                      itemBuilder: (context, index) {
-                        final Event pastEvent=_eventController.pastEvents[index];
-                        return InkWell(
-                          onTap: (){
-                            Get.to(EventHistoryIndividualPage(
+          child: RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  HomeAppBar(showTitle: true),
+                  const SizedBox(height: 15),
+                  Text('Upcoming Event', style: AppTextStyle.bold24),
+                  const SizedBox(height: 10),
+                  Obx(() {
+                    if (_eventController.upcomingEvents.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("There are no upcoming event"),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _eventController.upcomingEvents.length,
+                        itemBuilder: (context, index) {
+                          final Event upcomingEvent =
+                              _eventController.upcomingEvents[index];
+                          return InkWell(
+                            onTap: () {
+                              Get.to(
+                                () => EventHistoryIndividualPage(
+                                  event: upcomingEvent,
+                                  eventList: _eventController.upcomingEvents,
+                                ),
+                              );
+                            },
+                            child: CustomEventWidget(event: upcomingEvent),
+                          );
+                        },
+                      );
+                    }
+                  }),
+                  const SizedBox(height: 10),
+                  Text('Past Event', style: AppTextStyle.bold24),
+                  const SizedBox(height: 10),
+                  Obx(() {
+                    if (_eventController.pastEvents.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("You have no past event"),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _eventController.pastEvents.length,
+                        itemBuilder: (context, index) {
+                          final Event pastEvent =
+                              _eventController.pastEvents[index];
+                          return InkWell(
+                            onTap: () {
+                              Get.to(
+                                EventHistoryIndividualPage(
+                                  event: pastEvent,
+                                  eventList: _eventController.pastEvents,
+                                ),
+                              );
+                            },
+                            child: CustomEventWidget(
+                              status: true,
                               event: pastEvent,
-                              eventList: _eventController.pastEvents,
-                            ));
-                          },
-                          child: CustomEventWidget(
-                            status: true,
-                            event: pastEvent,
-                          ),
-                        );
-                      },
-                    );
-                  }
-                })
-              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  }),
+                ],
+              ),
             ),
           ),
         ),
