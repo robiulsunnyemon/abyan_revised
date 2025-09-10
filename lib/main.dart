@@ -1,12 +1,7 @@
 import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/themdata.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/beach_club.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/dining_club.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/jets_form.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/night_life_club.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/super_car_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/willness_form.dart';
-import 'package:abyansf_asfmanagment_app/view/new_form_list/yacht_form.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/splash_creen/splash_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,10 +17,7 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         initialBinding: AppBindings(),
         theme: themeData(),
-        // home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
-        home: ManagementApp(widget: DiningForm())
-
-
+        home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
       )
   );
 }
