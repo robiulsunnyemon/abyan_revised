@@ -48,10 +48,24 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: tripTypeController,
-                  onTap: () {},
+                  onTap: () async {
+                    final selected = await showMenu<String>(
+                      color: Colors.white,
+                      context: context,
+                      position: RelativeRect.fromLTRB(100, 300, 100, 100), // adjust position
+                      items: [
+                        PopupMenuItem(value: 'Hotel Paradise', child: Text('Hotel Paradise')),
+                        PopupMenuItem(value: 'Sea View Resort', child: Text('Sea View Resort')),
+                        PopupMenuItem(value: 'Mountain Inn', child: Text('Mountain Inn')),
+                      ],
+                    );
+                    if (selected != null) {
+                      tripTypeController.text = selected;
+                    }
+                  },
                   headingText:"Size of Yacht",
                   hintText: "Yacht type",
                 ),
@@ -59,7 +73,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormFieldWithSuffix(
                   controller: destinationToController,
                   onTap: () {},
@@ -70,7 +84,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [
@@ -126,7 +140,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: numberOfPeopleController,
                   headingText: "Number of People",
@@ -136,7 +150,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomTextEditingFormField(
                   controller: contactController,
                   headingText: "Contacts",
@@ -146,7 +160,7 @@ class _YachtRequestFormScreenState extends State<YachtRequestFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   spacing: 5,
                   children: [

@@ -31,7 +31,7 @@ class _DesertActivitiesScreenState extends State<DesertActivitiesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 96,
+              height: 220,
               width: double.infinity,
               child: Image.asset(AssetPath.image, fit: BoxFit.cover),
             ),

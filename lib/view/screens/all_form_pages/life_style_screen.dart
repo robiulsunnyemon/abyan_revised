@@ -91,7 +91,6 @@ class LifeStyleScreen extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Text('Cancel'),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.white,
                             shadowColor: Colors.transparent,
@@ -102,6 +101,7 @@ class LifeStyleScreen extends StatelessWidget {
                                 borderRadius: BorderRadiusGeometry.circular(4)
                             )
                         ),
+                        child: Text('Cancel'),
                       ),
                     ),
                     SizedBox(width: 10),

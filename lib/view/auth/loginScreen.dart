@@ -1,4 +1,5 @@
 import 'package:abyansf_asfmanagment_app/view/auth/auth_controller/login_controller/login_controller.dart';
+import 'package:abyansf_asfmanagment_app/view/auth/recover_password_from_login.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
@@ -7,7 +8,7 @@ import 'package:abyansf_asfmanagment_app/view/auth/signupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'auth_controller/forget_password_screen.dart';
+import 'forget_password_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -63,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                 // text button //
                 TextButton(
                   onPressed: () {
-                    Get.to(() => ForgetPasswordScreen());
+                    Get.to(() => RecoverPasswordFromLogin());
                   },
                   child: Text(
                     "Forgot your password?",

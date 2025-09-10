@@ -41,7 +41,6 @@ class ResendOTPVerificationApiService{
 
   static Future<http.Response> forgetPasswordRequest({required String email}) async {
     try {
-      print(email);
 
       final response = await http.post(
         Uri.parse("${ApiUrls.baseUrl}/users/resend-verification-email"),
@@ -53,8 +52,7 @@ class ResendOTPVerificationApiService{
         }),
       );
 
-      print(response.statusCode);
-      print(response.body);
+
       return response;
     } catch (e) {
       print(e);

@@ -17,7 +17,9 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         initialBinding: AppBindings(),
         theme: themeData(),
-        home: AuthPrefService.hasToken() ? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
+        home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
+
+
       )
   );
 }

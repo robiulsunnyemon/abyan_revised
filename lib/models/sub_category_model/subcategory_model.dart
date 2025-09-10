@@ -38,7 +38,7 @@
 //   final int id;
 //   final String name;
 //   final String img;
-//   final dynamic description; // Can be null or Description object
+//   final dynamic description; // Can be null, String or Description object
 //   final bool hasSpecificCategory;
 //   final int mainCategoryId;
 //   final DateTime createdAt;
@@ -50,7 +50,7 @@
 //   final HeroSection? heroSection;
 //   final MainCategory mainCategory;
 //   final List<SpecificCategory> specificCategories;
-//   final List<MiniSubCategory> miniSubCategory;
+//   final List<dynamic> miniSubCategory; // Empty array in response
 //
 //   SubCategory({
 //     required this.id,
@@ -95,8 +95,7 @@
 //       mainCategory: MainCategory.fromJson(json['mainCategory']),
 //       specificCategories: List<SpecificCategory>.from(
 //           json['specificCategories'].map((x) => SpecificCategory.fromJson(x))),
-//       miniSubCategory: List<MiniSubCategory>.from(
-//           json['miniSubCategory'].map((x) => MiniSubCategory.fromJson(x))),
+//       miniSubCategory: List<dynamic>.from(json['miniSubCategory']),
 //     );
 //   }
 // }
@@ -201,10 +200,10 @@
 //   final String? formName;
 //   final bool isActive;
 //   final List<String> menuImages;
-//   final List<String> typeOfService;
-//   final List<String> venueName;
+//   final List<dynamic> typeOfService; // Empty array in response
+//   final List<dynamic> venueName; // Empty array in response
 //   final bool contractWhatsapp;
-//   final dynamic fromName;
+//   final dynamic fromName; // Can be null
 //   final bool hasForm;
 //
 //   Listing({
@@ -247,49 +246,8 @@
 //       formName: json['formName'],
 //       isActive: json['isActive'],
 //       menuImages: List<String>.from(json['menuImages']),
-//       typeOfService: List<String>.from(json['typeofservice'].map((x) => x.toString())),
-//       venueName: List<String>.from(json['venueName'].map((x) => x.toString())),
-//       contractWhatsapp: json['contractWhatsapp'],
-//       fromName: json['fromName'],
-//       hasForm: json['hasForm'],
-//     );
-//   }
-// }
-//
-// class MiniSubCategory {
-//   final int id;
-//   final String name;
-//   final String img;
-//   final bool hasSpecificCategory;
-//   final int subCategoryId;
-//   final DateTime createdAt;
-//   final DateTime updatedAt;
-//   final bool contractWhatsapp;
-//   final String fromName;
-//   final bool hasForm;
-//
-//   MiniSubCategory({
-//     required this.id,
-//     required this.name,
-//     required this.img,
-//     required this.hasSpecificCategory,
-//     required this.subCategoryId,
-//     required this.createdAt,
-//     required this.updatedAt,
-//     required this.contractWhatsapp,
-//     required this.fromName,
-//     required this.hasForm,
-//   });
-//
-//   factory MiniSubCategory.fromJson(Map<String, dynamic> json) {
-//     return MiniSubCategory(
-//       id: json['id'],
-//       name: json['name'],
-//       img: json['img'],
-//       hasSpecificCategory: json['hasSpecificCategory'],
-//       subCategoryId: json['subCategoryId'],
-//       createdAt: DateTime.parse(json['createdAt']),
-//       updatedAt: DateTime.parse(json['updatedAt']),
+//       typeOfService: List<dynamic>.from(json['typeofservice']),
+//       venueName: List<dynamic>.from(json['venueName']),
 //       contractWhatsapp: json['contractWhatsapp'],
 //       fromName: json['fromName'],
 //       hasForm: json['hasForm'],
@@ -319,6 +277,8 @@
 //     );
 //   }
 // }
+
+
 
 
 class SubCategoryModel {
@@ -359,20 +319,20 @@ class Data {
 class SubCategory {
   final int id;
   final String name;
-  final String img;
-  final dynamic description; // Can be null, String or Description object
+  final String? img;
+  final dynamic description; // Can be null, String or Map
   final bool hasSpecificCategory;
   final int mainCategoryId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final bool contractWhatsapp;
-  final dynamic fromName; // Can be null or String
+  final String? fromName;
   final bool hasForm;
   final bool hasMiniSubCategory;
   final HeroSection? heroSection;
   final MainCategory mainCategory;
   final List<SpecificCategory> specificCategories;
-  final List<dynamic> miniSubCategory; // Empty array in response
+  final List<MiniSubCategory> miniSubCategory;
 
   SubCategory({
     required this.id,
@@ -398,11 +358,7 @@ class SubCategory {
       id: json['id'],
       name: json['name'],
       img: json['img'],
-      description: json['description'] == null
-          ? null
-          : json['description'] is String
-          ? json['description']
-          : Description.fromJson(json['description']),
+      description: json['description'],
       hasSpecificCategory: json['hasSpecificCategory'],
       mainCategoryId: json['mainCategoryId'],
       createdAt: DateTime.parse(json['createdAt']),
@@ -417,24 +373,8 @@ class SubCategory {
       mainCategory: MainCategory.fromJson(json['mainCategory']),
       specificCategories: List<SpecificCategory>.from(
           json['specificCategories'].map((x) => SpecificCategory.fromJson(x))),
-      miniSubCategory: List<dynamic>.from(json['miniSubCategory']),
-    );
-  }
-}
-
-class Description {
-  final String content;
-  final List<String> sections;
-
-  Description({
-    required this.content,
-    required this.sections,
-  });
-
-  factory Description.fromJson(Map<String, dynamic> json) {
-    return Description(
-      content: json['content'],
-      sections: List<String>.from(json['sections']),
+      miniSubCategory: List<MiniSubCategory>.from(
+          json['miniSubCategory'].map((x) => MiniSubCategory.fromJson(x))),
     );
   }
 }
@@ -510,22 +450,21 @@ class Listing {
   final int id;
   final String name;
   final String mainImage;
-  final List<String> subImages;
+  final List<dynamic> subImages;
   final String? location;
   final List<dynamic> memberPrivileges;
   final String? memberPrivilegesDescription;
   final String? description;
-  final List<String> hours;
+  final List<dynamic> hours;
   final int specificCategoryId;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final String? formName;
   final bool isActive;
-  final List<String> menuImages;
-  final List<dynamic> typeOfService; // Empty array in response
-  final List<dynamic> venueName; // Empty array in response
+  final List<dynamic> menuImages;
+  final List<dynamic> typeofservice;
+  final List<dynamic> venueName;
   final bool contractWhatsapp;
-  final dynamic fromName; // Can be null
+  final dynamic fromName;
   final bool hasForm;
 
   Listing({
@@ -541,10 +480,9 @@ class Listing {
     required this.specificCategoryId,
     required this.createdAt,
     required this.updatedAt,
-    this.formName,
     required this.isActive,
     required this.menuImages,
-    required this.typeOfService,
+    required this.typeofservice,
     required this.venueName,
     required this.contractWhatsapp,
     required this.fromName,
@@ -556,20 +494,60 @@ class Listing {
       id: json['id'],
       name: json['name'],
       mainImage: json['main_image'],
-      subImages: List<String>.from(json['sub_images']),
+      subImages: List<dynamic>.from(json['sub_images']),
       location: json['location'],
       memberPrivileges: List<dynamic>.from(json['member_privileges']),
       memberPrivilegesDescription: json['member_privileges_description'],
       description: json['description'],
-      hours: List<String>.from(json['hours'].map((x) => x.toString())),
+      hours: List<dynamic>.from(json['hours']),
       specificCategoryId: json['specificCategoryId'],
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
-      formName: json['formName'],
       isActive: json['isActive'],
-      menuImages: List<String>.from(json['menuImages']),
-      typeOfService: List<dynamic>.from(json['typeofservice']),
+      menuImages: List<dynamic>.from(json['menuImages']),
+      typeofservice: List<dynamic>.from(json['typeofservice']),
       venueName: List<dynamic>.from(json['venueName']),
+      contractWhatsapp: json['contractWhatsapp'],
+      fromName: json['fromName'],
+      hasForm: json['hasForm'],
+    );
+  }
+}
+
+class MiniSubCategory {
+  final int id;
+  final String name;
+  final String? img;
+  final bool hasSpecificCategory;
+  final int subCategoryId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final bool contractWhatsapp;
+  final String? fromName;
+  final bool hasForm;
+
+  MiniSubCategory({
+    required this.id,
+    required this.name,
+    required this.img,
+    required this.hasSpecificCategory,
+    required this.subCategoryId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.contractWhatsapp,
+    required this.fromName,
+    required this.hasForm,
+  });
+
+  factory MiniSubCategory.fromJson(Map<String, dynamic> json) {
+    return MiniSubCategory(
+      id: json['id'],
+      name: json['name'],
+      img: json['img'],
+      hasSpecificCategory: json['hasSpecificCategory'],
+      subCategoryId: json['subCategoryId'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
       contractWhatsapp: json['contractWhatsapp'],
       fromName: json['fromName'],
       hasForm: json['hasForm'],

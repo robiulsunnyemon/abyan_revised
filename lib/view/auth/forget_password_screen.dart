@@ -1,17 +1,11 @@
-import 'dart:convert';
-
 import 'package:abyansf_asfmanagment_app/api_services/resend_otp_verification_screen/resend_otp_verification.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/themdata.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/loginScreen.dart';
 import 'package:abyansf_asfmanagment_app/view/auth/recovery_verification_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/signupScreen.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/verificationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
@@ -49,7 +43,9 @@ class ForgetPasswordScreen extends StatelessWidget {
             SizedBox(height: AppStyles.heightM),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(hintText: 'Email'),
+              decoration: InputDecoration(
+                  hintText: 'Email'
+              ),
             ),
 
             SizedBox(height: 20.h),
@@ -60,6 +56,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       print(_emailController.text.trim());
+                      final response=await ResendOTPVerificationApiService.forgetPasswordRequest(email: _emailController.text.trim());
+                      if(response.statusCode==200){
+                       // Get.to(()=>ForgetPasswordVerificationScreen());
+                      }
+                      else if(response.statusCode==400){
                       final response =
                           await ResendOTPVerificationApiService.forgetPasswordRequest(
                             email: _emailController.text.trim(),

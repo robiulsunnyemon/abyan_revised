@@ -1,3 +1,4 @@
+//
 // class CategoryResponse {
 //   final bool success;
 //   final CategoryData data;
@@ -20,15 +21,19 @@
 //
 // class CategoryData {
 //   final List<MainCategory> mainCategories;
+//   final Pagination pagination;
 //
-//   CategoryData({required this.mainCategories});
+//   CategoryData({
+//     required this.mainCategories,
+//     required this.pagination,
+//   });
 //
 //   factory CategoryData.fromJson(Map<String, dynamic> json) {
-//     var list = json['mainCategories'] as List;
-//     List<MainCategory> categories = list
-//         .map((category) => MainCategory.fromJson(category))
-//         .toList();
-//     return CategoryData(mainCategories: categories);
+//     return CategoryData(
+//       mainCategories: List<MainCategory>.from(
+//           json['mainCategories'].map((x) => MainCategory.fromJson(x))),
+//       pagination: Pagination.fromJson(json['pagination']),
+//     );
 //   }
 // }
 //
@@ -48,17 +53,13 @@
 //   });
 //
 //   factory MainCategory.fromJson(Map<String, dynamic> json) {
-//     var subList = json['subCategories'] as List? ?? [];
-//     List<SubCategory> subCategories = subList
-//         .map((sub) => SubCategory.fromJson(sub))
-//         .toList();
-//
 //     return MainCategory(
 //       id: json['id'],
 //       name: json['name'],
 //       createdAt: DateTime.parse(json['createdAt']),
 //       updatedAt: DateTime.parse(json['updatedAt']),
-//       subCategories: subCategories,
+//       subCategories: List<SubCategory>.from(
+//           json['subCategories'].map((x) => SubCategory.fromJson(x))),
 //     );
 //   }
 // }
@@ -67,6 +68,7 @@
 //   final int id;
 //   final String name;
 //   final String img;
+//   final dynamic description; // Can be null, String or Map
 //   final bool hasSpecificCategory;
 //   final int mainCategoryId;
 //   final DateTime createdAt;
@@ -74,12 +76,15 @@
 //   final bool contractWhatsapp;
 //   final String? fromName;
 //   final bool hasForm;
+//   final bool hasMiniSubCategory;
 //   final List<SpecificCategory> specificCategories;
+//   final List<MiniSubCategory> miniSubCategory;
 //
 //   SubCategory({
 //     required this.id,
 //     required this.name,
 //     required this.img,
+//     this.description,
 //     required this.hasSpecificCategory,
 //     required this.mainCategoryId,
 //     required this.createdAt,
@@ -87,19 +92,17 @@
 //     required this.contractWhatsapp,
 //     this.fromName,
 //     required this.hasForm,
+//     required this.hasMiniSubCategory,
 //     required this.specificCategories,
+//     required this.miniSubCategory,
 //   });
 //
 //   factory SubCategory.fromJson(Map<String, dynamic> json) {
-//     var specificList = json['specificCategories'] as List? ?? [];
-//     List<SpecificCategory> specificCategories = specificList
-//         .map((specific) => SpecificCategory.fromJson(specific))
-//         .toList();
-//
 //     return SubCategory(
 //       id: json['id'],
 //       name: json['name'],
 //       img: json['img'],
+//       description: json['description'],
 //       hasSpecificCategory: json['hasSpecificCategory'],
 //       mainCategoryId: json['mainCategoryId'],
 //       createdAt: DateTime.parse(json['createdAt']),
@@ -107,8 +110,26 @@
 //       contractWhatsapp: json['contractWhatsapp'],
 //       fromName: json['fromName'],
 //       hasForm: json['hasForm'],
-//       specificCategories: specificCategories,
+//       hasMiniSubCategory: json['hasMiniSubCategory'],
+//       specificCategories: List<SpecificCategory>.from(
+//           json['specificCategories'].map((x) => SpecificCategory.fromJson(x))),
+//       miniSubCategory: List<MiniSubCategory>.from(
+//           json['miniSubCategory'].map((x) => MiniSubCategory.fromJson(x))),
 //     );
+//   }
+//
+//   // Helper method to get description content
+//   String? get descriptionContent {
+//     if (description == null) return null;
+//     if (description is String) return description as String;
+//     if (description is Map) return description['content'] as String?;
+//     return null;
+//   }
+//
+//   // Helper method to get description sections
+//   List<String>? get descriptionSections {
+//     if (description == null || description is! Map) return null;
+//     return (description['sections'] as List?)?.cast<String>();
 //   }
 // }
 //
@@ -134,6 +155,47 @@
 //       subCategoryId: json['subCategoryId'],
 //       createdAt: DateTime.parse(json['createdAt']),
 //       updatedAt: DateTime.parse(json['updatedAt']),
+//     );
+//   }
+// }
+//
+// class MiniSubCategory {
+//   final int id;
+//   final String name;
+//   final String img;
+//   final bool hasSpecificCategory;
+//   final int subCategoryId;
+//   final DateTime createdAt;
+//   final DateTime updatedAt;
+//   final bool contractWhatsapp;
+//   final String? fromName;
+//   final bool hasForm;
+//
+//   MiniSubCategory({
+//     required this.id,
+//     required this.name,
+//     required this.img,
+//     required this.hasSpecificCategory,
+//     required this.subCategoryId,
+//     required this.createdAt,
+//     required this.updatedAt,
+//     required this.contractWhatsapp,
+//     this.fromName,
+//     required this.hasForm,
+//   });
+//
+//   factory MiniSubCategory.fromJson(Map<String, dynamic> json) {
+//     return MiniSubCategory(
+//       id: json['id'],
+//       name: json['name'],
+//       img: json['img'],
+//       hasSpecificCategory: json['hasSpecificCategory'],
+//       subCategoryId: json['subCategoryId'],
+//       createdAt: DateTime.parse(json['createdAt']),
+//       updatedAt: DateTime.parse(json['updatedAt']),
+//       contractWhatsapp: json['contractWhatsapp'],
+//       fromName: json['fromName'],
+//       hasForm: json['hasForm'],
 //     );
 //   }
 // }
@@ -166,19 +228,16 @@
 class CategoryResponse {
   final bool success;
   final CategoryData data;
-  final Pagination pagination;
 
   CategoryResponse({
     required this.success,
     required this.data,
-    required this.pagination,
   });
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
     return CategoryResponse(
       success: json['success'],
       data: CategoryData.fromJson(json['data']),
-      pagination: Pagination.fromJson(json['data']['pagination']),
     );
   }
 }
@@ -231,7 +290,7 @@ class MainCategory {
 class SubCategory {
   final int id;
   final String name;
-  final String img;
+  final String? img;
   final dynamic description; // Can be null, String or Map
   final bool hasSpecificCategory;
   final int mainCategoryId;
@@ -248,13 +307,13 @@ class SubCategory {
     required this.id,
     required this.name,
     required this.img,
-    this.description,
+    required this.description,
     required this.hasSpecificCategory,
     required this.mainCategoryId,
     required this.createdAt,
     required this.updatedAt,
     required this.contractWhatsapp,
-    this.fromName,
+    required this.fromName,
     required this.hasForm,
     required this.hasMiniSubCategory,
     required this.specificCategories,
@@ -286,14 +345,15 @@ class SubCategory {
   String? get descriptionContent {
     if (description == null) return null;
     if (description is String) return description as String;
-    if (description is Map) return description['content'] as String?;
+    if (description is Map<String, dynamic>) return description['content'] as String?;
     return null;
   }
 
   // Helper method to get description sections
   List<String>? get descriptionSections {
-    if (description == null || description is! Map) return null;
-    return (description['sections'] as List?)?.cast<String>();
+    if (description == null || description is! Map<String, dynamic>) return null;
+    final sections = description['sections'] as List?;
+    return sections?.cast<String>();
   }
 }
 
@@ -326,7 +386,7 @@ class SpecificCategory {
 class MiniSubCategory {
   final int id;
   final String name;
-  final String img;
+  final String? img;
   final bool hasSpecificCategory;
   final int subCategoryId;
   final DateTime createdAt;
@@ -344,7 +404,7 @@ class MiniSubCategory {
     required this.createdAt,
     required this.updatedAt,
     required this.contractWhatsapp,
-    this.fromName,
+    required this.fromName,
     required this.hasForm,
   });
 

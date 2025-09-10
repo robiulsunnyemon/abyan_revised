@@ -13,4 +13,6 @@ class ApiUrls{
   static String getAllUpcomingBookingHistoryUrl="$baseUrl/events/history/me/upcoming";
   static String getAllMainCategoriesUrl="$baseUrl/categories/main";
   static String getAllSpecificCategoriesUrl="$baseUrl/categories/specific?subCategoryId=";
+
+  static const defaultImageUrl='https://cdn.pixabay.com/photo/2015/12/16/06/03/pixabay-1095454_960_720.jpg';
 }
