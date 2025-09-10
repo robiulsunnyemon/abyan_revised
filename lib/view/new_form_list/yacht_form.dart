@@ -13,8 +13,14 @@ class YachtRequestFormScreen extends StatelessWidget {
 
   final List<String> size = [
     'Big',
-    'Medium'
-        'Small',
+    'Medium',
+    'Small',
+  ];
+  final List<String> time = [
+  '2 hours',
+  '3 hours',
+  '4 hours',
+  '5 hours+'
   ];
 
   @override
@@ -34,7 +40,7 @@ class YachtRequestFormScreen extends StatelessWidget {
                 CustomDropdown(type: size, hint: 'Yacht type'),
                 Text('Time & duration', style: AppTextStyle.bold16),
                 CustomDropdown(
-                  type: size,
+                  type: time,
                   hint: 'Select duration for booking yacht',
                 ),
                 Text('Date', style: AppTextStyle.bold16),

@@ -31,7 +31,7 @@ class JetsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomAppBar(title: 'Jets'),
-                Text('Trip type', style: AppTextStyle.bold16),
+                Text('Travel Type:', style: AppTextStyle.bold16),
                 CustomDropdown(type: trip, hint: 'Round/One-way trip'),
                 Text('Destination', style: AppTextStyle.bold16),
                 Row(

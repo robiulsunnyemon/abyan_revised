@@ -13,7 +13,28 @@ import '../widget/increase_and_decrease.dart';
 class SuperCarScreen extends StatelessWidget {
   SuperCarScreen({super.key});
 
-  final List<String> type = ['Ac', 'NonAc', 'Premium'];
+  final List<String> type = [
+    'Audi',
+    'Bentley',
+    'BMW',
+    'Cadillac',
+    'Ferrari',
+    'Lamborghini',
+    'Rolls Royce',
+    'Porsche',
+    'Mercedes',
+    'Land Rover',
+    'McLaren',
+    'GMC',
+    'Maserati',
+    'Other'
+  ];
+  final List<String> time = [
+    '9am-12pm',
+    '12pm-3pm',
+    '3am-6pm',
+    '6am-9pm',
+  ];
 
   final int adults = 1;
   final adultController = Get.put(CounterController(), tag: 'super_adults');
@@ -36,11 +57,11 @@ class SuperCarScreen extends StatelessWidget {
               children: [
                 CustomAppBar(title: 'Super car'),
                 const SizedBox(height: 10),
-                Text('Car type', style: AppTextStyle.bold16),
+                Text('Car Brand:', style: AppTextStyle.bold16),
                 CustomDropdown(type: type, hint: 'Select car model'),
                 Text('Time & duration', style: AppTextStyle.bold16),
                 CustomDropdown(
-                  type: type,
+                  type: time,
                   hint: 'Select duration for booking Car',
                 ),
                 Text('Date', style: AppTextStyle.bold16),

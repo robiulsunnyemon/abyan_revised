@@ -24,6 +24,10 @@ class SingleBeachClubScreen extends StatelessWidget {
 
   final CarouselSliderControllers _carouselSliderController = Get.find();
   final _listingController = Get.put(ListingDetailController());
+  List location = [
+    ' J1 Beach - Jumeirah - Jumeirah 1',
+    'The Palm Tower - 50th Floor - The Palm Jumeirah'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
