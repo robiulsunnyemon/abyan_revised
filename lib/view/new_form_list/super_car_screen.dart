@@ -28,6 +28,7 @@ class SuperCarScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -45,9 +46,9 @@ class SuperCarScreen extends StatelessWidget {
                 Text('Date', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    CustomDatePicker(labelText: 'Start'),
+                    Expanded(child: CustomDatePicker(labelText: 'Start')),
                     SizedBox(width: 10),
-                    CustomDatePicker(labelText: 'From'),
+                    Expanded(child: CustomDatePicker(labelText: 'From')),
                   ],
                 ),
                 Text('Number of guest', style: AppTextStyle.bold16),

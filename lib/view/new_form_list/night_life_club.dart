@@ -25,6 +25,7 @@ class NightLifeForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -78,9 +79,9 @@ class NightLifeForm extends StatelessWidget {
                   ),
                 ),
                 Text('Date of reservation', style: AppTextStyle.bold16),
-                Row(children: [CustomDatePicker()]),
+                Row(children: [Expanded(child: CustomDatePicker())]),
                 Text('Time', style: AppTextStyle.bold16),
-                Row(children: [CustomDatePicker()]),
+                Row(children: [Expanded(child: CustomDatePicker())]),
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [

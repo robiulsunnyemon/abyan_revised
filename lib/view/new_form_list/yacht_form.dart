@@ -23,6 +23,7 @@ class YachtRequestFormScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -39,9 +40,9 @@ class YachtRequestFormScreen extends StatelessWidget {
                 Text('Date', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    CustomDatePicker(labelText: 'From'),
+                    Expanded(child: CustomDatePicker(labelText: 'From')),
                     SizedBox(width: 10),
-                    CustomDatePicker(labelText: 'To'),
+                    Expanded(child: CustomDatePicker(labelText: 'To')),
                   ],
                 ),
                 Text('Number of People', style: AppTextStyle.bold16),

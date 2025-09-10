@@ -25,6 +25,7 @@ class BeachClubForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -78,9 +79,23 @@ class BeachClubForm extends StatelessWidget {
                   ),
                 ),
                 Text('Date of reservation', style: AppTextStyle.bold16),
-                Row(children: [CustomDatePicker()]),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomDatePicker(),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
                 Text('Time', style: AppTextStyle.bold16),
-                Row(children: [CustomDatePicker()]),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomDatePicker(),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [
@@ -95,6 +110,7 @@ class BeachClubForm extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(
@@ -107,7 +123,7 @@ class BeachClubForm extends StatelessWidget {
                           shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: AppColors.lightLaserColor),
-                            borderRadius: BorderRadiusGeometry.circular(4),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                         ),
                         child: Text('Cancel'),
