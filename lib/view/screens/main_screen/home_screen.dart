@@ -2,12 +2,12 @@ import 'package:abyansf_asfmanagment_app/controller/mini_sub_category_controller
 import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/jets_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/super_car_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/yacht_request_form_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/new_form_list/hotel_and_vilas.dart';
+import 'package:abyansf_asfmanagment_app/view/new_form_list/jets_form.dart';
+import 'package:abyansf_asfmanagment_app/view/new_form_list/super_car_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/new_form_list/yacht_form.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_event_widget.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/home_appbar.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/carousel_container.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,6 @@ import '../../../controller/specific_category_controller/specific_category_contr
 import '../../../controller/sub_category_controller/sub_category_controller.dart';
 import '../../../view_models/controller/carousel_controller.dart';
 import '../../widget/home_caousel_widget.dart';
-import '../all_form_pages/hotel_and_villas_screeen.dart';
 import '../single_services_pages/all_upcoming_event_screen.dart';
 import 'message_screen.dart';
 
@@ -102,20 +101,22 @@ class HomeScreen extends StatelessWidget {
                                       if(_subCategoryController.subCategories[index].hasForm){
                                         if(_subCategoryController.subCategories[index].fromName=="Jets"){
                                           Get.to(()=>JetsScreen(
-                                            subCategoryId: _subCategoryController.subCategories[index].id,
+                                           // subCategoryId: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Hotel & Villas"){
-                                          Get.to(()=>HotelAndVillasScreen(subCategoryId: _subCategoryController.subCategories[index].id));
+                                          Get.to(()=>HotelAndVillasScreen(
+                                              //subCategoryId: _subCategoryController.subCategories[index].id)
+                                          ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Yacht"){
                                           Get.to(()=>YachtRequestFormScreen(
-                                            subCategoryId: _subCategoryController.subCategories[index].id,
+                                            //subCategoryId: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Super Car"){
                                           Get.to(()=>SuperCarScreen(
-                                            subCategoryId: _subCategoryController.subCategories[index].id,
+                                            //subCategoryId: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
 
@@ -185,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                                       if(highlight.subCategory!.hasForm){
                                         if(highlight.subCategory!.fromName=="Jets"){
                                           Get.to(()=>JetsScreen(
-                                            subCategoryId: highlight.subCategory!.id,
+                                           // subCategoryId: highlight.subCategory!.id,
                                           ));
                                         }
                                         else if(highlight.subCategory!.fromName==""){}
@@ -216,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                                     if(highlight.miniSubCategory!.hasForm){
                                       if(highlight.miniSubCategory!.fromName=="Jets"){
                                         Get.to(()=>JetsScreen(
-                                          subCategoryId: highlight.miniSubCategory!.id,
+                                          //subCategoryId: highlight.miniSubCategory!.id,
                                         ));
                                       }
                                       else if(highlight.miniSubCategory!.fromName==""){}
@@ -251,7 +252,7 @@ class HomeScreen extends StatelessWidget {
 
                                       if(highlight.listing!.formName=="Jets"){
                                         Get.to(()=>JetsScreen(
-                                          subCategoryId: highlight.listing!.id,
+                                          //subCategoryId: highlight.listing!.id,
                                         ));
                                       }
                                       else if(highlight.listing?.formName==""){}
