@@ -23,7 +23,7 @@ Future<void> main() async {
         initialBinding: AppBindings(),
         theme: themeData(),
         // home: await AuthPrefService.isTokenValid()? ManagementApp(widget: CustomBottomBar()) : ManagementApp(widget: SplashScreen()),
-        home: ManagementApp(widget: YachtRequestFormScreen())
+        home: ManagementApp(widget: DiningForm())
 
 
       )
