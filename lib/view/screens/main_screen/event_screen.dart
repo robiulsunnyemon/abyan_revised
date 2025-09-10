@@ -31,6 +31,7 @@ class EventScreen extends StatelessWidget {
           child: RefreshIndicator(
             onRefresh: _onRefresh,
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -227,6 +227,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../controller/admin_whatsapp_controller/admin_whatsapp_controller.dart';
 import '../../../controller/profile_controller/profile_controller.dart';
 import '../../../utils/assets_path.dart';
 import '../../../utils/style/app_text_styles.dart';
@@ -241,6 +243,7 @@ class ProfileScreen extends StatelessWidget {
 
   final ImagePickerController _imagePickerController = Get.find();
   final ProfileController _profileController = Get.put(ProfileController());
+  final _adminWhatsappController = Get.put(AdminWhatsAppController());
 
   @override
   Widget build(BuildContext context) {
@@ -311,7 +314,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             Chip(
                               label: Text(
-                                'Private',
+                                'Package',
                                 style: AppTextStyle
                                     .interBold10, // Your custom text style
                               ),
@@ -357,8 +360,43 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icons.admin_panel_settings_sharp,
                           text: 'Admin Request',
                           isArrowTrue: true,
-                          onTap: () {
+                          onTap: () async {
+                            final whatsappUrl =_adminWhatsappController.whatsappLink;
 
+                            try {
+                              // First try launching directly without canLaunch check
+                              await launchUrl(
+                                Uri.parse(whatsappUrl),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            } catch (e) {
+                              debugPrint(
+                                "Direct launch failed, trying alternative: $e",
+                              );
+
+                              // If direct launch fails, try with canLaunch check
+                              try {
+                                if (await canLaunch(whatsappUrl)) {
+                                  await launch(whatsappUrl);
+                                } else {
+                                  await launch(
+                                    "https://play.google.com/store/apps/details?id=com.whatsapp",
+                                    forceSafariVC: false,
+                                    forceWebView: false,
+                                  );
+                                }
+                              } catch (e2) {
+                                debugPrint("Fallback launch failed: $e2");
+                                // Show error to user
+                                if(context.mounted){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Could not open WhatsApp"),
+                                    ),
+                                  );
+                                }
+                              }
+                            }
                           },
                         ),
                         SizedBox(height: 12.h),

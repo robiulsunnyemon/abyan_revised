@@ -25,12 +25,9 @@ class ExploreScreen extends StatelessWidget {
   final _contactWhatsappController = Get.put(ContactWhatsappController());
   final _miniSubCategoryController = Get.put(MiniSubCategoryController());
 
-
   Future<void> _onRefresh() async {
-
     await _mainCategoryController.fetchMainCategories();
     _specificCategoryController.specificCategories();
-
   }
 
   @override
@@ -109,7 +106,8 @@ class ExploreScreen extends StatelessWidget {
                                   SubCategory subCategory =
                                       mainCategory.subCategories[index];
                                   return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
@@ -125,7 +123,8 @@ class ExploreScreen extends StatelessWidget {
                                                   subCategory.id,
                                                 );
                                           } else if (subCategory.hasForm) {
-                                            if (subCategory.fromName == "Jets") {
+                                            if (subCategory.fromName ==
+                                                "Jets") {
                                               Get.to(
                                                 () => JetsScreen(
                                                   subCategoryId: subCategory.id,
@@ -162,9 +161,12 @@ class ExploreScreen extends StatelessWidget {
                                           }
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
                                           child: Image.network(
-                                            subCategory.img ?? ApiUrls.defaultImageUrl,
+                                            subCategory.img ??
+                                                ApiUrls.defaultImageUrl,
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             height:
