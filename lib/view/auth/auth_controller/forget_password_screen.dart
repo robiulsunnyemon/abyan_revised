@@ -14,10 +14,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-   ForgetPasswordScreen({super.key});
+  ForgetPasswordScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             SizedBox(height: AppStyles.heightM),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(
-                  hintText: 'Email'
-              ),
+              decoration: InputDecoration(hintText: 'Email'),
             ),
 
             SizedBox(height: 20.h),
@@ -61,22 +58,25 @@ class ForgetPasswordScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       print(_emailController.text.trim());
-                      final response=await ResendOTPVerificationApiService.forgetPasswordRequest(email: _emailController.text.trim());
-                      if(response.statusCode==200){
-                        Get.to(()=>RecoveryVerificationScreen());
-                      }
-                      else if(response.statusCode==400){
+                      final response =
+                          await ResendOTPVerificationApiService.forgetPasswordRequest(
+                            email: _emailController.text.trim(),
+                          );
+                      if (response.statusCode == 200) {
+                        Get.to(() => RecoveryVerificationScreen());
+                      } else if (response.statusCode == 400) {
                         print(response.statusCode);
                         print(response.body);
                         Get.snackbar("Error", "Your Email is not found!");
-                      }
-
-                      else{
+                      } else {
                         print(response.statusCode);
                         print(response.body);
-                        Get.snackbar("Error", "Something went wrong ${response.body}");
+                        Get.snackbar(
+                          "Error",
+                          "Something went wrong ${response.body}",
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(

@@ -80,7 +80,6 @@ class AuthPrefService {
   }
 
 
-
   /// Saves the uid to SharedPreferences
   static Future<void> saveUid(String uiD) async {
     try {
