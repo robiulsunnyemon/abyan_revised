@@ -372,7 +372,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                         venueName: _listingController
                                             .listingData
                                             .value!
-                                            .fromName!,
+                                            .name,
                                         listingId: _listingController
                                             .listingData
                                             .value!

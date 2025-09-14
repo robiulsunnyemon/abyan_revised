@@ -204,6 +204,7 @@ class _BindableDropdown extends StatelessWidget {
                 isExpanded: true,
                 value: safeValue,
                 hint: Text(hint),
+                dropdownColor: Colors.white,
                 items: unique
                     .map(
                       (e) => DropdownMenuItem<String>(value: e, child: Text(e)),
@@ -315,7 +316,7 @@ class JetsScreen extends StatelessWidget {
                 const SizedBox(height: 8),
 
                 // Travel type
-                Text('Travel Type:', style: AppTextStyle.bold16),
+                Text('Travel Type', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
                 _BindableDropdown(
                   items: trip,

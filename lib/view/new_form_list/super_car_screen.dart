@@ -196,7 +196,7 @@ class CustomDropdown extends StatelessWidget {
           dropdownStyleData: DropdownStyleData(
             maxHeight: 240,
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(6),
             ),
           ),
@@ -395,7 +395,7 @@ class SuperCarScreen extends StatelessWidget {
                 const SizedBox(height: 10),
 
                 /// Car Brand
-                Text('Car Brand:', style: AppTextStyle.bold16),
+                Text('Car Brand', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(

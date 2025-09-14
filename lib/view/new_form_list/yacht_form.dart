@@ -158,6 +158,7 @@ class _BindableDropdown extends StatelessWidget {
             isExpanded: true,
             value: safeValue,
             hint: Text(hint),
+            dropdownColor: Colors.white,
             items: unique
                 .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
                 .toList(),
@@ -265,7 +266,7 @@ class YachtRequestFormScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Time & duration
-                Text('Time & duration', style: AppTextStyle.bold16),
+                Text('Duration', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
                 _BindableDropdown(
                   items: time,

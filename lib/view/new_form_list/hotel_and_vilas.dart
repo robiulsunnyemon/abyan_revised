@@ -139,7 +139,8 @@ class HotelAndVillasScreen extends StatelessWidget {
   final form = Get.put(HotelVillasFormController());
 
   // sample data
-  final List<String> accommodationTypes = const ['Ac', 'NonAc', 'Premium'];
+  final List<String> accommodationTypes = const [ 'Hotel', ' Apartment', ' Luxury Private Villa'
+  ];
   final List<String> hotelNames = const [
     'Hotel Sunrise',
     'Blue Lagoon Resort',
@@ -390,6 +391,7 @@ class _BindableDropdown extends StatelessWidget {
             isExpanded: true,
             value: safeValue,
             hint: Text(hint),
+            dropdownColor: Colors.white,
             items: unique
                 .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
                 .toList(),
