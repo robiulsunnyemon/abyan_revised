@@ -2,19 +2,16 @@
 // class CategoryResponse {
 //   final bool success;
 //   final CategoryData data;
-//   final Pagination pagination;
 //
 //   CategoryResponse({
 //     required this.success,
 //     required this.data,
-//     required this.pagination,
 //   });
 //
 //   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
 //     return CategoryResponse(
 //       success: json['success'],
 //       data: CategoryData.fromJson(json['data']),
-//       pagination: Pagination.fromJson(json['data']['pagination']),
 //     );
 //   }
 // }
@@ -67,7 +64,7 @@
 // class SubCategory {
 //   final int id;
 //   final String name;
-//   final String img;
+//   final String? img;
 //   final dynamic description; // Can be null, String or Map
 //   final bool hasSpecificCategory;
 //   final int mainCategoryId;
@@ -84,13 +81,13 @@
 //     required this.id,
 //     required this.name,
 //     required this.img,
-//     this.description,
+//     required this.description,
 //     required this.hasSpecificCategory,
 //     required this.mainCategoryId,
 //     required this.createdAt,
 //     required this.updatedAt,
 //     required this.contractWhatsapp,
-//     this.fromName,
+//     required this.fromName,
 //     required this.hasForm,
 //     required this.hasMiniSubCategory,
 //     required this.specificCategories,
@@ -122,14 +119,15 @@
 //   String? get descriptionContent {
 //     if (description == null) return null;
 //     if (description is String) return description as String;
-//     if (description is Map) return description['content'] as String?;
+//     if (description is Map<String, dynamic>) return description['content'] as String?;
 //     return null;
 //   }
 //
 //   // Helper method to get description sections
 //   List<String>? get descriptionSections {
-//     if (description == null || description is! Map) return null;
-//     return (description['sections'] as List?)?.cast<String>();
+//     if (description == null || description is! Map<String, dynamic>) return null;
+//     final sections = description['sections'] as List?;
+//     return sections?.cast<String>();
 //   }
 // }
 //
@@ -162,7 +160,7 @@
 // class MiniSubCategory {
 //   final int id;
 //   final String name;
-//   final String img;
+//   final String? img;
 //   final bool hasSpecificCategory;
 //   final int subCategoryId;
 //   final DateTime createdAt;
@@ -180,7 +178,7 @@
 //     required this.createdAt,
 //     required this.updatedAt,
 //     required this.contractWhatsapp,
-//     this.fromName,
+//     required this.fromName,
 //     required this.hasForm,
 //   });
 //
@@ -224,6 +222,9 @@
 // }
 
 
+// Optional: tiny helper for robust DateTime parsing
+DateTime _parseDate(String? s) =>
+    (s == null || s.isEmpty) ? DateTime.fromMillisecondsSinceEpoch(0) : DateTime.parse(s);
 
 class CategoryResponse {
   final bool success;
@@ -236,8 +237,8 @@ class CategoryResponse {
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
     return CategoryResponse(
-      success: json['success'],
-      data: CategoryData.fromJson(json['data']),
+      success: (json['success'] as bool?) ?? false,
+      data: CategoryData.fromJson((json['data'] as Map<String, dynamic>) ),
     );
   }
 }
@@ -252,10 +253,13 @@ class CategoryData {
   });
 
   factory CategoryData.fromJson(Map<String, dynamic> json) {
+    final mc = (json['mainCategories'] as List? ?? [])
+        .map((x) => MainCategory.fromJson(x as Map<String, dynamic>))
+        .toList();
+
     return CategoryData(
-      mainCategories: List<MainCategory>.from(
-          json['mainCategories'].map((x) => MainCategory.fromJson(x))),
-      pagination: Pagination.fromJson(json['pagination']),
+      mainCategories: mc,
+      pagination: Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
     );
   }
 }
@@ -276,13 +280,16 @@ class MainCategory {
   });
 
   factory MainCategory.fromJson(Map<String, dynamic> json) {
+    final subs = (json['subCategories'] as List? ?? [])
+        .map((x) => SubCategory.fromJson(x as Map<String, dynamic>))
+        .toList();
+
     return MainCategory(
-      id: json['id'],
-      name: json['name'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-      subCategories: List<SubCategory>.from(
-          json['subCategories'].map((x) => SubCategory.fromJson(x))),
+      id: (json['id'] as num).toInt(),
+      name: (json['name'] as String?) ?? '',
+      createdAt: _parseDate(json['createdAt'] as String?),
+      updatedAt: _parseDate(json['updatedAt'] as String?),
+      subCategories: subs,
     );
   }
 }
@@ -291,7 +298,8 @@ class SubCategory {
   final int id;
   final String name;
   final String? img;
-  final dynamic description; // Can be null, String or Map
+  /// Can be null, String, or Map<String, dynamic> with { content, sections }
+  final dynamic description;
   final bool hasSpecificCategory;
   final int mainCategoryId;
   final DateTime createdAt;
@@ -321,23 +329,29 @@ class SubCategory {
   });
 
   factory SubCategory.fromJson(Map<String, dynamic> json) {
+    final specs = (json['specificCategories'] as List? ?? [])
+        .map((x) => SpecificCategory.fromJson(x as Map<String, dynamic>))
+        .toList();
+
+    final minis = (json['miniSubCategory'] as List? ?? [])
+        .map((x) => MiniSubCategory.fromJson(x as Map<String, dynamic>))
+        .toList();
+
     return SubCategory(
-      id: json['id'],
-      name: json['name'],
-      img: json['img'],
-      description: json['description'],
-      hasSpecificCategory: json['hasSpecificCategory'],
-      mainCategoryId: json['mainCategoryId'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-      contractWhatsapp: json['contractWhatsapp'],
-      fromName: json['fromName'],
-      hasForm: json['hasForm'],
-      hasMiniSubCategory: json['hasMiniSubCategory'],
-      specificCategories: List<SpecificCategory>.from(
-          json['specificCategories'].map((x) => SpecificCategory.fromJson(x))),
-      miniSubCategory: List<MiniSubCategory>.from(
-          json['miniSubCategory'].map((x) => MiniSubCategory.fromJson(x))),
+      id: (json['id'] as num).toInt(),
+      name: (json['name'] as String?) ?? '',
+      img: json['img'] as String?, // may be null
+      description: json['description'], // keep dynamic
+      hasSpecificCategory: json['hasSpecificCategory'] == true,
+      mainCategoryId: (json['mainCategoryId'] as num).toInt(),
+      createdAt: _parseDate(json['createdAt'] as String?),
+      updatedAt: _parseDate(json['updatedAt'] as String?),
+      contractWhatsapp: json['contractWhatsapp'] == true,
+      fromName: json['fromName'] as String?,
+      hasForm: json['hasForm'] == true,
+      hasMiniSubCategory: json['hasMiniSubCategory'] == true,
+      specificCategories: specs,
+      miniSubCategory: minis,
     );
   }
 
@@ -345,15 +359,17 @@ class SubCategory {
   String? get descriptionContent {
     if (description == null) return null;
     if (description is String) return description as String;
-    if (description is Map<String, dynamic>) return description['content'] as String?;
+    if (description is Map<String, dynamic>) {
+      return (description as Map<String, dynamic>)['content'] as String?;
+    }
     return null;
   }
 
   // Helper method to get description sections
   List<String>? get descriptionSections {
     if (description == null || description is! Map<String, dynamic>) return null;
-    final sections = description['sections'] as List?;
-    return sections?.cast<String>();
+    final sections = (description as Map<String, dynamic>)['sections'] as List?;
+    return sections?.map((e) => e.toString()).toList();
   }
 }
 
@@ -374,11 +390,11 @@ class SpecificCategory {
 
   factory SpecificCategory.fromJson(Map<String, dynamic> json) {
     return SpecificCategory(
-      id: json['id'],
-      name: json['name'],
-      subCategoryId: json['subCategoryId'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      id: (json['id'] as num).toInt(),
+      name: (json['name'] as String?) ?? '',
+      subCategoryId: (json['subCategoryId'] as num).toInt(),
+      createdAt: _parseDate(json['createdAt'] as String?),
+      updatedAt: _parseDate(json['updatedAt'] as String?),
     );
   }
 }
@@ -410,16 +426,16 @@ class MiniSubCategory {
 
   factory MiniSubCategory.fromJson(Map<String, dynamic> json) {
     return MiniSubCategory(
-      id: json['id'],
-      name: json['name'],
-      img: json['img'],
-      hasSpecificCategory: json['hasSpecificCategory'],
-      subCategoryId: json['subCategoryId'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-      contractWhatsapp: json['contractWhatsapp'],
-      fromName: json['fromName'],
-      hasForm: json['hasForm'],
+      id: (json['id'] as num).toInt(),
+      name: (json['name'] as String?) ?? '',
+      img: json['img'] as String?,
+      hasSpecificCategory: json['hasSpecificCategory'] == true,
+      subCategoryId: (json['subCategoryId'] as num).toInt(),
+      createdAt: _parseDate(json['createdAt'] as String?),
+      updatedAt: _parseDate(json['updatedAt'] as String?),
+      contractWhatsapp: json['contractWhatsapp'] == true,
+      fromName: json['fromName'] as String?,
+      hasForm: json['hasForm'] == true,
     );
   }
 }
@@ -439,10 +455,10 @@ class Pagination {
 
   factory Pagination.fromJson(Map<String, dynamic> json) {
     return Pagination(
-      page: json['page'],
-      limit: json['limit'],
-      total: json['total'],
-      pages: json['pages'],
+      page: (json['page'] as num).toInt(),
+      limit: (json['limit'] as num).toInt(),
+      total: (json['total'] as num).toInt(),
+      pages: (json['pages'] as num).toInt(),
     );
   }
 }

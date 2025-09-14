@@ -1,13 +1,44 @@
-import 'dart:convert';
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../utils/style/app_text_styles.dart';
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
-import '../widget/increase_and_decrease.dart';
+
+
+dynamic _deepUnwrap(dynamic v) {
+  // Rx types → .value
+  if (v is Rx) return _deepUnwrap(v.value);
+
+  // DateTime → ISO string
+  if (v is DateTime) return v.toIso8601String();
+
+  // TimeOfDay → "HH:mm"
+  if (v is TimeOfDay) {
+    final hh = v.hour.toString().padLeft(2, '0');
+    final mm = v.minute.toString().padLeft(2, '0');
+    return '$hh:$mm';
+  }
+
+  // Map → recurse
+  if (v is Map) {
+    return v.map((k, val) => MapEntry(k.toString(), _deepUnwrap(val)));
+  }
+
+  // List → recurse
+  if (v is List) {
+    return v.map(_deepUnwrap).toList();
+  }
+
+  // Primitive or already clean
+  return v;
+}
+
+Map<String, dynamic> deepSanitize(Map<String, dynamic> m) =>
+    _deepUnwrap(m) as Map<String, dynamic>;
 
 /// ==============================
 /// GetX Controller: Beach Club Form
@@ -32,17 +63,18 @@ class BeachClubFormController extends GetxController {
     required int adults,
     required int children,
   }) {
+    // (toJson ইউজ করতে চাইলে ব্যবহার করুন — deepSanitize ছাড়াই ক্লিন)
     return {
-      "venue": venue.value, // Ac/NonAc/Premium
-      "fullName": fullName.value.trim(),
+      "venueName": venue.value,
+      "name": fullName.value.trim(),
       "email": email.value.trim(),
-      "contact": contact.value.trim(),
-      "reservationDate": reservationDate.value?.toIso8601String(),
-      "reservationTime": reservationTime.value == null
+      "whatsapp": contact.value.trim(),
+      "bookingDate": reservationDate.value?.toIso8601String(),
+      "bookingTime": reservationTime.value == null
           ? null
           : _formatTime(reservationTime.value!),
-      "adults": adults,
-      "children": children,
+      "numberofguest_adult": adults,
+      "numberofguest_child": children,
     };
   }
 
@@ -53,7 +85,6 @@ class BeachClubFormController extends GetxController {
     if (venue.value == null) return "Please select a venue.";
     if (fullName.value.trim().isEmpty) return "Please enter your full name.";
     if (email.value.trim().isEmpty) return "Please enter your email.";
-    // খুব কড়া ভ্যালিডেশন নয়, মিনিমাল চেক:
     if (!email.value.contains('@')) return "Please enter a valid email.";
     if (contact.value.trim().isEmpty) return "Please enter WhatsApp number.";
     if (reservationDate.value == null) return "Please select reservation date.";
@@ -62,34 +93,63 @@ class BeachClubFormController extends GetxController {
     return null;
   }
 
-  Future<http.Response> submit({
-    required Uri endpoint,
-    required int adults,
+  Future<void> submitForm({
+    required int id,
+    required int adult,
     required int children,
-    Map<String, String>? extraHeaders,
   }) async {
-    final error = validate(adults: adults, children: children);
-    if (error != null) {
-      throw Exception(error);
+    // client-side validation
+    final err = validate(adults: adult, children: children);
+    if (err != null) {
+      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      return;
     }
 
-    final payload = toJson(adults: adults, children: children);
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-      if (authToken != null) 'Authorization': authToken!,
-      ...?extraHeaders,
+    // Build raw payload (Rx/DateTime/TimeOfDay allowed here)
+    final raw = <String, dynamic>{
+      "listingId": id,
+      "bookingDate": reservationDate.value,      // DateTime? (deepSanitize ISO করবে)
+      "bookingTime": reservationTime.value,      // TimeOfDay? (deepSanitize HH:mm করবে)
+      "name": fullName.value.trim(),
+      "email": email.value.trim(),
+      "whatsapp": contact.value.trim(),
+      "venueName": venue.value,
+      "numberofguest_adult": adult,
+      "numberofguest_child": children,
     };
 
-    final resp = await http.post(
-      endpoint,
-      headers: headers,
-      body: jsonEncode(payload),
-    );
+    // Convert Rx/DateTime/TimeOfDay → primitives/ISO
+    final beachClubData = deepSanitize(raw);
 
-    if (resp.statusCode >= 200 && resp.statusCode < 300) {
-      return resp;
-    } else {
-      throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
+    try {
+      // Send request
+      final response = await FormRequestApiServices.formRequest(
+        data: beachClubData,
+        url: "sub-category-bookings",
+      );
+
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          'Success',
+          'Your form submitted successfully',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        Get.to(() => const OrderPlaceScreen());
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Server responded: ${response.statusCode}',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(.08),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Failed',
+        e.toString().replaceFirst('Exception: ', ''),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
     }
   }
 
@@ -104,7 +164,8 @@ class BeachClubFormController extends GetxController {
 /// UI Screen: BeachClubForm
 /// ==============================
 class BeachClubForm extends StatelessWidget {
-  BeachClubForm({super.key});
+  final int listingId;
+  BeachClubForm({super.key, required this.listingId});
 
   // Controller bind
   final form = Get.put(BeachClubFormController());
@@ -119,8 +180,6 @@ class BeachClubForm extends StatelessWidget {
   final TextEditingController nameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController phoneCtrl = TextEditingController();
-
-  static const String API_ENDPOINT = 'https://api.example.com/beach-club/request'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +199,6 @@ class BeachClubForm extends StatelessWidget {
                 // Venue
                 Text('Choose Venue', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
-                // Expecting bindable CustomDropdown (items/hint/selected/onChanged)
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColors.lightLaserColor),
@@ -171,7 +229,9 @@ class BeachClubForm extends StatelessWidget {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColors.lightLaserColor, width: 1.2),
+                          color: AppColors.lightLaserColor,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: AppColors.white,
                     ),
@@ -193,7 +253,9 @@ class BeachClubForm extends StatelessWidget {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColors.lightLaserColor, width: 1.2),
+                          color: AppColors.lightLaserColor,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: AppColors.white,
                     ),
@@ -215,7 +277,9 @@ class BeachClubForm extends StatelessWidget {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColors.lightLaserColor, width: 1.2),
+                          color: AppColors.lightLaserColor,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: AppColors.white,
                     ),
@@ -228,7 +292,6 @@ class BeachClubForm extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      // তুমি চাইলে তোমার CustomDatePicker-এ onDateSelected যোগ করে ব্যবহার করবে
                       child: _DateField(
                         label: 'Select date',
                         valueRx: form.reservationDate,
@@ -294,28 +357,20 @@ class BeachClubForm extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
-                            // sync text to controller (যদি কিবোর্ড বন্ধ থাকায় onChanged না চলে)
-                            form.fullName.value = nameCtrl.text;
-                            form.email.value = emailCtrl.text;
-                            form.contact.value = phoneCtrl.text;
+                            // sync text to controller (ensure latest values)
+                            form.fullName.value = nameCtrl.text.trim();
+                            form.email.value = emailCtrl.text.trim();
+                            form.contact.value = phoneCtrl.text.trim();
 
-                           // final adults = adultController.count.value;
-                           // final children = childrenController.count.value;
+                            final adults = adultController.count.value;
+                            final children = childrenController.count.value;
 
-                            final uri = Uri.parse(API_ENDPOINT);
-                           // await form.submit(
-                            //  endpoint: uri,
-                            //  adults: adults,
-                             // children: children,
-                            //);
-
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
+                            await form.submitForm(
+                              adult: adults,
+                              children: children,
+                              id: listingId,
                             );
+                            // Success snackbar & navigation handled inside submitForm
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
@@ -453,12 +508,14 @@ class _TimeField extends StatelessWidget {
   }
 }
 
-
+/// ==============================
+/// Dropdown (dropdown_button2 ভিত্তিক)
+/// ==============================
 class CustomDropdown extends StatelessWidget {
   final List<String> items;
   final String hint;
-  final RxnString selected;               // external Rx value
-  final void Function(String?) onChanged; // setter
+  final RxnString selected;
+  final void Function(String?) onChanged;
 
   const CustomDropdown({
     super.key,
@@ -517,7 +574,9 @@ class CustomDropdown extends StatelessWidget {
   }
 }
 
-
+/// ==============================
+/// Simple Counter + UI (Adults/Children)
+/// ==============================
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
@@ -525,7 +584,6 @@ class CounterController extends GetxController {
     if (count.value > 0) count.value--;
   }
 }
-
 
 class IncreaseAndDecrease extends StatelessWidget {
   final String type;
@@ -567,24 +625,31 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline,color: AppColors.lightLaserColor),
-
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Obx(() => Text(
-                    counter.count.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  Obx(
+                        () => Text(
+                      counter.count.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline,color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                 ],

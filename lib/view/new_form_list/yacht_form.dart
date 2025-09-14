@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,20 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/style/app_text_styles.dart';
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
+import '../widget/custom_bottom_bar.dart';
+
+/// --- helpers ---
+Map<String, dynamic> _removeNulls(Map<String, dynamic> m) {
+  final out = <String, dynamic>{};
+  m.forEach((k, v) {
+    if (v != null) out[k] = v;
+  });
+  return out;
+}
+
+String? _iso(DateTime? dt) => dt?.toIso8601String();
 
 /// ==============================
 /// GetX Controller: Yacht form
@@ -42,38 +56,64 @@ class YachtFormController extends GetxController {
     return null;
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "yachtSize": yachtSize.value,
-      "duration": duration.value,
-      "fromDate": fromDate.value?.toIso8601String(),
-      "toDate": toDate.value?.toIso8601String(),
-      "people": peopleCount,
-      "contact": contact.value.trim(),
-    };
-  }
-
-  Future<http.Response> submit({
-    required Uri endpoint,
-    Map<String, String>? extraHeaders,
+  Future<void> submitForm({
+    required int id,
   }) async {
+    // ✅ validate first
     final err = validate();
-    if (err != null) throw Exception(err);
+    if (err != null) {
+      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
 
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-      if (authToken != null) 'Authorization': authToken!,
-      ...?extraHeaders,
-    };
+    // ✅ unwrap Rx / DateTime → ISO (no Rx/DateTime in payload)
+    final Map<String, dynamic> data = _removeNulls({
+      "subCategoryId": id,                          // or miniSubCategoryId per API
+      "typeOfAccommodation": yachtSize.value,       // String?
+      "location": { "from": duration.value },       // keep your structure
+      "checkInDate": _iso(fromDate.value),          // String ISO
+      "checkOutDate": _iso(toDate.value),           // String ISO
+      "number of people": peopleCount,              // int
+      "contact": contact.value.trim(),              // String
+    });
 
-    final resp = await http.post(
-      endpoint,
-      headers: headers,
-      body: jsonEncode(toJson()),
-    );
+    try {
+      // debug
+      // ignore: avoid_print
+      print('REQUEST BODY (yacht) => $data');
 
-    if (resp.statusCode >= 200 && resp.statusCode < 300) return resp;
-    throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
+      final response = await FormRequestApiServices.formRequest(
+        data: data,
+        url: "sub-category-bookings",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   if (authToken != null) "Authorization": "Bearer $authToken",
+        // },
+      );
+
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          'Success',
+          'Your form submitted successfully',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        Get.to(() => const OrderPlaceScreen());
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Server responded: ${response.statusCode}',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(.08),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Failed',
+        e.toString().replaceFirst('Exception: ', ''),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
+    }
   }
 }
 
@@ -186,7 +226,8 @@ class _DateField extends StatelessWidget {
 /// Screen: YachtRequestFormScreen
 /// ==============================
 class YachtRequestFormScreen extends StatelessWidget {
-  YachtRequestFormScreen({super.key});
+  final int id;
+  YachtRequestFormScreen({super.key, required this.id});
 
   final controller = Get.put(YachtFormController());
 
@@ -196,8 +237,6 @@ class YachtRequestFormScreen extends StatelessWidget {
   // Text controllers
   final TextEditingController peopleCtrl = TextEditingController();
   final TextEditingController contactCtrl = TextEditingController();
-
-  static const String API_ENDPOINT = 'https://api.example.com/yacht/request'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
@@ -327,20 +366,13 @@ class YachtRequestFormScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
-                            // Ensure sync (যদি onChanged না হয়ে থাকে)
-                            controller.people.value = peopleCtrl.text;
-                            controller.contact.value = contactCtrl.text;
+                            // Ensure sync if onChanged didn’t fire
+                            controller.people.value = peopleCtrl.text.trim();
+                            controller.contact.value = contactCtrl.text.trim();
 
-                            final uri = Uri.parse(API_ENDPOINT);
-                            await controller.submit(endpoint: uri);
+                            await controller.submitForm(id: id);
 
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
-                            );
+                            // success handled inside submitForm
                           } catch (e) {
                             Get.snackbar(
                               'Failed',

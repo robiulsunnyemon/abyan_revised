@@ -101,22 +101,23 @@ class HomeScreen extends StatelessWidget {
                                       if(_subCategoryController.subCategories[index].hasForm){
                                         if(_subCategoryController.subCategories[index].fromName=="Jets"){
                                           Get.to(()=>JetsScreen(
-                                           // subCategoryId: _subCategoryController.subCategories[index].id,
+                                           id: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Hotel & Villas"){
                                           Get.to(()=>HotelAndVillasScreen(
-                                              //subCategoryId: _subCategoryController.subCategories[index].id)
+                                              id: _subCategoryController.subCategories[index].id
+
                                           ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Yacht"){
                                           Get.to(()=>YachtRequestFormScreen(
-                                            //subCategoryId: _subCategoryController.subCategories[index].id,
+                                            id: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
                                         else if(_subCategoryController.subCategories[index].fromName=="Super Car"){
                                           Get.to(()=>SuperCarScreen(
-                                            //subCategoryId: _subCategoryController.subCategories[index].id,
+                                            id: _subCategoryController.subCategories[index].id,
                                           ));
                                         }
 
@@ -186,7 +187,7 @@ class HomeScreen extends StatelessWidget {
                                       if(highlight.subCategory!.hasForm){
                                         if(highlight.subCategory!.fromName=="Jets"){
                                           Get.to(()=>JetsScreen(
-                                           // subCategoryId: highlight.subCategory!.id,
+                                           id: highlight.subCategory!.id,
                                           ));
                                         }
                                         else if(highlight.subCategory!.fromName==""){}
@@ -217,7 +218,7 @@ class HomeScreen extends StatelessWidget {
                                     if(highlight.miniSubCategory!.hasForm){
                                       if(highlight.miniSubCategory!.fromName=="Jets"){
                                         Get.to(()=>JetsScreen(
-                                          //subCategoryId: highlight.miniSubCategory!.id,
+                                          id: highlight.miniSubCategory!.id,
                                         ));
                                       }
                                       else if(highlight.miniSubCategory!.fromName==""){}
@@ -252,7 +253,7 @@ class HomeScreen extends StatelessWidget {
 
                                       if(highlight.listing!.formName=="Jets"){
                                         Get.to(()=>JetsScreen(
-                                          //subCategoryId: highlight.listing!.id,
+                                          id: highlight.listing!.id,
                                         ));
                                       }
                                       else if(highlight.listing?.formName==""){}

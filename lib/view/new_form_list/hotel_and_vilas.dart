@@ -4,11 +4,39 @@ import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../view_models/controller/counter_controller.dart';
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
+import '../widget/custom_bottom_bar.dart';
 import '../widget/increase_and_decrease.dart';
+
+/// ---------------------------------------------------------------------------
+/// Helpers: safely unwrap Rx/DateTime and deep-sanitize Maps/Lists for JSON
+/// ---------------------------------------------------------------------------
+dynamic _deepUnwrap(dynamic v) {
+  // Rx types → .value
+  if (v is Rx) return _deepUnwrap(v.value);
+
+  // DateTime → ISO string
+  if (v is DateTime) return v.toIso8601String();
+
+  // Map → recurse
+  if (v is Map) {
+    return v.map((k, val) => MapEntry(k.toString(), _deepUnwrap(val)));
+  }
+
+  // List → recurse
+  if (v is List) {
+    return v.map(_deepUnwrap).toList();
+  }
+
+  // Primitive or already clean
+  return v;
+}
+
+Map<String, dynamic> deepSanitize(Map<String, dynamic> m) =>
+    _deepUnwrap(m) as Map<String, dynamic>;
 
 /// ==============================
 /// Form Controller (GetX)
@@ -16,7 +44,7 @@ import '../widget/increase_and_decrease.dart';
 class HotelVillasFormController extends GetxController {
   // dropdowns
   final RxnString accommodationType = RxnString(); // Ac | NonAc | Premium
-  final RxnString hotelName = RxnString();         // যেটা select করবে
+  final RxnString hotelName = RxnString();         // selected hotel
 
   // text fields
   final RxString location = ''.obs;
@@ -28,22 +56,6 @@ class HotelVillasFormController extends GetxController {
 
   // optional auth
   String? authToken;
-
-  Map<String, dynamic> toJson({
-    required int adults,
-    required int children,
-  }) {
-    return {
-      "accommodationType": accommodationType.value,
-      "location": location.value.trim(),
-      "hotelName": hotelName.value,
-      "checkIn": checkIn.value?.toIso8601String(),
-      "checkOut": checkOut.value?.toIso8601String(),
-      "adults": adults,
-      "children": children,
-      "contact": contact.value.trim(),
-    };
-  }
 
   String? validate({
     required int adults,
@@ -60,29 +72,60 @@ class HotelVillasFormController extends GetxController {
     return null;
   }
 
-  Future<http.Response> submit({
-    required Uri endpoint,
-    required int adults,
+  Future<void> submitForm({
+    required int id,
+    required int adult,
     required int children,
-    Map<String, String>? extraHeaders,
   }) async {
-    final err = validate(adults: adults, children: children);
-    if (err != null) throw Exception(err);
+    // client-side validation
+    final err = validate(adults: adult, children: children);
+    if (err != null) {
+      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
 
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-      if (authToken != null) 'Authorization': authToken!,
-      ...?extraHeaders,
+    // Build raw payload (Rx/DateTime allowed here)
+    final raw = <String, dynamic>{
+      "subCategoryId": id,
+      "typeOfAccommodation": accommodationType.value,
+      "location": {
+        "from": location,           // RxString (deepSanitize unwrap করবে)
+      },
+      "nameOfHotel": hotelName.value,
+      "checkInDate": checkIn.value, // DateTime (deepSanitize ISO করবে)
+      "checkOutDate": checkOut.value,
+      "guests": {
+        "adults": adult,
+        "children": children,
+      },
+      "contact": contact,           // RxString (deepSanitize unwrap করবে)
     };
 
-    final resp = await http.post(
-      endpoint,
-      headers: headers,
-      body: jsonEncode(toJson(adults: adults, children: children)),
+    // Convert Rx/DateTime → primitives/ISO
+    final hotelAndVillasData = deepSanitize(raw);
+
+    // Send request
+    final response = await FormRequestApiServices.formRequest(
+      data: hotelAndVillasData,
+      url: "sub-category-bookings",
     );
 
-    if (resp.statusCode >= 200 && resp.statusCode < 300) return resp;
-    throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
+    if (response.statusCode == 201) {
+      Get.snackbar(
+        'Success',
+        'Your Form submit successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
+      Get.to(() => const OrderPlaceScreen());
+    } else {
+      Get.snackbar(
+        'Failed',
+        'Server responded: ${response.statusCode}',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
+    }
   }
 }
 
@@ -90,7 +133,8 @@ class HotelVillasFormController extends GetxController {
 /// Screen
 /// ==============================
 class HotelAndVillasScreen extends StatelessWidget {
-  HotelAndVillasScreen({super.key});
+  final int id;
+  HotelAndVillasScreen({super.key, required this.id});
 
   final form = Get.put(HotelVillasFormController());
 
@@ -111,8 +155,6 @@ class HotelAndVillasScreen extends StatelessWidget {
   // text controllers
   final TextEditingController locationCtrl = TextEditingController();
   final TextEditingController contactCtrl = TextEditingController();
-
-  static const String API_ENDPOINT = 'https://api.example.com/hotel-villas/request'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +259,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
                     controller: contactCtrl,
+                    keyboardType: TextInputType.phone,
                     onChanged: (v) => form.contact.value = v,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
@@ -253,27 +296,25 @@ class HotelAndVillasScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
-                            // sync text (যদি onChanged না চলে থাকে)
-                            form.location.value = locationCtrl.text;
-                            form.contact.value = contactCtrl.text;
+                            // sync from controllers (trim for safety)
+                            form.location.value = locationCtrl.text.trim();
+                            form.contact.value  = contactCtrl.text.trim();
 
-                            final adults = adultController.count.value;
+                            final adults   = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            final uri = Uri.parse(API_ENDPOINT);
-                            await form.submit(
-                              endpoint: uri,
-                              adults: adults,
+                            await form.submitForm(
+                              adult: adults,
                               children: children,
+                              id: id,
                             );
 
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
-                            );
+                            // success snackbar চাইলে service-এর 201 case-এ দেখাতে পারেন
+                            // এখানে চাইলে দেখাতে পারেন:
+                            // Get.snackbar('Success', 'Your request has been submitted.',
+                            //   snackPosition: SnackPosition.BOTTOM,
+                            //   duration: const Duration(seconds: 2),
+                            // );
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
@@ -415,15 +456,16 @@ class _DateField extends StatelessWidget {
   }
 }
 
-
+/// ==============================
+/// Simple Counter + UI (Adults/Children)
+/// ==============================
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 to ensure >=1
+  final RxInt count = 1.obs; // Adults default 1 (>=1)
   void increase() => count.value++;
   void decrease() {
-    if (count.value > 0) count.value--;
+    if (count.value > 1) count.value--; // keep >=1 for adults; children চাইলে আলাদা controller/use-case
   }
 }
-
 
 class IncreaseAndDecrease extends StatelessWidget {
   final String type;
@@ -465,8 +507,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline,color: AppColors.lightLaserColor),
-
+                      child: Icon(Icons.remove_circle_outline, color: AppColors.lightLaserColor),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -482,7 +523,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline,color: AppColors.lightLaserColor),
+                      child: Icon(Icons.add_circle_outline, color: AppColors.lightLaserColor),
                     ),
                   ),
                 ],

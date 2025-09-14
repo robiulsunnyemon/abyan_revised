@@ -3,12 +3,32 @@ import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../utils/style/app_text_styles.dart';
 import '../../../view_models/controller/counter_controller.dart';
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
-import '../widget/increase_and_decrease.dart';
+import '../widget/custom_bottom_bar.dart';
+
+/// ---------------------------------------------------------------------------
+/// Helpers: safely unwrap Rx/DateTime and clean Maps/Lists for JSON
+/// ---------------------------------------------------------------------------
+dynamic _deepUnwrap(dynamic v) {
+  if (v is Rx) return _deepUnwrap(v.value); // Rx/Rxn → value
+  if (v is DateTime) return v.toIso8601String(); // DateTime → ISO
+  if (v is Map)
+    return v.map((k, val) => MapEntry(k.toString(), _deepUnwrap(val)));
+  if (v is List) return v.map(_deepUnwrap).toList();
+  return v; // primitive
+}
+
+Map<String, dynamic> _removeNulls(Map<String, dynamic> m) {
+  final out = <String, dynamic>{};
+  m.forEach((k, v) {
+    if (v != null) out[k] = v;
+  });
+  return out;
+}
 
 /// ==============================
 /// GetX Controller: Jets form
@@ -37,7 +57,8 @@ class JetsFormController extends GetxController {
     if (travelType.value == null) return "Please select travel type.";
     if (fromCity.value == null) return "Please select origin.";
     if (toCity.value == null) return "Please select destination.";
-    if (fromCity.value == toCity.value) return "Origin and destination must differ.";
+    if (fromCity.value == toCity.value)
+      return "Origin and destination must differ.";
     if (departDate.value == null) return "Please select departure date.";
     if (isRoundTrip) {
       if (returnDate.value == null) return "Please select return date.";
@@ -50,43 +71,83 @@ class JetsFormController extends GetxController {
     return null;
   }
 
-  Map<String, dynamic> toJson({
-    required int adults,
+  Future<void> submitForm({
+    required int id,
+    required int adult,
     required int children,
-  }) {
-    return {
-      "travelType": travelType.value,
-      "from": fromCity.value,
-      "to": toCity.value,
-      "departDate": departDate.value?.toIso8601String(),
-      "returnDate": returnDate.value?.toIso8601String(),
-      "adults": adults,
-      "children": children,
+  }) async {
+    // Validate first
+    final err = validate(adults: adult, children: children);
+    if (err != null) {
+      Get.snackbar(
+        'Validation failed',
+        err,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // IMPORTANT: Send only ONE of subCategoryId / miniSubCategoryId
+    final idBlock = {
+      "miniSubCategoryId":
+          id, // <-- if API needs subCategoryId instead, change key here
+      // "subCategoryId": id,        // (and remove miniSubCategoryId)
+    };
+
+    // Build raw payload (Rx/DateTime allowed; deepUnwrap will clean)
+    final raw = <String, dynamic>{
+      ...idBlock,
+      // Use backend field names expected by your API
+      "typeOfAccommodation":
+          travelType.value, // or "travelType" if API expects that
+      "location": {"from": fromCity.value, "to": toCity.value},
+      "checkInDate": departDate.value, // DateTime?
+      "checkOutDate": isRoundTrip ? returnDate.value : null, // One-way => null
+      "guests": {"adults": adult, "children": children},
       "contact": contact.value.trim(),
     };
-  }
 
-  Future<http.Response> submit({
-    required Uri endpoint,
-    required int adults,
-    required int children,
-    Map<String, String>? extraHeaders,
-  }) async {
-    final err = validate(adults: adults, children: children);
-    if (err != null) throw Exception(err);
+    // Convert Rx/DateTime → primitives and drop nulls
+    final payload = _removeNulls(_deepUnwrap(raw) as Map<String, dynamic>);
 
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-      if (authToken != null) 'Authorization': authToken!,
-      ...?extraHeaders,
-    };
+    try {
+      // Debug: see final request body
+      // ignore: avoid_print
+      print('REQUEST BODY => $payload');
 
-    final payload = toJson(adults: adults, children: children);
+      final response = await FormRequestApiServices.formRequest(
+        data: payload,
+        url: "sub-category-bookings",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   if (authToken != null) "Authorization": "Bearer $authToken",
+        // },
+      );
 
-    final resp = await http.post(endpoint, headers: headers, body: jsonEncode(payload));
-    if (resp.statusCode >= 200 && resp.statusCode < 300) return resp;
-
-    throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          'Success',
+          'Your request has been submitted.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        Get.to(() => const OrderPlaceScreen());
+        // Or: Get.to(() => const OrderPlaceScreen());
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Server responded: ${response.statusCode}',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(.08),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Failed',
+        e.toString().replaceFirst('Exception: ', ''),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
+    }
   }
 }
 
@@ -110,12 +171,19 @@ class _BindableDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final unique = (items.where((e) => e.trim().isNotEmpty).map((e) => e.trim()).toSet().toList())
-      ..sort();
+    final unique =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final current = selected.value;
-      final safeValue = (current != null && unique.contains(current)) ? current : null;
+      final safeValue = (current != null && unique.contains(current))
+          ? current
+          : null;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +204,11 @@ class _BindableDropdown extends StatelessWidget {
                 isExpanded: true,
                 value: safeValue,
                 hint: Text(hint),
-                items: unique.map((e) => DropdownMenuItem<String>(value: e, child: Text(e))).toList(),
+                items: unique
+                    .map(
+                      (e) => DropdownMenuItem<String>(value: e, child: Text(e)),
+                    )
+                    .toList(),
                 onChanged: onChanged,
               ),
             ),
@@ -167,7 +239,9 @@ class _DateField extends StatelessWidget {
       final d = valueRx.value;
       final text = (d == null)
           ? label
-          : "${d.day.toString().padLeft(2, '0')}-${d.month.toString().padLeft(2, '0')}-${d.year}";
+          : "${d.day.toString().padLeft(2, '0')}-"
+                "${d.month.toString().padLeft(2, '0')}-"
+                "${d.year}";
 
       return InkWell(
         onTap: () async {
@@ -202,7 +276,8 @@ class _DateField extends StatelessWidget {
 /// Screen
 /// ==============================
 class JetsScreen extends StatelessWidget {
-  JetsScreen({super.key});
+  final int id;
+  JetsScreen({super.key, required this.id});
 
   final controller = Get.put(JetsFormController());
 
@@ -223,8 +298,6 @@ class JetsScreen extends StatelessWidget {
 
   // Contact
   final TextEditingController contactCtrl = TextEditingController();
-
-  static const String API_ENDPOINT = 'https://api.example.com/jets/request'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
@@ -317,9 +390,15 @@ class JetsScreen extends StatelessWidget {
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    IncreaseAndDecrease(type: 'Adults', counter: adultController),
+                    _IncreaseAndDecrease(
+                      type: 'Adults',
+                      counter: adultController,
+                    ),
                     const SizedBox(width: 10),
-                    IncreaseAndDecrease(type: 'Children', counter: childrenController),
+                    _IncreaseAndDecrease(
+                      type: 'Children',
+                      counter: childrenController,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -335,11 +414,15 @@ class JetsScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(
+                          color: AppColors.lightLaserColor,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.lightLaserColor,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: AppColors.white,
                     ),
@@ -369,26 +452,18 @@ class JetsScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
-                            // Ensure contact synced
-                            controller.contact.value = contactCtrl.text;
+                            controller.contact.value = contactCtrl.text.trim();
 
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            final uri = Uri.parse(API_ENDPOINT);
-                            await controller.submit(
-                              endpoint: uri,
-                              adults: adults,
+                            await controller.submitForm(
+                              adult: adults,
                               children: children,
+                              id: id,
                             );
 
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
-                            );
+                            // Success handled inside submitForm
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
@@ -422,13 +497,14 @@ class JetsScreen extends StatelessWidget {
   }
 }
 
-
-
-class IncreaseAndDecrease extends StatelessWidget {
+/// ==============================
+/// Simple Counter UI (Adults/Children)
+/// ==============================
+class _IncreaseAndDecrease extends StatelessWidget {
   final String type;
   final CounterController counter;
 
-  const IncreaseAndDecrease({
+  const _IncreaseAndDecrease({
     super.key,
     required this.type,
     required this.counter,
@@ -464,24 +540,31 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline,color: AppColors.lightLaserColor),
-
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Obx(() => Text(
-                    counter.count.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  Obx(
+                    () => Text(
+                      counter.count.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline,color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                 ],
@@ -493,7 +576,6 @@ class IncreaseAndDecrease extends StatelessWidget {
     );
   }
 }
-
 
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 to ensure >=1

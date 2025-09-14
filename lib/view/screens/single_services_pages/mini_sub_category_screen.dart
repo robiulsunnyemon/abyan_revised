@@ -75,7 +75,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       if(_miniSubCategoryController.miniSubCategories[index].hasForm){
                         if(_miniSubCategoryController.miniSubCategories[index].fromName=="Jets"){
                           Get.to(()=>JetsScreen(
-                           // subCategoryId: _miniSubCategoryController.miniSubCategories[index].id,
+                           id: _miniSubCategoryController.miniSubCategories[index].id,
                           ));
                         }
                         else if(_miniSubCategoryController.miniSubCategories[index].fromName==""){}

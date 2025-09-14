@@ -128,28 +128,28 @@ class ExploreScreen extends StatelessWidget {
                                                 "Jets") {
                                               Get.to(
                                                 () => JetsScreen(
-                                                  // subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Hotel & Villas") {
                                               Get.to(
                                                 () => HotelAndVillasScreen(
-                                                  // subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Yacht") {
                                               Get.to(
                                                 () => YachtRequestFormScreen(
-                                                  // subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Super Car") {
                                               Get.to(
                                                 () => SuperCarScreen(
-                                                  // subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             }

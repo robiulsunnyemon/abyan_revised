@@ -1,16 +1,29 @@
 // super_car_screen_full.dart
-import 'dart:convert';
+import 'dart:convert'; // if your service encodes, you can remove this
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http; // remove if unused
 
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
 import '../../utils/style/app_text_styles.dart';
 import '../screens/all_form_pages/order_place_screen.dart';
 import '../widget/custom_app_bar.dart';
+import '../widget/custom_bottom_bar.dart';
 
+/// -----------------------------------------
+/// Helpers
+/// -----------------------------------------
+Map<String, dynamic> _removeNulls(Map<String, dynamic> m) {
+  final out = <String, dynamic>{};
+  m.forEach((k, v) {
+    if (v != null) out[k] = v;
+  });
+  return out;
+}
 
+String? _toIso(DateTime? dt) => dt?.toIso8601String();
 
 /// -----------------------------------------
 /// GetX Controller: Counter
@@ -41,21 +54,6 @@ class BookingFormController extends GetxController {
   // (Optional) Auth token/header
   String? authToken;
 
-  Map<String, dynamic> toJson({
-    required int adults,
-    required int children,
-  }) {
-    return {
-      "brand": brand.value,
-      "timeSlot": timeSlot.value,
-      "startDate": startDate.value?.toIso8601String(),
-      "endDate": endDate.value?.toIso8601String(),
-      "adults": adults,
-      "children": children,
-      "contact": contact.value.trim(),
-    };
-  }
-
   String? validate({
     required int adults,
     required int children,
@@ -72,35 +70,76 @@ class BookingFormController extends GetxController {
     return null;
   }
 
-  Future<http.Response> submitBooking({
-    required Uri endpoint,
+  Future<void> submitBooking({
+    required int id,
     required int adults,
     required int children,
-    Map<String, String>? extraHeaders,
   }) async {
-    final error = validate(adults: adults, children: children);
-    if (error != null) {
-      throw Exception(error);
+    // validate first
+    final err = validate(adults: adults, children: children);
+    if (err != null) {
+      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      return;
     }
 
-    final payload = toJson(adults: adults, children: children);
+    // DateTime → ISO strings
+    final String? startIso = _toIso(startDate.value);
+    final String? endIso   = _toIso(endDate.value);
 
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-      if (authToken != null) 'Authorization': authToken!,
-      ...?extraHeaders,
-    };
+    // IMPORTANT: Send only ONE of subCategoryId / miniSubCategoryId
+    // Here we use subCategoryId. If API needs miniSubCategoryId, swap the key.
+    final Map<String, dynamic> body = _removeNulls({
+      "subCategoryId": id,                               // or "miniSubCategoryId": id
+      "typeOfAccommodation": brand.value,                // keep the field name your API expects
+      "location": {
+        "from": timeSlot.value,                          // String
+      },
+      "checkInDate":  startIso,                          // String (ISO), not DateTime
+      "checkOutDate": endIso,                            // String (ISO), not DateTime
+      "guests": {
+        "adults": adults,
+        "children": children,
+      },
+      "contact": contact.value.trim(),                   // String
+    });
 
-    final resp = await http.post(
-      endpoint,
-      headers: headers,
-      body: jsonEncode(payload),
-    );
+    try {
+      // Debug: inspect final payload
+      // ignore: avoid_print
+      print('REQUEST BODY => $body');
 
-    if (resp.statusCode >= 200 && resp.statusCode < 300) {
-      return resp;
-    } else {
-      throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
+      final response = await FormRequestApiServices.formRequest(
+        data: body,
+        url: "sub-category-bookings",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   if (authToken != null) "Authorization": "Bearer $authToken",
+        // },
+      );
+
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          'Success',
+          'Your request has been submitted.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        Get.to(() => const OrderPlaceScreen());
+        // Or: Get.to(() => const OrderPlaceScreen());
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Server responded: ${response.statusCode}',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(.08),
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Failed',
+        e.toString().replaceFirst('Exception: ', ''),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(.08),
+      );
     }
   }
 }
@@ -269,8 +308,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline,color: AppColors.lightLaserColor),
-
+                      child: Icon(Icons.remove_circle_outline, color: AppColors.lightLaserColor),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -286,7 +324,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline,color: AppColors.lightLaserColor),
+                      child: Icon(Icons.add_circle_outline, color: AppColors.lightLaserColor),
                     ),
                   ),
                 ],
@@ -303,11 +341,12 @@ class IncreaseAndDecrease extends StatelessWidget {
 /// MAIN SCREEN
 /// -----------------------------------------
 class SuperCarScreen extends StatelessWidget {
-  SuperCarScreen({super.key});
+  final int id;
+  SuperCarScreen({super.key, required this.id});
 
   final booking = Get.put(BookingFormController());
 
-  /// ইউনিক brand list
+  /// Unique brand list
   final List<String> type = const [
     'Audi',
     'Bentley',
@@ -325,7 +364,7 @@ class SuperCarScreen extends StatelessWidget {
     'Other',
   ];
 
-  /// টাইম স্লট
+  /// Time slots
   final List<String> time = const [
     '9am-12pm',
     '12pm-3pm',
@@ -333,14 +372,12 @@ class SuperCarScreen extends StatelessWidget {
     '6pm-9pm',
   ];
 
-  // কাউন্টার কন্ট্রোলার
+  // Counters
   final adultController = Get.put(CounterController(), tag: 'super_adults');
   final childrenController = Get.put(CounterController(), tag: 'super_children');
 
-  // কনট্যাক্ট ফিল্ড কন্ট্রোলার
+  // Contact field controller
   final TextEditingController phoneCtrl = TextEditingController();
-
-  static const String API_ENDPOINT = 'https://api.example.com/bookings'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
@@ -378,7 +415,6 @@ class SuperCarScreen extends StatelessWidget {
                 /// Time & duration
                 Text('Time & duration', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
-
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColors.lightLaserColor),
@@ -486,27 +522,17 @@ class SuperCarScreen extends StatelessWidget {
                         onPressed: () async {
                           try {
                             // Ensure contact sync
-                            booking.contact.value = phoneCtrl.text;
+                            booking.contact.value = phoneCtrl.text.trim();
 
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            final uri = Uri.parse(API_ENDPOINT);
-
                             await booking.submitBooking(
-                              endpoint: uri,
                               adults: adults,
                               children: children,
+                              id: id,
                             );
-
-                            // Success → navigate
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
-                            );
+                            // Success snackbar + navigation handled inside submitBooking
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
