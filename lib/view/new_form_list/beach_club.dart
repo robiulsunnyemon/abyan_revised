@@ -1,5 +1,6 @@
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_text_editing_form_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -165,7 +166,8 @@ class BeachClubFormController extends GetxController {
 /// ==============================
 class BeachClubForm extends StatelessWidget {
   final int listingId;
-  BeachClubForm({super.key, required this.listingId});
+  final String venueName;
+  BeachClubForm({super.key, required this.listingId, required this.venueName});
 
   // Controller bind
   final form = Get.put(BeachClubFormController());
@@ -175,6 +177,7 @@ class BeachClubForm extends StatelessWidget {
   // Counters
   final adultController = Get.put(CounterController(), tag: 'super_adults');
   final childrenController = Get.put(CounterController(), tag: 'super_children');
+  final TextEditingController beachClubController = TextEditingController();
 
   // Text controllers
   final TextEditingController nameCtrl = TextEditingController();
@@ -196,23 +199,12 @@ class BeachClubForm extends StatelessWidget {
                 const CustomAppBar(title: 'Beach club'),
                 const SizedBox(height: 20),
 
-                // Venue
-                Text('Choose Venue', style: AppTextStyle.bold16),
-                const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.lightLaserColor),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: CustomDropdown(
-                    items: type,
-                    hint: 'Select your Venue',
-                    selected: form.venue,
-                    onChanged: (v) => form.venue.value = v,
-                  ),
+                CustomTextEditingFormField(
+                  isReadOnly: true,
+                  controller: beachClubController,
+                  headingText: "Venue",
+                  hintText: venueName,
                 ),
-
                 const SizedBox(height: 16),
 
                 // Name

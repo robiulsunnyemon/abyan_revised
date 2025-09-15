@@ -387,10 +387,10 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "Beach club") {
                                     Get.to(
                                       () => BeachClubForm(
-                                        // venueName: _listingController
-                                        //     .listingData
-                                        //     .value!
-                                        //     .fromName!,
+                                         venueName: _listingController
+                                            .listingData
+                                             .value!
+                                            .name,
                                         listingId: _listingController
                                             .listingData
                                             .value!
