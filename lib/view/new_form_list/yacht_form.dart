@@ -159,6 +159,7 @@ class _BindableDropdown extends StatelessWidget {
             value: safeValue,
             hint: Text(hint),
             dropdownColor: Colors.white,
+            borderRadius: BorderRadius.circular(10),
             items: unique
                 .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
                 .toList(),

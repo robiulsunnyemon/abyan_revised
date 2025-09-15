@@ -560,7 +560,7 @@ class CustomDropdown extends StatelessWidget {
           dropdownStyleData: DropdownStyleData(
             maxHeight: 240,
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(6),
             ),
           ),
