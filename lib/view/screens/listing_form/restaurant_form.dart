@@ -56,7 +56,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                 child: CustomTextEditingFormField(
                   isReadOnly: true,
                   controller: venueController,
-                  headingText: "Choose Venue",
+                  headingText: "Venue",
                   hintText: widget.venueName,
                 ),
               ),

@@ -13,6 +13,7 @@ class MassageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SafeArea(
@@ -107,8 +108,14 @@ class MassageScreen extends StatelessWidget {
                     ),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                        child: Text(serviceData.description["content"]),),
+                      child: Text(
+                        serviceData.description is Map<String, dynamic>
+                            ? (serviceData.description["content"] ?? "")
+                            : serviceData.description?.toString() ?? "No description available",
+                      ),
+                    ),
                   ),
+
                   const SizedBox(height: 30),
 
 

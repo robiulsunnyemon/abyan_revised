@@ -2,21 +2,19 @@ import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
+import 'package:abyansf_asfmanagment_app/view/new_form_list/beach_club.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/listing_form/beach_club_form.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/listing_form/nightlife_form.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/single_services_pages/menu_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/card_container.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/day_time_row.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/carousel_container.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/listing_controller/listing_controller.dart';
 import '../../../view_models/controller/carousel_controller.dart';
+import '../../new_form_list/willness_form.dart';
+import '../../new_form_list/night_life_club.dart';
 import '../listing_form/restaurant_form.dart';
 import 'listing_sub_image_screen.dart';
 
@@ -26,6 +24,10 @@ class SingleBeachClubScreen extends StatelessWidget {
 
   final CarouselSliderControllers _carouselSliderController = Get.find();
   final _listingController = Get.put(ListingDetailController());
+  List location = [
+    ' J1 Beach - Jumeirah - Jumeirah 1',
+    'The Palm Tower - 50th Floor - The Palm Jumeirah'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -370,7 +372,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                         venueName: _listingController
                                             .listingData
                                             .value!
-                                            .fromName!,
+                                            .name,
                                         listingId: _listingController
                                             .listingData
                                             .value!
@@ -385,10 +387,10 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "Beach club") {
                                     Get.to(
                                       () => BeachClubForm(
-                                        venueName: _listingController
+                                         venueName: _listingController
                                             .listingData
-                                            .value!
-                                            .fromName!,
+                                             .value!
+                                            .name,
                                         listingId: _listingController
                                             .listingData
                                             .value!
@@ -402,15 +404,15 @@ class SingleBeachClubScreen extends StatelessWidget {
                                           ?.fromName ==
                                       "Nightlife") {
                                     Get.to(
-                                      () => NightlifeForm(
-                                        venueName: _listingController
-                                            .listingData
-                                            .value!
-                                            .fromName!,
-                                        listingId: _listingController
-                                            .listingData
-                                            .value!
-                                            .id,
+                                      () => NightLifeForm(
+                                        // venueName: _listingController
+                                        //     .listingData
+                                        //     .value!
+                                        //     .fromName!,
+                                        // listingId: _listingController
+                                        //     .listingData
+                                        //     .value!
+                                        //     .id,
                                       ),
                                     );
                                   }
@@ -420,15 +422,15 @@ class SingleBeachClubScreen extends StatelessWidget {
                                           ?.fromName ==
                                       "Wellness") {
                                     Get.to(
-                                      () => NightlifeForm(
-                                        venueName: _listingController
-                                            .listingData
-                                            .value!
-                                            .fromName!,
-                                        listingId: _listingController
-                                            .listingData
-                                            .value!
-                                            .id,
+                                      () => WellnessForm(
+                                        // venueName: _listingController
+                                        //     .listingData
+                                        //     .value!
+                                        //     .fromName!,
+                                        // listingId: _listingController
+                                        //     .listingData
+                                        //     .value!
+                                        //     .id,
                                       ),
                                     );
                                   }

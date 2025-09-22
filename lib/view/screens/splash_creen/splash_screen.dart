@@ -40,7 +40,7 @@ class SplashScreen extends StatelessWidget {
                       'Elevate Your World.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: AppColors.lightGrey,
+                        color: AppColors.lightWhite9,
                         fontSize: 30,
                         fontFamily: 'PlayfairDisplay',
                         fontWeight: FontWeight.w600,
@@ -53,7 +53,7 @@ class SplashScreen extends StatelessWidget {
                         'Supercars that turn heads. Yachts that rule the seas.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: AppColors.lightGrey,
+                          color: AppColors.lightWhite9,
                           fontSize: 16,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,

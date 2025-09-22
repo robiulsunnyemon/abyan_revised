@@ -1,8 +1,11 @@
 import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../utils/style/appColor.dart';
+import '../../widget/custom_bottom_bar.dart';
 
 class OrderPlaceScreen extends StatelessWidget {
   const OrderPlaceScreen({super.key});
@@ -53,8 +56,9 @@ class OrderPlaceScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('Cancel'),
+                          onPressed: () {
+                            Get.to(() => CustomBottomBar());
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.white,
                               shadowColor: Colors.transparent,
@@ -65,11 +69,14 @@ class OrderPlaceScreen extends StatelessWidget {
                                   borderRadius: BorderRadiusGeometry.circular(4)
                               )
                           ),
+                          child: Text('Cancel'),
                         ),
                       ),
                       SizedBox(width: 10),
                       Expanded(
-                        child: ElevatedButton(onPressed: (){},
+                        child: ElevatedButton(onPressed: (){
+                          Get.to(() => CustomBottomBar());
+                        },
                           style: ElevatedButton.styleFrom(
                               shadowColor: Colors.transparent
                           ),

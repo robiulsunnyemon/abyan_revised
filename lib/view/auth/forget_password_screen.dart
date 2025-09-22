@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 
 class ForgetPasswordScreen extends StatelessWidget {
-   ForgetPasswordScreen({super.key});
+  ForgetPasswordScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
 
@@ -58,7 +58,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       print(_emailController.text.trim());
                       final response=await ResendOTPVerificationApiService.forgetPasswordRequest(email: _emailController.text.trim());
                       if(response.statusCode==200){
-                       // Get.to(()=>ForgetPasswordVerificationScreen());
+                        // Get.to(()=>ForgetPasswordVerificationScreen());
                       }
                       else if(response.statusCode==400){
                         print(response.statusCode);

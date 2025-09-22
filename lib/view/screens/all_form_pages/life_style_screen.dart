@@ -81,9 +81,9 @@ class LifeStyleScreen extends StatelessWidget {
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    IncreaseAndDecrease(type: 'Adults'),
-                    SizedBox(width: 10),
-                    IncreaseAndDecrease(type: 'Children'),
+                    // IncreaseAndDecrease(type: 'Adults'),
+                    // SizedBox(width: 10),
+                    // IncreaseAndDecrease(type: 'Children'),
                   ],
                 ),
                 Row(

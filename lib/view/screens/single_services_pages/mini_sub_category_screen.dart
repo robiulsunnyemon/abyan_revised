@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
 import '../../../controller/mini_sub_category_controller/mini_sub_category_controller.dart';
 import '../../../utils/style/appColor.dart';
-import '../all_form_pages/jets_screen.dart';
+import '../../new_form_list/jets_form.dart';
+
 
 class MiniSubCategoryScreen extends StatelessWidget {
   final int subCategoryId;
@@ -74,7 +75,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       if(_miniSubCategoryController.miniSubCategories[index].hasForm){
                         if(_miniSubCategoryController.miniSubCategories[index].fromName=="Jets"){
                           Get.to(()=>JetsScreen(
-                            subCategoryId: _miniSubCategoryController.miniSubCategories[index].id,
+                           id: _miniSubCategoryController.miniSubCategories[index].id,
                           ));
                         }
                         else if(_miniSubCategoryController.miniSubCategories[index].fromName==""){}

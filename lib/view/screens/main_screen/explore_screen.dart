@@ -12,10 +12,11 @@ import '../../../controller/main_category_controller/main_category_controller.da
 import '../../../controller/mini_sub_category_controller/mini_sub_category_controller.dart';
 import '../../../controller/specific_category_controller/specific_category_controller.dart';
 import '../../../models/main_category_model/main_category_model.dart';
-import '../all_form_pages/hotel_and_villas_screeen.dart';
-import '../all_form_pages/jets_screen.dart';
-import '../all_form_pages/super_car_screen.dart';
-import '../all_form_pages/yacht_request_form_screen.dart';
+import '../../new_form_list/hotel_and_vilas.dart';
+import '../../new_form_list/jets_form.dart';
+import '../../new_form_list/super_car_screen.dart';
+import '../../new_form_list/yacht_form.dart';
+
 
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({super.key});
@@ -127,28 +128,28 @@ class ExploreScreen extends StatelessWidget {
                                                 "Jets") {
                                               Get.to(
                                                 () => JetsScreen(
-                                                  subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Hotel & Villas") {
                                               Get.to(
                                                 () => HotelAndVillasScreen(
-                                                  subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Yacht") {
                                               Get.to(
                                                 () => YachtRequestFormScreen(
-                                                  subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             } else if (subCategory.fromName ==
                                                 "Super Car") {
                                               Get.to(
                                                 () => SuperCarScreen(
-                                                  subCategoryId: subCategory.id,
+                                                  id: subCategory.id,
                                                 ),
                                               );
                                             }
