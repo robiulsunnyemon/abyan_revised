@@ -77,15 +77,6 @@ class CarouselContainer extends StatelessWidget {
                             color: Colors.white70,
                           ),
                         ),
-                        //const Spacer(),
-                        // personIcon != null
-                        //     ? _iconContainer(personIcon ?? '')
-                        //     : SizedBox(),
-                        // const SizedBox(width: 5),
-                        // clockIcon != null
-                        //     ? _iconContainer(clockIcon ?? '')
-                        //     : SizedBox(),
-
                       ],
                     )
                   : SizedBox(),
