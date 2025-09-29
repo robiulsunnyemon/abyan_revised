@@ -59,7 +59,7 @@ class SpecificCarauselContainer extends StatelessWidget {
                 )
                     : SizedBox(),
                 SizedBox(
-                  width: 130.w,
+                  width: 100.w,
                   child: Text(
                     location ?? '',
                     style: const TextStyle(

@@ -366,10 +366,11 @@ class SuperCarScreen extends StatelessWidget {
 
   /// Time slots
   final List<String> time = const [
-    '9am-12pm',
-    '12pm-3pm',
-    '3pm-6pm',
-    '6pm-9pm',
+    '1 day',
+    '2 days',
+    '3 days',
+    '4 days',
+    '5+ days',
   ];
 
   // Counters
@@ -413,7 +414,7 @@ class SuperCarScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 /// Time & duration
-                Text('Time & duration', style: AppTextStyle.bold16),
+                Text('Rental Period', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(

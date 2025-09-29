@@ -21,14 +21,6 @@ class ManagementApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child){
-        // if (AuthPrefService.hasToken()) {
-        //   print("hasToken");
-        //   return CustomBottomBar();
-        // } else {
-        //   print("has splash");
-        //   return SplashScreen();
-        // }
-
         return widget;
       },
     );
