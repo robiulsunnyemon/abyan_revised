@@ -4,6 +4,7 @@ import 'package:abyansf_asfmanagment_app/controller/event_controller/event_contr
 import 'package:abyansf_asfmanagment_app/controller/profile_controller/profile_controller.dart';
 import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
+import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/main_screen/event_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/main_screen/explore_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/main_screen/home_screen.dart';
@@ -73,7 +74,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.blackColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
@@ -97,13 +98,13 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                   width: 24,
                   height: 24,
                   colorFilter: ColorFilter.mode(
-                    isSelected ? AppColors.primaryDeepColor : AppColors.blackColor,
+                    isSelected ? AppColors.primaryDeepColor : AppColors.white,
                     BlendMode.srcIn,
                   ),),
                   SizedBox(height: 4),
                   Text(label[index], style: TextStyle(
-                    color: const Color(0xFF1A1A1A),
-                    fontSize: 8,
+                    color: isSelected ? AppColors.primaryDeepColor : AppColors.white,
+                    fontSize: 9,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   ),)

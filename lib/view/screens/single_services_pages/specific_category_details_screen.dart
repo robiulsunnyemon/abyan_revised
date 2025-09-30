@@ -27,7 +27,6 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: _onRefresh,
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: SafeArea(
           child: Obx(
             () => CustomScrollView(
@@ -58,7 +57,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                           },
                           icon: CircleAvatar(
                             radius: 18,
-                            backgroundColor: Colors.white70.withAlpha(100),
+                            backgroundColor: AppColors.goldenTextColor,
                             child: Icon(Icons.keyboard_arrow_left_outlined),
                           ),
                         ),

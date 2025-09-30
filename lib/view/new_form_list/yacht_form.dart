@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -151,13 +152,21 @@ class _BindableDropdown extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: DropdownButton<String>(
             isExpanded: true,
             value: safeValue,
-            hint: Text(hint),
+            iconEnabledColor: AppColors.white,
+            style:TextStyle(color: AppColors.white),
+            iconDisabledColor: AppColors.white,
+            hint: Text(hint,style: TextStyle(
+              color: AppColors.hintWhiteColor,
+              fontSize: 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),
             items: unique
@@ -211,12 +220,12 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
-            style: TextStyle(color: d == null ? Colors.grey : Colors.black),
+            style: TextStyle(color: d == null ? AppColors.hintWhiteColor : AppColors.white),
           ),
         ),
       );
@@ -243,7 +252,6 @@ class YachtRequestFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -308,17 +316,24 @@ class YachtRequestFormScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: peopleCtrl,
                     onChanged: (v) => controller.people.value = v,
+                    style:TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Please enter here how many people are going',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        BorderSide(color: AppColors.white, width: 1.2),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -330,17 +345,24 @@ class YachtRequestFormScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     onChanged: (v) => controller.contact.value = v,
+                    style:TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        BorderSide(color: AppColors.white, width: 1.2),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),

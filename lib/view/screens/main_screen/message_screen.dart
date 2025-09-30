@@ -13,7 +13,6 @@ class MassageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SafeArea(
@@ -39,7 +38,7 @@ class MassageScreen extends StatelessWidget {
                             width: 32,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: AppColors.greyBackgroundColor,
+                              color: AppColors.goldenTextColor,
                             ),
                             child: const Icon(
                               Icons.keyboard_arrow_left_outlined,
@@ -47,7 +46,7 @@ class MassageScreen extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Text(serviceData.name, style: AppTextStyle.bold24),
+                        Text(serviceData.name, style: AppTextStyle.bold24,overflow: TextOverflow.ellipsis,maxLines: 1,),
                         const Spacer(),
                         const SizedBox(width: 32), // Balance the row
                       ],

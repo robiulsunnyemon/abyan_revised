@@ -196,13 +196,19 @@ class _BindableDropdown extends StatelessWidget {
               height: 48,
               padding: const EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.lightLaserColor),
+                border: Border.all(color: AppColors.white),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: DropdownButton<String>(
+                style:TextStyle(color: AppColors.white),
                 isExpanded: true,
                 value: safeValue,
-                hint: Text(hint),
+                hint: Text(
+                  hint,
+                  style: AppTextStyle.regular12.copyWith(
+                    color: AppColors.white,
+                  ),
+                ),
                 dropdownColor: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 items: unique
@@ -260,12 +266,12 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
-            style: TextStyle(color: d == null ? Colors.grey : Colors.black),
+            style: TextStyle(color: d == null ? Colors.white : AppColors.white),
           ),
         ),
       );
@@ -278,6 +284,7 @@ class _DateField extends StatelessWidget {
 /// ==============================
 class JetsScreen extends StatelessWidget {
   final int id;
+
   JetsScreen({super.key, required this.id});
 
   final controller = Get.put(JetsFormController());
@@ -303,7 +310,6 @@ class JetsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -370,16 +376,10 @@ class JetsScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: IgnorePointer(
-                          ignoring: !isRound,
-                          child: Opacity(
-                            opacity: isRound ? 1 : 0.5,
-                            child: _DateField(
-                              label: 'Return',
-                              valueRx: controller.returnDate,
-                              onChanged: (d) => controller.returnDate.value = d,
-                            ),
-                          ),
+                        child: _DateField(
+                          label: 'Return',
+                          valueRx: controller.returnDate,
+                          onChanged: (d) => controller.departDate.value = d,
                         ),
                       ),
                     ],
@@ -410,22 +410,27 @@ class JetsScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
                     controller: contactCtrl,
+                    style:TextStyle(color: AppColors.white),
                     onChanged: (v) => controller.contact.value = v,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
-                        ),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                           width: 1.2,
                         ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: AppColors.backGroundColor,
                     ),
                   ),
                 ),
@@ -520,7 +525,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -528,11 +533,8 @@ class _IncreaseAndDecrease extends StatelessWidget {
             children: [
               Text(
                 type,
-                style: const TextStyle(
-                  color: AppColors.lightLaserColor,
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
+                style: AppTextStyle.regular12.copyWith(
+                  color: AppColors.hintWhiteColor,
                 ),
               ),
               Row(
@@ -543,7 +545,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
                       padding: EdgeInsets.all(6.0),
                       child: Icon(
                         Icons.remove_circle_outline,
-                        color: AppColors.lightLaserColor,
+                        color: AppColors.goldenTextColor,
                       ),
                     ),
                   ),
@@ -554,6 +556,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
+                        color: AppColors.white
                       ),
                     ),
                   ),
@@ -564,7 +567,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
                       padding: EdgeInsets.all(6.0),
                       child: Icon(
                         Icons.add_circle_outline,
-                        color: AppColors.lightLaserColor,
+                        color: AppColors.goldenTextColor,
                       ),
                     ),
                   ),
@@ -581,6 +584,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
+
   void decrease() {
     if (count.value > 0) count.value--;
   }

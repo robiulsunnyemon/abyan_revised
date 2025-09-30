@@ -121,6 +121,7 @@ class _BindableDropdown extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: DropdownButton<String>(
+            style:TextStyle(color: AppColors.white),
             isExpanded: true,
             value: safeValue,
             hint: Text(hint),
@@ -283,6 +284,7 @@ class WellnessForm extends StatelessWidget {
                   child: TextFormField(
                     controller: nameCtrl,
                     onChanged: (v) => form.fullName.value = v,
+                    style:TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       hintText: 'Enter your full name',
                       enabledBorder: OutlineInputBorder(
@@ -302,6 +304,7 @@ class WellnessForm extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
+                    style:TextStyle(color: AppColors.white),
                     controller: emailCtrl,
                     onChanged: (v) => form.email.value = v,
                     keyboardType: TextInputType.emailAddress,
@@ -325,6 +328,7 @@ class WellnessForm extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
                     controller: contactCtrl,
+                    style:TextStyle(color: AppColors.white),
                     onChanged: (v) => form.contact.value = v,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -516,6 +520,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.white
                     ),
                   )),
                   const SizedBox(width: 10),

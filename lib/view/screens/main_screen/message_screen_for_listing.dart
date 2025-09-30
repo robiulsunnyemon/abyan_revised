@@ -16,7 +16,6 @@ class MessageScreenForListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SafeArea(
@@ -30,7 +29,7 @@ class MessageScreenForListing extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                 // Header Row
+                  // Header Row
                   Container(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Row(
@@ -42,7 +41,7 @@ class MessageScreenForListing extends StatelessWidget {
                             width: 32.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: AppColors.greyBackgroundColor,
+                              color: AppColors.goldenTextColor,
                             ),
                             child: const Icon(
                               Icons.keyboard_arrow_left_outlined,
@@ -52,26 +51,33 @@ class MessageScreenForListing extends StatelessWidget {
                         const Spacer(),
                         SizedBox(
                           width: 250.w,
-                            child: Text(serviceData.data?.name?? "", style: AppTextStyle.bold24,maxLines: 1,)),
+                          child: Text(
+                            serviceData.data?.name ?? "",
+                            style: AppTextStyle.bold24,
+                            maxLines: 1,
+                          ),
+                        ),
                         const Spacer(),
                         const SizedBox(width: 32),
                       ],
                     ),
                   ),
 
-                  SizedBox(height: 10.h,),
-
+                  SizedBox(height: 10.h),
 
                   // Image Stack
                   Stack(
                     children: [
                       Container(
-                        height: 170.h,
+                        height: 160.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           image: DecorationImage(
-                            image: NetworkImage(serviceData.data?.mainImage??AppConstants.defaultImageUrl),
+                            image: NetworkImage(
+                              serviceData.data?.mainImage ??
+                                  AppConstants.defaultImageUrl,
+                            ),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -83,7 +89,7 @@ class MessageScreenForListing extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              serviceData.data?.name??"",
+                              serviceData.data?.name ?? "",
                               style: AppTextStyle.bold20.copyWith(
                                 color: AppColors.white,
                               ),
@@ -108,14 +114,10 @@ class MessageScreenForListing extends StatelessWidget {
                     ],
                   ),
 
-                   SizedBox(height: 30.h),
-
-                   SizedBox(height: 30.h),
-
-
+                  SizedBox(height: 50.h),
                   // WhatsApp Contact Card
                   Container(
-                    height: 170.h,
+                    height: 160.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
@@ -138,7 +140,11 @@ class MessageScreenForListing extends StatelessWidget {
                           style: ElevatedButton.styleFrom(elevation: 0),
                           onPressed: () async {
                             final whatsappUrl =
-                                serviceData.data?.adminWhatsApp?.mobileWhatsappLink ??"";
+                                serviceData
+                                    .data
+                                    ?.adminWhatsApp
+                                    ?.mobileWhatsappLink ??
+                                "";
                             debugPrint("Attempting to launch: $whatsappUrl");
 
                             try {
@@ -166,7 +172,7 @@ class MessageScreenForListing extends StatelessWidget {
                               } catch (e2) {
                                 debugPrint("Fallback launch failed: $e2");
                                 // Show error to user
-                                if(context.mounted){
+                                if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Could not open WhatsApp"),

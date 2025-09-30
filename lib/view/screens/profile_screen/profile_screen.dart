@@ -1,4 +1,4 @@
-     // import 'package:abyansf_asfmanagment_app/view/screens/profile_screen/privacy_policy.dart';
+// import 'package:abyansf_asfmanagment_app/view/screens/profile_screen/privacy_policy.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
 // import 'package:get/get.dart';
@@ -248,12 +248,16 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backGroundColor,
       appBar: AppBar(
-        title: Text('My Profile',style: AppTextStyle.bold24,overflow: TextOverflow.ellipsis,maxLines: 1,),
+        title: Text(
+          'My Profile',
+          style: AppTextStyle.bold24,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: AppColors.white,
         surfaceTintColor: AppColors.white,
       ),
       body: SafeArea(
@@ -283,8 +287,7 @@ class ProfileScreen extends StatelessWidget {
                               bottom: 5,
                               right: 5,
                               child: InkWell(
-                                onTap: () =>
-                                    _imagePickerController.pickImage(),
+                                onTap: () => _imagePickerController.pickImage(),
                                 child: Container(
                                   width: 20,
                                   height: 20,
@@ -307,8 +310,7 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Obx(
                               () => Text(
-                                _profileController.user.value?.name ??
-                                    "Known",
+                                _profileController.user.value?.name ?? "Known",
                                 style: AppTextStyle.bold20,
                               ),
                             ),
@@ -316,7 +318,7 @@ class ProfileScreen extends StatelessWidget {
                               label: Text(
                                 'Package',
                                 style: AppTextStyle
-                                    .interBold10, // Your custom text style
+                                    .interBold10.copyWith(color: AppColors.blackColor) // Your custom text style
                               ),
                               backgroundColor: const Color(0xFFC7AE6A),
                               // Background color
@@ -361,7 +363,8 @@ class ProfileScreen extends StatelessWidget {
                           text: 'Admin Request',
                           isArrowTrue: true,
                           onTap: () async {
-                            final whatsappUrl =_adminWhatsappController.whatsappLink;
+                            final whatsappUrl =
+                                _adminWhatsappController.whatsappLink;
 
                             try {
                               // First try launching directly without canLaunch check
@@ -388,7 +391,7 @@ class ProfileScreen extends StatelessWidget {
                               } catch (e2) {
                                 debugPrint("Fallback launch failed: $e2");
                                 // Show error to user
-                                if(context.mounted){
+                                if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Could not open WhatsApp"),
@@ -471,35 +474,47 @@ class ProfileScreen extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: EdgeInsets.symmetric(vertical: 2.h),
+        child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  icon,
-                  size: 20.sp,
-                  color: isRedColor ? Colors.red : Colors.black54,
-                ),
-                SizedBox(width: 15.w),
-                SizedBox(
-                  width: 250.w,
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      color: isRedColor ? Colors.red : const Color(0xFF454545),
-                      fontSize: 16.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                Row(
+                  children: [
+                    Icon(
+                      icon,
+                      size: 20.sp,
+                      color: isRedColor
+                          ? Colors.red
+                          : AppColors.goldenTextColor,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                    SizedBox(width: 15.w),
+                    SizedBox(
+                      width: 250.w,
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          color: isRedColor ? Colors.red : AppColors.white,
+                          fontSize: 16.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
                 ),
+                if (isArrowTrue)
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16.sp,
+                    color: AppColors.white,
+                  ),
               ],
             ),
-            if (isArrowTrue) Icon(Icons.arrow_forward_ios, size: 16.sp),
+            Divider(),
           ],
         ),
       ),
@@ -511,7 +526,7 @@ class ProfileScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.backGroundColor,
           content: SizedBox(
             height: 200.h,
             width: 200.w,

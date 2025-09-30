@@ -17,7 +17,6 @@ import '../../new_form_list/jets_form.dart';
 import '../../new_form_list/super_car_screen.dart';
 import '../../new_form_list/yacht_form.dart';
 
-
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({super.key});
 
@@ -34,7 +33,6 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: _onRefresh,

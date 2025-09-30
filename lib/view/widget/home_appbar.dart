@@ -19,7 +19,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      color: AppColors.white,
+      color: AppColors.backGroundColor,
       child: _buildAppBarContent(),
     );
   }
@@ -128,7 +128,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildNotificationIcon() {
     return GestureDetector(
       onTap: () => Get.to(() =>  NotificationScreen()),
-      child: const Icon(Icons.notification_add),
+      child: const Icon(Icons.notification_add,color: AppColors.white,),
     );
   }
 
@@ -137,7 +137,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       fontSize: fontSize,
       fontWeight: AppStyles.weightMedium,
       fontFamily: "Inter",
-      color: AppColors.blackColor,
+      color: AppColors.goldenTextColor,
     );
   }
 
@@ -146,7 +146,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       fontSize: AppStyles.fontM,
       fontWeight: AppStyles.weightRegular,
       fontFamily: "Inter",
-      color: AppColors.blackColor,
+      color: AppColors.goldenTextColor,
     );
   }
 

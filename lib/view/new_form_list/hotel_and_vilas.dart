@@ -44,7 +44,7 @@ Map<String, dynamic> deepSanitize(Map<String, dynamic> m) =>
 class HotelVillasFormController extends GetxController {
   // dropdowns
   final RxnString accommodationType = RxnString(); // Ac | NonAc | Premium
-  final RxnString hotelName = RxnString();         // selected hotel
+  final RxnString hotelName = RxnString(); // selected hotel
 
   // text fields
   final RxString location = ''.obs;
@@ -57,16 +57,15 @@ class HotelVillasFormController extends GetxController {
   // optional auth
   String? authToken;
 
-  String? validate({
-    required int adults,
-    required int children,
-  }) {
-    if (accommodationType.value == null) return "Please select accommodation type.";
+  String? validate({required int adults, required int children}) {
+    if (accommodationType.value == null)
+      return "Please select accommodation type.";
     if (location.value.trim().isEmpty) return "Please enter location.";
     if (hotelName.value == null) return "Please select a hotel.";
     if (checkIn.value == null) return "Please select check-in date.";
     if (checkOut.value == null) return "Please select check-out date.";
-    if (!checkOut.value!.isAfter(checkIn.value!)) return "Check-out must be after check-in.";
+    if (!checkOut.value!.isAfter(checkIn.value!))
+      return "Check-out must be after check-in.";
     if (adults <= 0) return "Adults must be at least 1.";
     if (contact.value.trim().isEmpty) return "Please enter WhatsApp number.";
     return null;
@@ -80,7 +79,11 @@ class HotelVillasFormController extends GetxController {
     // client-side validation
     final err = validate(adults: adult, children: children);
     if (err != null) {
-      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Validation failed',
+        err,
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return;
     }
 
@@ -89,16 +92,13 @@ class HotelVillasFormController extends GetxController {
       "subCategoryId": id,
       "typeOfAccommodation": accommodationType.value,
       "location": {
-        "from": location,           // RxString (deepSanitize unwrap করবে)
+        "from": location, // RxString (deepSanitize unwrap করবে)
       },
       "nameOfHotel": hotelName.value,
       "checkInDate": checkIn.value, // DateTime (deepSanitize ISO করবে)
       "checkOutDate": checkOut.value,
-      "guests": {
-        "adults": adult,
-        "children": children,
-      },
-      "contact": contact,           // RxString (deepSanitize unwrap করবে)
+      "guests": {"adults": adult, "children": children},
+      "contact": contact, // RxString (deepSanitize unwrap করবে)
     };
 
     // Convert Rx/DateTime → primitives/ISO
@@ -134,24 +134,31 @@ class HotelVillasFormController extends GetxController {
 /// ==============================
 class HotelAndVillasScreen extends StatelessWidget {
   final int id;
+
   HotelAndVillasScreen({super.key, required this.id});
 
   final form = Get.put(HotelVillasFormController());
 
   // sample data
-  final List<String> accommodationTypes = const [ 'Hotel', ' Apartment', ' Luxury Private Villa'
+  final List<String> accommodationTypes = const [
+    'Hotel',
+    ' Apartment',
+    ' Luxury Private Villa',
   ];
   final List<String> hotelNames = const [
     'Hotel Sunrise',
     'Blue Lagoon Resort',
     'Palm Vista Villas',
     'Royal Crown',
-    'Premium Stay'
+    'Premium Stay',
   ];
 
   // counters
   final adultController = Get.put(CounterController(), tag: 'hotel_adults');
-  final childrenController = Get.put(CounterController(), tag: 'hotel_children');
+  final childrenController = Get.put(
+    CounterController(),
+    tag: 'hotel_children',
+  );
 
   // text controllers
   final TextEditingController locationCtrl = TextEditingController();
@@ -160,7 +167,6 @@ class HotelAndVillasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -170,7 +176,6 @@ class HotelAndVillasScreen extends StatelessWidget {
               children: [
                 const CustomAppBar(title: 'Hotel & Villas'),
                 const SizedBox(height: 8),
-
                 // Accommodation type
                 Text('Type of accommodation', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
@@ -189,15 +194,25 @@ class HotelAndVillasScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: locationCtrl,
                     onChanged: (v) => form.location.value = v,
+                    style:TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
                       hintText: 'Address',
-                      fillColor: AppColors.white,
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      fillColor: AppColors.backGroundColor,
                     ),
                   ),
                 ),
@@ -261,16 +276,28 @@ class HotelAndVillasScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     keyboardType: TextInputType.phone,
+                    style:TextStyle(color: AppColors.white),
                     onChanged: (v) => form.contact.value = v,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: AppColors.backGroundColor,
                     ),
                   ),
                 ),
@@ -299,9 +326,9 @@ class HotelAndVillasScreen extends StatelessWidget {
                           try {
                             // sync from controllers (trim for safety)
                             form.location.value = locationCtrl.text.trim();
-                            form.contact.value  = contactCtrl.text.trim();
+                            form.contact.value = contactCtrl.text.trim();
 
-                            final adults   = adultController.count.value;
+                            final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
                             await form.submitForm(
@@ -368,29 +395,38 @@ class _BindableDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final unique = (items
-        .where((e) => e.trim().isNotEmpty)
-        .map((e) => e.trim())
-        .toSet()
-        .toList())
-      ..sort();
+    final unique =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final current = selected.value;
-      final safeValue = (current != null && unique.contains(current)) ? current : null;
+      final safeValue = (current != null && unique.contains(current))
+          ? current
+          : null;
 
       return DropdownButtonHideUnderline(
         child: Container(
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: DropdownButton<String>(
             isExpanded: true,
+            style:TextStyle(color: AppColors.white),
             value: safeValue,
-            hint: Text(hint),
+            hint: Text(
+              hint,
+              style: AppTextStyle.regular12.copyWith(
+                color: AppColors.hintWhiteColor,
+              ),
+            ),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),
             items: unique
@@ -425,8 +461,8 @@ class _DateField extends StatelessWidget {
       final text = (d == null)
           ? label
           : "${d.day.toString().padLeft(2, '0')}-"
-          "${d.month.toString().padLeft(2, '0')}-"
-          "${d.year}";
+                "${d.month.toString().padLeft(2, '0')}-"
+                "${d.year}";
 
       return InkWell(
         onTap: () async {
@@ -444,13 +480,15 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
             style: TextStyle(
-              color: d == null ? Colors.grey : Colors.black,
+              color: d == null
+                  ? AppColors.hintWhiteColor
+                  : AppColors.hintWhiteColor,
             ),
           ),
         ),
@@ -465,8 +503,11 @@ class _DateField extends StatelessWidget {
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 (>=1)
   void increase() => count.value++;
+
   void decrease() {
-    if (count.value > 1) count.value--; // keep >=1 for adults; children চাইলে আলাদা controller/use-case
+    if (count.value > 1)
+      count
+          .value--; // keep >=1 for adults; children চাইলে আলাদা controller/use-case
   }
 }
 
@@ -489,7 +530,7 @@ class IncreaseAndDecrease extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -498,7 +539,7 @@ class IncreaseAndDecrease extends StatelessWidget {
               Text(
                 type,
                 style: const TextStyle(
-                  color: AppColors.lightLaserColor,
+                  color: AppColors.hintWhiteColor,
                   fontSize: 12,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -510,23 +551,32 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline, color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        color: AppColors.goldenTextColor,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Obx(() => Text(
-                    counter.count.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  Obx(
+                    () => Text(
+                      counter.count.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline, color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.goldenTextColor,
+                      ),
                     ),
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
@@ -22,8 +23,8 @@ class MiniSubCategoryScreen extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: _onRefresh,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
+          title: Text('Luxury Travels'),
           leading: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
@@ -36,7 +37,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                     width: 32,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.greyBackgroundColor,
+                      color: AppColors.goldenTextColor,
                     ),
                     child: const Icon(Icons.keyboard_arrow_left_outlined),
                   ),
@@ -44,7 +45,6 @@ class MiniSubCategoryScreen extends StatelessWidget {
               ],
             ),
           ),
-          backgroundColor: AppColors.white,
           automaticallyImplyLeading: false,
           surfaceTintColor: Colors.white,
         ),
@@ -52,7 +52,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
           padding: EdgeInsets.all(16),  // Add padding
           itemCount: _miniSubCategoryController.miniSubCategories.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 1,
             mainAxisExtent: 213,
             crossAxisSpacing: 10,  // Add spacing between items
             mainAxisSpacing: 13,    // Add spacing between rows
@@ -97,12 +97,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                   SizedBox(height: 8),  // Add spacing
                   Text(
                     _miniSubCategoryController.miniSubCategories[index].name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Playfair Display',
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: AppTextStyle.bold16,
                     maxLines: 1,  // Prevent text overflow
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -15,6 +15,7 @@ import '../../widget/custom_event_card_two.dart';
 class EventHistoryIndividualPage extends StatefulWidget {
   Event event;
   final List<Event> eventList;
+
   EventHistoryIndividualPage({
     super.key,
     required this.event,
@@ -22,24 +23,25 @@ class EventHistoryIndividualPage extends StatefulWidget {
   });
 
   @override
-  State<EventHistoryIndividualPage> createState() => _EventHistoryIndividualPageState();
+  State<EventHistoryIndividualPage> createState() =>
+      _EventHistoryIndividualPageState();
 }
 
-class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage> {
+class _EventHistoryIndividualPageState
+    extends State<EventHistoryIndividualPage> {
   final _eventController = Get.put(EventController());
-  Future<void> _onRefresh()async{
+
+  Future<void> _onRefresh() async {
     await _eventController.fetchUpcomingEvents();
     await _eventController.fetchPastEvents();
   }
 
   @override
   Widget build(BuildContext context) {
-
     DateTime parsedDateTime = DateTime.parse(widget.event.date.toString());
 
-
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backGroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -54,7 +56,7 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                   CustomAppBar(title: 'Event Details'),
                   Container(
                     width: double.infinity,
-                    height: 228.h,
+                    height: 200.h,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
@@ -68,7 +70,7 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                       Text(
                         DateFormat('MMMM dd, yyyy').format(parsedDateTime),
                         style: TextStyle(
-                          color: const Color(0xFF333333),
+                          color: AppColors.white,
                           fontSize: 12,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
@@ -77,7 +79,7 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                       Text(
                         widget.event.time,
                         style: TextStyle(
-                          color: const Color(0xFF333333),
+                          color: AppColors.white,
                           fontSize: 12,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
@@ -86,7 +88,7 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                       Text(
                         'Status:',
                         style: TextStyle(
-                          color: const Color(0xFF333333),
+                          color: AppColors.white,
                           fontSize: 12,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
@@ -130,14 +132,14 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                                 child: Icon(
                                   Icons.location_on,
                                   size: 20,
-                                  color: AppColors.lightLaserColor,
+                                  color: AppColors.white,
                                 ),
                               ),
                               const SizedBox(width: 6),
                               Text(
                                 widget.event.location,
                                 style: TextStyle(
-                                  color: AppColors.lightLaserColor,
+                                  color: AppColors.white,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -149,11 +151,17 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(AssetPath.lsiconUserCrowd),
+                          SvgPicture.asset(
+                            AssetPath.lsiconUserCrowd,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.white,
+                              BlendMode.srcIn
+                            ),
+                          ),
                           Text(
                             'Max: ${widget.event.maxPerson}',
                             style: TextStyle(
-                              color: const Color(0xFF2E2E2E),
+                              color: AppColors.white,
                               fontSize: 12,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
@@ -167,41 +175,43 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                   Text(widget.event.description),
                   SizedBox(height: 10),
 
-                  if(widget.event.status=="Active")
+                  if (widget.event.status == "Active")
                     Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: (){
-                          Get.back();
-                        },
-                        child: Text(
-                          "Skip",
-                          style: TextStyle(
-                            color: AppColors.lightLaserColor,
-                            fontSize: 25.sp,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            "Skip",
+                            style: TextStyle(
+                              color: AppColors.lightLaserColor,
+                              fontSize: 25.sp,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 180,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            _eventController.bookEvent(eventId: widget.event.id);
-                          },
-                          style: ElevatedButton.styleFrom(),
-                          child: Text('Attendance'),
+                        SizedBox(
+                          width: 180,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              _eventController.bookEvent(
+                                eventId: widget.event.id,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(),
+                            child: Text('Attendance'),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
                   SizedBox(height: 10),
-                  if(widget.eventList.isNotEmpty)
+                  if (widget.eventList.isNotEmpty)
                     Text('Upcoming Event', style: AppTextStyle.bold24),
-                    SizedBox(
+                  SizedBox(
                     height: 200.h,
                     child: ListView.builder(
                       shrinkWrap: true,
@@ -211,7 +221,7 @@ class _EventHistoryIndividualPageState extends State<EventHistoryIndividualPage>
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              widget.event=events;
+                              widget.event = events;
                             });
                           },
                           child: CustomEventCardTwo(

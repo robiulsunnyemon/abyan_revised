@@ -12,7 +12,6 @@ class CreatePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -22,7 +21,7 @@ class CreatePasswordScreen extends StatelessWidget {
               'Create New Password',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.blackColor,
+                color: AppColors.goldenTextColor,
                 fontSize: 40,
                 fontWeight: AppStyles.weightBold,
               ),
@@ -33,7 +32,7 @@ class CreatePasswordScreen extends StatelessWidget {
               textAlign: TextAlign.center,
 
               style: TextStyle(
-                color: Colors.black,
+                color: AppColors.white,
                 fontSize: 16,
                 fontFamily: "Inter",
               ),

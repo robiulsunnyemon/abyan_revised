@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -42,12 +43,11 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: const CustomAppBar(title: 'Restaurants'),
+              child: CustomAppBar(title: 'Restaurants'),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
@@ -153,7 +153,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                     Text(
                       'Number of guest',
                       style: TextStyle(
-                        color: const Color(0xFF1A1A1A) /* Woodsmoke-950 */,
+                        color: AppColors.goldenTextColor,
                         fontSize: 16,
                         fontFamily: 'PlayfairDisplay',
                         fontWeight: FontWeight.w600,

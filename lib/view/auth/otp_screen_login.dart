@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/view/auth/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -134,7 +135,7 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
               'Verification',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: const Color(0xFF1A1A1A),
+                color: AppColors.goldenTextColor,
                 fontSize: 32,
                 fontFamily: 'PlayfairDisplay',
                 fontWeight: FontWeight.w600,
@@ -145,7 +146,7 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
               'We sent Verification code to your email',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
+                color: AppColors.white,
                 fontSize: 12,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
@@ -195,7 +196,7 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Didn't receive a code? ",
-                    style: TextStyle(fontFamily: 'Inter')),
+                    style: TextStyle(fontFamily: 'Inter',color: AppColors.white)),
                 GestureDetector(
                   onTap: _controller.start.value == 0
                       ? () async {

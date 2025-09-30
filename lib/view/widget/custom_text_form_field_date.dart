@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormFieldLevel extends StatelessWidget {
@@ -24,13 +25,12 @@ class CustomTextFormFieldLevel extends StatelessWidget {
           Text(
             headingText,
             style: TextStyle(
-              color: const Color(0xFF1A1A1A),
+              color: AppColors.goldenTextColor,
               fontSize: 16,
               fontFamily: 'PlayfairDisplay',
               fontWeight: FontWeight.w600,
             ),
           ),
-
           Container(
             width: double.infinity,
             height: 63,
@@ -39,7 +39,7 @@ class CustomTextFormFieldLevel extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                   width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
+                  color: AppColors.white,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
@@ -54,7 +54,7 @@ class CustomTextFormFieldLevel extends StatelessWidget {
                       levelText,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: const Color(0xFFBD9B52) /* Laser-400 */,
+                        color: AppColors.hintWhiteColor,
                         fontSize: 8,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
@@ -64,18 +64,17 @@ class CustomTextFormFieldLevel extends StatelessWidget {
                       hintText,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: const Color(0xFF6D6D6D) /* Woodsmoke-500 */,
+                        color: AppColors.hintWhiteColor,
                         fontSize: 12,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-
                   ],
                 ),
                 IconButton(
                   onPressed: onTap,
-                  icon: Icon(Icons.keyboard_arrow_down_rounded),
+                  icon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.white,),
                 ),
               ],
             ),

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 
 ThemeData themeData() {
   return ThemeData(
+    scaffoldBackgroundColor: AppColors.backGroundColor,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.backGroundColor,
+    ),
     fontFamily: "PlayfairDisplay",
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

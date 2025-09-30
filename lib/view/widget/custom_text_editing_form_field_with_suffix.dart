@@ -1,4 +1,4 @@
-
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextEditingFormFieldWithSuffix extends StatelessWidget {
@@ -7,11 +7,19 @@ class CustomTextEditingFormFieldWithSuffix extends StatelessWidget {
   final VoidCallback onTap;
   final TextEditingController controller;
   final bool isReadOnly;
-  const CustomTextEditingFormFieldWithSuffix({super.key, this.isReadOnly=false, required this.onTap, required this.headingText, required this.hintText, required this.controller});
+
+  const CustomTextEditingFormFieldWithSuffix({
+    super.key,
+    this.isReadOnly = false,
+    required this.onTap,
+    required this.headingText,
+    required this.hintText,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       height: 110,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +28,7 @@ class CustomTextEditingFormFieldWithSuffix extends StatelessWidget {
           Text(
             headingText,
             style: TextStyle(
-              color: const Color(0xFF1A1A1A),
+              color: AppColors.goldenTextColor,
               fontSize: 16,
               fontFamily: 'PlayfairDisplay',
               fontWeight: FontWeight.w600,
@@ -32,37 +40,34 @@ class CustomTextEditingFormFieldWithSuffix extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
-                borderSide:BorderSide(
-                  width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
-                ),
+                borderSide: BorderSide(width: 1, color: AppColors.white),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
-                borderSide:BorderSide(
-                  width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
-                ),
+                borderSide: BorderSide(width: 1, color: AppColors.white),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
-                borderSide:BorderSide(
-                  width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
-                ),
+                borderSide: BorderSide(width: 1, color: AppColors.white),
               ),
               fillColor: Colors.transparent,
               filled: true,
               hintText: hintText,
-              suffixIcon: IconButton(onPressed: onTap, icon: Icon(Icons.keyboard_arrow_down_rounded)),
+              suffixIcon: IconButton(
+                onPressed: onTap,
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.white,
+                ),
+              ),
               hintStyle: TextStyle(
-                color: const Color(0xFF6D6D6D),
+                color: AppColors.hintWhiteColor,
                 fontSize: 12,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -214,7 +214,7 @@ class _JetsScreenState extends State<JetsScreen> {
                       'Number of guest',
                       style: TextStyle(
                         color: const Color(0xFF1A1A1A) /* Woodsmoke-950 */,
-                        fontSize: 16,
+                        fontSize: 16, 
                         fontFamily: 'PlayfairDisplay',
                         fontWeight: FontWeight.w600,
                       ),

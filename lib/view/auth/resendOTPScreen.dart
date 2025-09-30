@@ -13,7 +13,6 @@ class ResendOTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -23,7 +22,7 @@ class ResendOTPScreen extends StatelessWidget {
               'Recover Password',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.blackColor,
+                color: AppColors.goldenTextColor,
                 fontSize: 30.sp,
                 fontWeight: AppStyles.weightBold,
               ),
@@ -33,7 +32,7 @@ class ResendOTPScreen extends StatelessWidget {
               'Enter the Email Address that you used when\nregister to recover your password, You will receive a\nVerification code.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.greyColor,
+                color: AppColors.white,
                 fontSize: 15,
                 fontFamily: "inter",
               ),

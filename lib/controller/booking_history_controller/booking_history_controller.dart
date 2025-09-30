@@ -9,12 +9,17 @@ class EventBookingController extends GetxController {
   var isLoading = false.obs;
   var bookingsAll = <Booking>[].obs;
   var errorMessage = ''.obs;
+  var isSelect = 0.obs;
 
 
   @override
   void onInit() {
    fetchUserAllBookings();
     super.onInit();
+  }
+  void onClick(int index){
+    isSelect.value = index;
+    update();
   }
 
   Future<void> fetchUserAllBookings() async {

@@ -1,4 +1,5 @@
 
+import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextEditingFormField extends StatelessWidget {
@@ -19,7 +20,7 @@ class CustomTextEditingFormField extends StatelessWidget {
           Text(
             headingText,
             style: TextStyle(
-              color: const Color(0xFF1A1A1A),
+              color: AppColors.goldenTextColor,
               fontSize: 16,
               fontFamily: 'PlayfairDisplay',
               fontWeight: FontWeight.w600,
@@ -28,33 +29,34 @@ class CustomTextEditingFormField extends StatelessWidget {
           TextFormField(
             readOnly: isReadOnly,
             controller: controller,
+            style:TextStyle(color: AppColors.white),
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
                 borderSide:BorderSide(
                   width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
+                  color: AppColors.white,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
                 borderSide:BorderSide(
                   width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
+                  color: AppColors.white,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
                 borderSide:BorderSide(
                   width: 1,
-                  color: const Color(0xFFDFD2A9) /* Laser-200 */,
+                  color: AppColors.white,
                 ),
               ),
               fillColor: Colors.transparent,
               filled: true,
               hintText: hintText,
               hintStyle: TextStyle(
-                color: const Color(0xFF6D6D6D),
+                color: AppColors.hintWhiteColor,
                 fontSize: 12,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,

@@ -15,7 +15,6 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -28,7 +27,7 @@ class SignupScreen extends StatelessWidget {
                 'Request an account',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppColors.blackColor,
+                  color: AppColors.goldenTextColor,
                   fontSize: 40.sp,
                   fontWeight: AppStyles.weightBold,
                 ),
@@ -38,7 +37,7 @@ class SignupScreen extends StatelessWidget {
                 'Get started with your access in\njust a few steps.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.white,
                   fontSize: 18,
                   fontFamily: 'Inter',
                 ),
@@ -92,6 +91,7 @@ class SignupScreen extends StatelessWidget {
                   Text(
                     "Already have an account?",
                     style: TextStyle(
+                      color: AppColors.white,
                       fontSize: AppStyles.fontL,
                       fontFamily: 'Inter',
                     ),

@@ -9,7 +9,6 @@ import '../../../utils/style/app_text_styles.dart';
 import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
 
-
 dynamic _deepUnwrap(dynamic v) {
   // Rx types → .value
   if (v is Rx) return _deepUnwrap(v.value);
@@ -60,10 +59,7 @@ class BeachClubFormController extends GetxController {
   // (Optional) auth token/header
   String? authToken;
 
-  Map<String, dynamic> toJson({
-    required int adults,
-    required int children,
-  }) {
+  Map<String, dynamic> toJson({required int adults, required int children}) {
     // (toJson ইউজ করতে চাইলে ব্যবহার করুন — deepSanitize ছাড়াই ক্লিন)
     return {
       "venueName": venue.value,
@@ -79,10 +75,7 @@ class BeachClubFormController extends GetxController {
     };
   }
 
-  String? validate({
-    required int adults,
-    required int children,
-  }) {
+  String? validate({required int adults, required int children}) {
     if (venue.value == null) return "Please select a venue.";
     if (fullName.value.trim().isEmpty) return "Please enter your full name.";
     if (email.value.trim().isEmpty) return "Please enter your email.";
@@ -102,15 +95,21 @@ class BeachClubFormController extends GetxController {
     // client-side validation
     final err = validate(adults: adult, children: children);
     if (err != null) {
-      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Validation failed',
+        err,
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return;
     }
 
     // Build raw payload (Rx/DateTime/TimeOfDay allowed here)
     final raw = <String, dynamic>{
       "listingId": id,
-      "bookingDate": reservationDate.value,      // DateTime? (deepSanitize ISO করবে)
-      "bookingTime": reservationTime.value,      // TimeOfDay? (deepSanitize HH:mm করবে)
+      "bookingDate": reservationDate.value,
+      // DateTime? (deepSanitize ISO করবে)
+      "bookingTime": reservationTime.value,
+      // TimeOfDay? (deepSanitize HH:mm করবে)
       "name": fullName.value.trim(),
       "email": email.value.trim(),
       "whatsapp": contact.value.trim(),
@@ -167,6 +166,7 @@ class BeachClubFormController extends GetxController {
 class BeachClubForm extends StatelessWidget {
   final int listingId;
   final String venueName;
+
   BeachClubForm({super.key, required this.listingId, required this.venueName});
 
   // Controller bind
@@ -176,7 +176,10 @@ class BeachClubForm extends StatelessWidget {
 
   // Counters
   final adultController = Get.put(CounterController(), tag: 'super_adults');
-  final childrenController = Get.put(CounterController(), tag: 'super_children');
+  final childrenController = Get.put(
+    CounterController(),
+    tag: 'super_children',
+  );
   final TextEditingController beachClubController = TextEditingController();
 
   // Text controllers
@@ -187,7 +190,6 @@ class BeachClubForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -214,18 +216,25 @@ class BeachClubForm extends StatelessWidget {
                   child: TextFormField(
                     controller: nameCtrl,
                     onChanged: (v) => form.fullName.value = v,
+                    style:TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       hintText: 'Enter your full name',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                           width: 1.2,
                         ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -238,18 +247,25 @@ class BeachClubForm extends StatelessWidget {
                     controller: emailCtrl,
                     onChanged: (v) => form.email.value = v,
                     keyboardType: TextInputType.emailAddress,
+                    style:TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                           width: 1.2,
                         ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -261,19 +277,26 @@ class BeachClubForm extends StatelessWidget {
                   child: TextFormField(
                     controller: phoneCtrl,
                     onChanged: (v) => form.contact.value = v,
+                    style:TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                           width: 1.2,
                         ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -417,8 +440,8 @@ class _DateField extends StatelessWidget {
       final text = (date == null)
           ? label
           : "${date.day.toString().padLeft(2, '0')}-"
-          "${date.month.toString().padLeft(2, '0')}-"
-          "${date.year}";
+                "${date.month.toString().padLeft(2, '0')}-"
+                "${date.year}";
       return InkWell(
         onTap: () async {
           final now = DateTime.now();
@@ -435,13 +458,15 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
             style: TextStyle(
-              color: valueRx.value == null ? Colors.grey : Colors.black,
+              color: valueRx.value == null
+                  ? AppColors.hintWhiteColor
+                  : AppColors.white,
             ),
           ),
         ),
@@ -485,13 +510,13 @@ class _TimeField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
             style: TextStyle(
-              color: valueRx.value == null ? Colors.grey : Colors.black,
+              color: valueRx.value == null ? AppColors.hintWhiteColor : AppColors.white,
             ),
           ),
         ),
@@ -519,30 +544,30 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> uniqueItems = (items
-        .where((e) => e.trim().isNotEmpty)
-        .map((e) => e.trim())
-        .toSet()
-        .toList())
-      ..sort();
+    final List<String> uniqueItems =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final String? current = selected.value;
       final String? safeValue =
-      (current != null && uniqueItems.contains(current)) ? current : null;
+          (current != null && uniqueItems.contains(current)) ? current : null;
 
       return DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
+          style:TextStyle(color: AppColors.white),
           isExpanded: true,
           hint: Text(hint),
           value: safeValue,
           items: uniqueItems
               .map(
-                (item) => DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            ),
-          )
+                (item) =>
+                    DropdownMenuItem<String>(value: item, child: Text(item)),
+              )
               .toList(),
           onChanged: onChanged,
           buttonStyleData: const ButtonStyleData(
@@ -572,6 +597,7 @@ class CustomDropdown extends StatelessWidget {
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
+
   void decrease() {
     if (count.value > 0) count.value--;
   }
@@ -596,7 +622,7 @@ class IncreaseAndDecrease extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -605,7 +631,7 @@ class IncreaseAndDecrease extends StatelessWidget {
               Text(
                 type,
                 style: const TextStyle(
-                  color: AppColors.lightLaserColor,
+                  color: AppColors.white,
                   fontSize: 12,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -619,17 +645,18 @@ class IncreaseAndDecrease extends StatelessWidget {
                       padding: EdgeInsets.all(6.0),
                       child: Icon(
                         Icons.remove_circle_outline,
-                        color: AppColors.lightLaserColor,
+                        color: AppColors.goldenTextColor,
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Obx(
-                        () => Text(
+                    () => Text(
                       counter.count.value.toString(),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
+                        color: AppColors.white
                       ),
                     ),
                   ),
@@ -640,7 +667,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                       padding: EdgeInsets.all(6.0),
                       child: Icon(
                         Icons.add_circle_outline,
-                        color: AppColors.lightLaserColor,
+                        color: AppColors.goldenTextColor,
                       ),
                     ),
                   ),

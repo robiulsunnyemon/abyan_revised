@@ -20,18 +20,19 @@ import 'listing_sub_image_screen.dart';
 
 class SingleBeachClubScreen extends StatelessWidget {
   final int listingId;
+
   SingleBeachClubScreen({super.key, required this.listingId});
 
   final CarouselSliderControllers _carouselSliderController = Get.find();
   final _listingController = Get.put(ListingDetailController());
   List location = [
     ' J1 Beach - Jumeirah - Jumeirah 1',
-    'The Palm Tower - 50th Floor - The Palm Jumeirah'
+    'The Palm Tower - 50th Floor - The Palm Jumeirah',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Obx(
           () => SafeArea(
@@ -62,7 +63,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                           },
                           icon: CircleAvatar(
                             radius: 18,
-                            backgroundColor: Colors.white70.withAlpha(100),
+                            backgroundColor: AppColors.goldenTextColor,
                             child: Icon(Icons.keyboard_arrow_left_outlined),
                           ),
                         ),
@@ -121,22 +122,21 @@ class SingleBeachClubScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-            
+
                           ElevatedButton(
                             onPressed: () {
                               if (_listingController.listingData.value !=
                                   null) {
                                 Get.to(
-                                      () => MenuScreen(
+                                  () => MenuScreen(
                                     listingDetailData:
-                                    _listingController.listingData.value!,
+                                        _listingController.listingData.value!,
                                   ),
                                 );
                               }
                             },
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Menu"),
                                 Icon(
@@ -148,10 +148,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-            
-            
+
                       const SizedBox(height: 18),
-            
+
                       Column(
                         children: [
                           Row(
@@ -164,8 +163,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       null) {
                                     Get.to(
                                       () => ListingSubImageScreen(
-                                        listingDetailData:
-                                            _listingController.listingData.value!,
+                                        listingDetailData: _listingController
+                                            .listingData
+                                            .value!,
                                       ),
                                     );
                                   }
@@ -219,7 +219,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -230,7 +232,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-            
+
                       // Indicator Row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -285,7 +287,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                         spacing: 10,
                         children: [
                           Expanded(
-                            child: CardContainer(image: AssetPath.priorityImage),
+                            child: CardContainer(
+                              image: AssetPath.priorityImage,
+                            ),
                           ),
                           Expanded(
                             child: CardContainer(image: AssetPath.drinkImage),
@@ -314,24 +318,30 @@ class SingleBeachClubScreen extends StatelessWidget {
                           fontFamily: "Inter",
                           fontSize: AppStyles.fontM,
                           fontWeight: AppStyles.weightRegular,
-                          color: AppColors.blackColor,
+                          color: AppColors.hintWhiteColor,
                         ),
                       ),
                       const SizedBox(height: 16),
                       Text("Hours", style: AppTextStyle.bold24),
                       const SizedBox(height: 10),
-            
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: List.generate(
-                          _listingController.listingData.value?.hours.length ?? 0,
+                          _listingController.listingData.value?.hours.length ??
+                              0,
                           (index) => Text(
-                            _listingController.listingData.value?.hours[index] ??
+                            _listingController
+                                    .listingData
+                                    .value
+                                    ?.hours[index] ??
                                 "",
+                            style: AppTextStyle.regular12.copyWith(
+                              color: AppColors.hintWhiteColor,
+                            ),
                           ),
                         ),
                       ),
-            
                       const SizedBox(height: 20),
                       Row(
                         children: [
@@ -347,7 +357,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                                   side: BorderSide(
                                     color: AppColors.lightLaserColor,
                                   ),
-                                  borderRadius: BorderRadiusGeometry.circular(4),
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    4,
+                                  ),
                                 ),
                               ),
                               child: Text('Cancel'),
@@ -387,9 +399,9 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "Beach club") {
                                     Get.to(
                                       () => BeachClubForm(
-                                         venueName: _listingController
+                                        venueName: _listingController
                                             .listingData
-                                             .value!
+                                            .value!
                                             .name,
                                         listingId: _listingController
                                             .listingData

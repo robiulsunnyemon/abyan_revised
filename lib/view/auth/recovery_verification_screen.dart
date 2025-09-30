@@ -507,12 +507,35 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
         controller: _controllers[index],
         focusNode: _focusNodes[index],
         textAlign: TextAlign.center,
+        cursorColor: AppColors.white,
         maxLength: 1,
         keyboardType: TextInputType.number,
         style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         decoration: InputDecoration(
+          fillColor: Colors.transparent,
           counterText: "",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: _hasError ? Colors.red : Colors.grey.shade400,
+              width: 2,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: _hasError ? Colors.red : Colors.grey.shade400,
+              width: 2,
+            )
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: _hasError ? Colors.red : Colors.grey.shade400,
+              width: 2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
               color: _hasError ? Colors.red : Colors.grey.shade400,
@@ -528,7 +551,6 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -538,7 +560,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
               'Verification',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: const Color(0xFF1A1A1A),
+                color: AppColors.goldenTextColor,
                 fontSize: 32,
                 fontFamily: 'PlayfairDisplay',
                 fontWeight: FontWeight.w600,
@@ -549,7 +571,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
               'We sent Verification code to your email',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
+                color: AppColors.white,
                 fontSize: 12,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
@@ -599,7 +621,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Didn't receive a code? ",
-                    style: TextStyle(fontFamily: 'Inter')),
+                    style: TextStyle(fontFamily: 'Inter',color: AppColors.white)),
                 GestureDetector(
                   onTap: _controller.start.value == 0
                       ? () {

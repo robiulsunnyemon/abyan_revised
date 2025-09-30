@@ -31,6 +31,7 @@ String? _toIso(DateTime? dt) => dt?.toIso8601String();
 class CounterController extends GetxController {
   final RxInt count = 1.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
+
   void decrease() {
     if (count.value > 0) count.value--;
   }
@@ -41,8 +42,8 @@ class CounterController extends GetxController {
 /// -----------------------------------------
 class BookingFormController extends GetxController {
   // Dropdown selections
-  final RxnString brand = RxnString();     // e.g., 'Audi'
-  final RxnString timeSlot = RxnString();  // e.g., '9am-12pm'
+  final RxnString brand = RxnString(); // e.g., 'Audi'
+  final RxnString timeSlot = RxnString(); // e.g., '9am-12pm'
 
   // Dates
   final Rxn<DateTime> startDate = Rxn<DateTime>();
@@ -54,10 +55,7 @@ class BookingFormController extends GetxController {
   // (Optional) Auth token/header
   String? authToken;
 
-  String? validate({
-    required int adults,
-    required int children,
-  }) {
+  String? validate({required int adults, required int children}) {
     if (brand.value == null) return "Please select a car brand.";
     if (timeSlot.value == null) return "Please select a time slot.";
     if (startDate.value == null) return "Please pick a start date.";
@@ -78,29 +76,35 @@ class BookingFormController extends GetxController {
     // validate first
     final err = validate(adults: adults, children: children);
     if (err != null) {
-      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Validation failed',
+        err,
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return;
     }
 
     // DateTime → ISO strings
     final String? startIso = _toIso(startDate.value);
-    final String? endIso   = _toIso(endDate.value);
+    final String? endIso = _toIso(endDate.value);
 
     // IMPORTANT: Send only ONE of subCategoryId / miniSubCategoryId
     // Here we use subCategoryId. If API needs miniSubCategoryId, swap the key.
     final Map<String, dynamic> body = _removeNulls({
-      "subCategoryId": id,                               // or "miniSubCategoryId": id
-      "typeOfAccommodation": brand.value,                // keep the field name your API expects
+      "subCategoryId": id,
+      // or "miniSubCategoryId": id
+      "typeOfAccommodation": brand.value,
+      // keep the field name your API expects
       "location": {
-        "from": timeSlot.value,                          // String
+        "from": timeSlot.value, // String
       },
-      "checkInDate":  startIso,                          // String (ISO), not DateTime
-      "checkOutDate": endIso,                            // String (ISO), not DateTime
-      "guests": {
-        "adults": adults,
-        "children": children,
-      },
-      "contact": contact.value.trim(),                   // String
+      "checkInDate": startIso,
+      // String (ISO), not DateTime
+      "checkOutDate": endIso,
+      // String (ISO), not DateTime
+      "guests": {"adults": adults, "children": children},
+      "contact": contact.value.trim(),
+      // String
     });
 
     try {
@@ -150,7 +154,7 @@ class BookingFormController extends GetxController {
 class CustomDropdown extends StatelessWidget {
   final List<String> items;
   final String hint;
-  final RxnString selected;               // external Rx value
+  final RxnString selected; // external Rx value
   final void Function(String?) onChanged; // setter
 
   const CustomDropdown({
@@ -163,30 +167,42 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> uniqueItems = (items
-        .where((e) => e.trim().isNotEmpty)
-        .map((e) => e.trim())
-        .toSet()
-        .toList())
-      ..sort();
+    final List<String> uniqueItems =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final String? current = selected.value;
       final String? safeValue =
-      (current != null && uniqueItems.contains(current)) ? current : null;
+          (current != null && uniqueItems.contains(current)) ? current : null;
 
       return DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
+          style:TextStyle(color: AppColors.white),
+          iconStyleData: IconStyleData(
+            iconDisabledColor: Colors.white,
+            iconEnabledColor: Colors.white,
+          ),
           isExpanded: true,
-          hint: Text(hint),
+          hint: Text(
+            hint,
+            style: TextStyle(
+              color: AppColors.hintWhiteColor,
+              fontSize: 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),
+          ),
           value: safeValue,
           items: uniqueItems
               .map(
-                (item) => DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            ),
-          )
+                (item) =>
+                    DropdownMenuItem<String>(value: item, child: Text(item)),
+              )
               .toList(),
           onChanged: onChanged,
           buttonStyleData: const ButtonStyleData(
@@ -231,8 +247,8 @@ class _DateField extends StatelessWidget {
       final text = (date == null)
           ? label
           : "${date.day.toString().padLeft(2, '0')}-"
-          "${date.month.toString().padLeft(2, '0')}-"
-          "${date.year}";
+                "${date.month.toString().padLeft(2, '0')}-"
+                "${date.year}";
 
       return InkWell(
         onTap: () async {
@@ -250,13 +266,15 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
             style: TextStyle(
-              color: valueRx.value == null ? Colors.grey : Colors.black,
+              color: valueRx.value == null
+                  ? AppColors.hintWhiteColor
+                  : AppColors.white,
             ),
           ),
         ),
@@ -287,7 +305,7 @@ class IncreaseAndDecrease extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -296,7 +314,7 @@ class IncreaseAndDecrease extends StatelessWidget {
               Text(
                 type,
                 style: const TextStyle(
-                  color: AppColors.lightLaserColor,
+                  color: AppColors.white,
                   fontSize: 12,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -308,23 +326,32 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline, color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        color: AppColors.goldenTextColor,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Obx(() => Text(
-                    counter.count.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  Obx(
+                    () => Text(
+                      counter.count.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline, color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.goldenTextColor,
+                      ),
                     ),
                   ),
                 ],
@@ -342,6 +369,7 @@ class IncreaseAndDecrease extends StatelessWidget {
 /// -----------------------------------------
 class SuperCarScreen extends StatelessWidget {
   final int id;
+
   SuperCarScreen({super.key, required this.id});
 
   final booking = Get.put(BookingFormController());
@@ -375,7 +403,10 @@ class SuperCarScreen extends StatelessWidget {
 
   // Counters
   final adultController = Get.put(CounterController(), tag: 'super_adults');
-  final childrenController = Get.put(CounterController(), tag: 'super_children');
+  final childrenController = Get.put(
+    CounterController(),
+    tag: 'super_children',
+  );
 
   // Contact field controller
   final TextEditingController phoneCtrl = TextEditingController();
@@ -383,7 +414,6 @@ class SuperCarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -400,7 +430,7 @@ class SuperCarScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.lightLaserColor),
+                    border: Border.all(color: AppColors.white),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -418,7 +448,7 @@ class SuperCarScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.lightLaserColor),
+                    border: Border.all(color: AppColors.white),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -480,21 +510,28 @@ class SuperCarScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: phoneCtrl,
                     keyboardType: TextInputType.phone,
+                    style:TextStyle(color: AppColors.white),
                     onChanged: (v) => booking.contact.value = v,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.lightLaserColor,
+                          color: AppColors.white,
                           width: 1.2,
                         ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),

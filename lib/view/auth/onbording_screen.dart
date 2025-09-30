@@ -24,12 +24,10 @@ class OnbordingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 16),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Stack(
@@ -81,7 +79,7 @@ class OnbordingScreen extends StatelessWidget {
                 'Your World. Curated for Luxury.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppColors.blackColor,
+                  color: AppColors.goldenTextColor,
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
                 ),
@@ -97,7 +95,7 @@ class OnbordingScreen extends StatelessWidget {
                 'Supercars, yachts, travel, entertainment, lifestyle, and more exclusively tailored to your standards.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppColors.greyColor,
+                  color: AppColors.white,
                   fontSize: 16,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -153,7 +151,7 @@ class OnbordingScreen extends StatelessWidget {
                       child: Text(
                         'Register',
                         style: TextStyle(
-                          color: AppColors.primaryColor,
+                          color: AppColors.blackColor,
                           fontSize: 16,
                           fontFamily: 'Playfair Display',
                           fontWeight: FontWeight.w500,
@@ -174,7 +172,7 @@ class OnbordingScreen extends StatelessWidget {
                 'By Continuing, you agree to L’invite’s terms of services and acknowledge you’ve read our privacy policy',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Color(0xFF4F4F4F),
+                  color: AppColors.white,
                   fontSize: 14,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,

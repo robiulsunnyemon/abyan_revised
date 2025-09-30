@@ -26,7 +26,7 @@ class SelectCounterCard extends StatelessWidget {
           height: 48,
           padding: EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -36,7 +36,7 @@ class SelectCounterCard extends StatelessWidget {
                 hintText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: const Color(0xFF6D6D6D),
+                  color: AppColors.hintWhiteColor,
                   fontSize: 12,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -49,7 +49,7 @@ class SelectCounterCard extends StatelessWidget {
                     onTap: decreaseOnTap,
                     child: SvgPicture.asset(AssetPath.minusIcons),
                   ),
-                  Text(counterText),
+                  Text(counterText,style: TextStyle(color: AppColors.hintWhiteColor),),
                   GestureDetector(
                     onTap: increaseOnTap,
                     child: SvgPicture.asset(AssetPath.plusIcons),

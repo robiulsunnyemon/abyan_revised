@@ -121,6 +121,7 @@ class _BindableDropdown extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: DropdownButton<String>(
+            style:TextStyle(color: AppColors.white),
             isExpanded: true,
             value: safeValue,
             hint: Text(hint),
@@ -282,6 +283,7 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: nameCtrl,
                     onChanged: (v) => form.fullName.value = v,
+                    style:TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       hintText: 'Enter your full name',
                       enabledBorder: OutlineInputBorder(
@@ -303,6 +305,7 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: emailCtrl,
                     onChanged: (v) => form.email.value = v,
+                    style:TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
@@ -325,6 +328,7 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     onChanged: (v) => form.contact.value = v,
+                    style:TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
@@ -505,6 +509,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.white
                     ),
                   )),
                   const SizedBox(width: 10),

@@ -18,7 +18,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -31,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                   'Login Here',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.blackColor,
+                    color: AppColors.goldenTextColor,
                     fontSize: 40,
                     fontWeight: AppStyles.weightBold,
                   ),
@@ -42,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
         
                   style: TextStyle(
-                    color: Colors.black,
+                    color: AppColors.white,
                     fontSize: 18,
                     fontFamily: "Inter",
                   ),
@@ -115,6 +114,7 @@ class LoginScreen extends StatelessWidget {
                     Text(
                       "Don't have an account?",
                       style: TextStyle(
+                        color: AppColors.white,
                         fontSize: AppStyles.fontL,
                         fontFamily: "inter",
                       ),
