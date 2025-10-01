@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../controller/event_controller/event_controller.dart';
 import '../../widget/custom_event_card_two.dart';
 
@@ -172,7 +171,7 @@ class _EventHistoryIndividualPageState
                     ],
                   ),
                   Text('About This Event', style: AppTextStyle.bold20),
-                  Text(widget.event.description),
+                  Text(widget.event.description,style: TextStyle(color: AppColors.white),),
                   SizedBox(height: 10),
 
                   if (widget.event.status == "Active")
@@ -202,7 +201,7 @@ class _EventHistoryIndividualPageState
                               );
                             },
                             style: ElevatedButton.styleFrom(),
-                            child: Text('Attendance'),
+                            child: Text('Attend',style: TextStyle(color: AppColors.white ),),
                           ),
                         ),
                       ],

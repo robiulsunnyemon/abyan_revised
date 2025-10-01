@@ -146,7 +146,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       fontSize: AppStyles.fontM,
       fontWeight: AppStyles.weightRegular,
       fontFamily: "Inter",
-      color: AppColors.goldenTextColor,
+      color: AppColors.white,
     );
   }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/style/app_text_styles.dart';
@@ -314,13 +315,11 @@ class JetsScreen extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomAppBar(title: 'Jets'),
-                const SizedBox(height: 8),
-
                 // Travel type
                 Text('Travel Type', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
@@ -529,15 +528,21 @@ class _IncreaseAndDecrease extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                type,
-                style: AppTextStyle.regular12.copyWith(
-                  color: AppColors.hintWhiteColor,
+              /// left side text -> Expanded so it takes available space
+              Expanded(
+                child: Text(
+                  type,
+                  style: AppTextStyle.regular12.copyWith(
+                    color: AppColors.hintWhiteColor,
+                  ),
+                  overflow: TextOverflow.ellipsis, // overflow handle
                 ),
               ),
+
+              /// counter section
               Row(
+                mainAxisSize: MainAxisSize.min, // shrink to content
                 children: [
                   InkWell(
                     onTap: counter.decrease,
@@ -549,18 +554,18 @@ class _IncreaseAndDecrease extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 6),
                   Obx(
-                    () => Text(
+                        () => Text(
                       counter.count.value.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.white
+                        color: AppColors.white,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 6),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(

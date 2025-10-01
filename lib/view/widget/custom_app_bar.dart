@@ -18,45 +18,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        padding: const EdgeInsets.only(top: 16, right: 16, bottom: 8),
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            showBack
-                ? GestureDetector(
-              onTap: onBackTap ?? () => Navigator.pop(context),
-              child: Container(
-                height: 32,
-                width: 32,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.goldenTextColor,
-                ),
-                child: const Icon(Icons.keyboard_arrow_left_outlined),
+    return Container(
+      padding: const EdgeInsets.only(top: 16, right: 16, bottom: 8),
+      color: Colors.transparent,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          showBack
+              ? GestureDetector(
+            onTap: onBackTap ?? () => Navigator.pop(context),
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.goldenTextColor,
               ),
-            )
-                : const SizedBox(width: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: 200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(title, style: AppTextStyle.bold24,maxLines: 1,),
-                      ],
-                    )
-                ),
-              ],
+              child: const Icon(Icons.keyboard_arrow_left_outlined,color: AppColors.white,),
             ),
-            action ?? const SizedBox(),
-          ],
-        ),
+          )
+              : const SizedBox(width: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: 200,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(title, style: AppTextStyle.bold24,maxLines: 1,),
+                    ],
+                  )
+              ),
+            ],
+          ),
+          action ?? const SizedBox(),
+        ],
       ),
     );
   }

@@ -2,12 +2,19 @@ import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appStyle.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 ThemeData themeData() {
   return ThemeData(
     scaffoldBackgroundColor: AppColors.backGroundColor,
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.backGroundColor,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.backGroundColor, // same as AppBar
+        statusBarIconBrightness: Brightness.light, // light icons
+        statusBarBrightness: Brightness.dark, // for iOS
+      ),
+      iconTheme: IconThemeData(color: AppColors.white),
     ),
     fontFamily: "PlayfairDisplay",
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -35,7 +42,7 @@ ThemeData themeData() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       hintStyle: TextStyle(
-        color:AppColors.hintTextColor,
+        color: AppColors.hintTextColor,
         fontSize: 14,
         fontFamily: 'Inter',
         fontWeight: FontWeight.w400,

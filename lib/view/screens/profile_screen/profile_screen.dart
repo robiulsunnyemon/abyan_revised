@@ -317,8 +317,9 @@ class ProfileScreen extends StatelessWidget {
                             Chip(
                               label: Text(
                                 'Package',
-                                style: AppTextStyle
-                                    .interBold10.copyWith(color: AppColors.blackColor) // Your custom text style
+                                style: AppTextStyle.interBold10.copyWith(
+                                  color: AppColors.blackColor,
+                                ), // Your custom text style
                               ),
                               backgroundColor: const Color(0xFFC7AE6A),
                               // Background color
@@ -527,26 +528,46 @@ class ProfileScreen extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: AppColors.backGroundColor,
+          contentPadding: EdgeInsets.zero,
           content: SizedBox(
-            height: 200.h,
+            height: 150.h,
             width: 200.w,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    Get.to(() => EventBookingHistoryScreen());
-                  },
-                  child: Text("Event Booking History"),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 10.h),
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.to(() => EventBookingHistoryScreen());
+                        },
+                        child: Text("Event Booking History"),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.to(() => ServiceBookingHistoryScreen());
+                        },
+                        child: Text("Service Booking History"),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    Get.to(() => ServiceBookingHistoryScreen());
-                  },
-                  child: Text("Service Booking History"),
+
+                // Top-right X button
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.close, color: AppColors.white),
+                  ),
                 ),
               ],
             ),
@@ -555,4 +576,6 @@ class ProfileScreen extends StatelessWidget {
       },
     );
   }
+
+
 }

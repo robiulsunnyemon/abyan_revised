@@ -45,6 +45,7 @@ class MessageScreenForListing extends StatelessWidget {
                             ),
                             child: const Icon(
                               Icons.keyboard_arrow_left_outlined,
+                              color: AppColors.white,
                             ),
                           ),
                         ),

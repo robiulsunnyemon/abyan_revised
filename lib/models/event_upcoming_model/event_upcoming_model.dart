@@ -47,7 +47,7 @@ class Event {
   final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int bookingCount;
+  //final int bookingCount;
 
   Event({
     required this.id,
@@ -61,7 +61,7 @@ class Event {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
-    required this.bookingCount,
+    //required this.bookingCount,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -77,7 +77,7 @@ class Event {
       status: json['status'],
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
-      bookingCount: json['_count']['bookings'],
+      //bookingCount: json['_count']['bookings'],
     );
   }
 

@@ -47,7 +47,8 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: CustomAppBar(title: 'Restaurants'),
+              child: CustomAppBar(
+                  title: 'Restaurants'),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(

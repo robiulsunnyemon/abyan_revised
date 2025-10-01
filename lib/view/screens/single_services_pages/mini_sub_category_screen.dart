@@ -39,7 +39,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: AppColors.goldenTextColor,
                     ),
-                    child: const Icon(Icons.keyboard_arrow_left_outlined),
+                    child: const Icon(Icons.keyboard_arrow_left_outlined,color: AppColors.white,),
                   ),
                 ),
               ],

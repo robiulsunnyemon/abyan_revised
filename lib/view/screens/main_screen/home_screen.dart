@@ -1,4 +1,5 @@
 import 'package:abyansf_asfmanagment_app/controller/mini_sub_category_controller/mini_sub_category_controller.dart';
+import 'package:abyansf_asfmanagment_app/models/event_upcoming_model/event_upcoming_model.dart';
 import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
@@ -6,6 +7,7 @@ import 'package:abyansf_asfmanagment_app/view/new_form_list/hotel_and_vilas.dart
 import 'package:abyansf_asfmanagment_app/view/new_form_list/jets_form.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/super_car_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/yacht_form.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_event_widget.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/home_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,6 +22,7 @@ import '../../../controller/specific_category_controller/specific_category_contr
 import '../../../controller/sub_category_controller/sub_category_controller.dart';
 import '../../../view_models/controller/carousel_controller.dart';
 import '../../widget/home_caousel_widget.dart';
+import '../profile_screen/event_history_individual_screen.dart';
 import '../single_services_pages/all_upcoming_event_screen.dart';
 import 'message_screen.dart';
 
@@ -199,147 +202,49 @@ class HomeScreen extends StatelessWidget {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("You have no highlight"),
+                        child: Text(
+                          "You have no highlight",
+                          style: TextStyle(color: AppColors.white),
+                        ),
                       ),
                     );
                   } else {
                     return CarouselSlider.builder(
                       itemCount: highlightController.highlightsList.length,
                       itemBuilder: (context, index, realIndex) {
-                        final highlight =
-                            highlightController.highlightsList[index];
+                        final highlight = highlightController.highlightsList[index];
+                        print('Highlights length: ${highlightController.highlightsList.length}');
 
-                        if (highlight.subCategory != null) {
-                          return Padding(
-                            padding: const EdgeInsets.all(7),
-                            child: GestureDetector(
-                              child: HomeCarouselWidget(
-                                imagePath: highlight.subCategory!.img,
-                                title:
-                                    highlight.subCategory?.name ??
-                                    "Default Name",
-                                location: '',
-                                personIcon: AssetPath.personImage,
-                                clockIcon: AssetPath.clockImage,
-                              ),
-                              onTap: () {
-                                if (highlight.subCategory!.hasForm) {
-                                  if (highlight.subCategory!.fromName ==
-                                      "Jets") {
-                                    Get.to(
-                                      () => JetsScreen(
-                                        id: highlight.subCategory!.id,
-                                      ),
-                                    );
-                                  } else if (highlight.subCategory!.fromName ==
-                                      "") {
-                                  } else if (highlight.subCategory!.fromName ==
-                                      "") {}
-                                }
-                                if (highlight.subCategory!.contractWhatsapp) {
-                                  _contactWhatsappController
-                                      .fetchServiceDetails(
-                                        highlight.subCategory!.id,
-                                      );
-                                }
-                                if (highlight
-                                    .subCategory!
-                                    .hasSpecificCategory) {
-                                  _specificCategoryController
-                                      .fetchSubcategoryDetails(
-                                        highlight.subCategory!.id,
-                                      );
-                                }
-                              },
-                            ),
-                          );
-                        }
-                        if (highlight.miniSubCategory != null) {
-                          return GestureDetector(
-                            child: HomeCarouselWidget(
-                              imagePath: highlight.miniSubCategory!.img,
-                              title:
-                                  highlight.miniSubCategory?.name ??
-                                  "Default Name",
-                              location: "",
-                              personIcon: AssetPath.personImage,
-                              clockIcon: AssetPath.clockImage,
-                            ),
-                            onTap: () {
-                              if (highlight.miniSubCategory!.hasForm) {
-                                if (highlight.miniSubCategory!.fromName ==
-                                    "Jets") {
-                                  Get.to(
-                                    () => JetsScreen(
-                                      id: highlight.miniSubCategory!.id,
-                                    ),
-                                  );
-                                } else if (highlight
-                                        .miniSubCategory!
-                                        .fromName ==
-                                    "") {
-                                } else if (highlight
-                                        .miniSubCategory!
-                                        .fromName ==
-                                    "") {
-                                } else if (highlight
-                                        .miniSubCategory!
-                                        .fromName ==
-                                    "") {
-                                } else if (highlight
-                                        .miniSubCategory!
-                                        .fromName ==
-                                    "") {}
-                              }
-                              if (highlight.miniSubCategory!.contractWhatsapp) {
-                                _contactWhatsappController.fetchServiceDetails(
-                                  highlight.subCategory!.id,
-                                );
-                              }
-                              if (highlight
-                                  .miniSubCategory!
-                                  .hasSpecificCategory) {
-                                _specificCategoryController
-                                    .fetchSubcategoryDetails(
-                                      highlight.subCategory!.id,
-                                    );
-                              }
-                            },
-                          );
-                        }
-                        if (highlight.listing != null) {
-                          return GestureDetector(
-                            child: HomeCarouselWidget(
-                              imagePath: highlight.listing!.mainImage,
-                              title: highlight.listing?.name ?? "Default Name",
-                              location: highlight.listing?.location,
-                              personIcon: AssetPath.personImage,
-                              clockIcon: AssetPath.clockImage,
-                            ),
-                            onTap: () {
-                              if (highlight.listing!.hasForm) {
-                                if (highlight.listing!.formName == "Jets") {
-                                  Get.to(
-                                    () => JetsScreen(id: highlight.listing!.id),
-                                  );
-                                } else if (highlight.listing?.formName == "") {
-                                } else if (highlight.listing?.formName == "") {
-                                } else if (highlight.listing?.formName == "") {
-                                } else if (highlight.listing?.formName == "") {}
-                              }
-                              if (highlight.listing!.contractWhatsapp) {
-                                _contactWhatsappController.fetchServiceDetails(
-                                  highlight.subCategory!.id,
-                                );
-                              } else {
-                                _listingController.fetchListingDetails(
-                                  highlight.listing!.id,
-                                );
-                              }
-                            },
-                          );
-                        }
-                        return Container();
+                        return GestureDetector(
+                          onTap: () {
+
+                            Event event=Event(
+                                id: highlight.event!.id,
+                                title: highlight.event!.title,
+                                eventImg: highlight.event!.eventImg,
+                                date: highlight.event!.date,
+                                time: highlight.event!.time,
+                                description: highlight.event!.description,
+                                maxPerson: highlight.event!.maxPerson,
+                                location: highlight.event!.location,
+                                status: highlight.event!.status,
+                                createdAt: highlight.event!.createdAt,
+                                updatedAt: highlight.updatedAt
+                            );
+
+                            Get.to(() => EventHistoryIndividualPage(
+                              event: event,
+                               eventList: _eventController.upcomingEvents,
+                            ));
+                          },
+                          child: HomeCarouselWidget(
+                            imagePath: highlight.event?.eventImg ?? AppConstants.defaultImageUrl,
+                            title: highlight.event?.title ?? "Default Name",
+                            location: highlight.event?.location ?? "Unknown Location",
+                            personIcon: AssetPath.personImage,
+                            clockIcon: AssetPath.clockImage,
+                          ),
+                        );
                       },
                       options: CarouselOptions(
                         height: 220,
@@ -355,6 +260,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   }
                 }),
+
                 SizedBox(height: 8),
 
                 /// Carousel Indicator

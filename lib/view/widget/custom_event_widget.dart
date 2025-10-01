@@ -13,23 +13,34 @@ import '../screens/profile_screen/event_history_individual_screen.dart';
 class CustomEventWidget extends StatelessWidget {
   final bool status;
   final Event? event;
-   CustomEventWidget({super.key, this.status = false,  this.event});
+
+  CustomEventWidget({super.key, this.status = false, this.event});
+
   final _eventController = Get.put(EventController());
+
   @override
   Widget build(BuildContext context) {
-
-    DateTime parsedDateTime = DateTime.parse(event?.createdAt.toString() ?? DateTime.now().toString());
+    DateTime parsedDateTime = DateTime.parse(
+      event?.createdAt.toString() ?? DateTime.now().toString(),
+    );
 
     return Card(
       color: AppColors.greyColor,
       child: GestureDetector(
-        onTap: (){
-          Get.to(EventHistoryIndividualPage(event: event!,eventList:_eventController.upcomingEvents,));
+        onTap: () {
+          Get.to(
+            EventHistoryIndividualPage(
+              event: event!,
+              eventList: _eventController.upcomingEvents,
+            ),
+          );
         },
         child: Container(
           width: double.infinity,
           height: 95.h,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Row(
@@ -62,7 +73,7 @@ class CustomEventWidget extends StatelessWidget {
                               fontFamily: "PlayfairDisplay",
                               fontSize: AppStyles.fontL,
                               fontWeight: AppStyles.weightBold,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -74,16 +85,16 @@ class CustomEventWidget extends StatelessWidget {
                             Icon(
                               Icons.location_on,
                               size: 16.w,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                             SizedBox(width: 4),
                             Text(
-                              event?.location??'Dubai',
+                              event?.location ?? 'Dubai',
                               style: TextStyle(
                                 fontFamily: "Inter",
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
-                                color: AppColors.lightWhite6,
+                                color: AppColors.blackColor,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -93,33 +104,33 @@ class CustomEventWidget extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12.h),
-                    if(!status)
+                    if (!status)
                       Row(
-                      children: [
-                        Text(
-                          'Attendance?',
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: AppStyles.fontS,
-                            fontWeight: AppStyles.weightRegular,
-                            color: AppColors.lightWhite6,
-                          ),
-                        ),
-                         SizedBox(width: 8.w),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            'Skip',
+                        children: [
+                          Text(
+                            'Attendance?',
                             style: TextStyle(
                               fontFamily: "Inter",
-                              color: AppColors.primaryColor,
                               fontSize: AppStyles.fontS,
                               fontWeight: AppStyles.weightRegular,
+                              color: AppColors.blackColor,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: 8.w),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              'Skip',
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                color: AppColors.primaryColor,
+                                fontSize: AppStyles.fontS,
+                                fontWeight: AppStyles.weightRegular,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
 
@@ -150,7 +161,7 @@ class CustomEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                     ),
                     Text(
@@ -159,7 +170,7 @@ class CustomEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                     ),
                   ],
@@ -168,7 +179,7 @@ class CustomEventWidget extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }

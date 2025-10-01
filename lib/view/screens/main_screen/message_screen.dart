@@ -1,5 +1,6 @@
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
@@ -42,6 +43,7 @@ class MassageScreen extends StatelessWidget {
                             ),
                             child: const Icon(
                               Icons.keyboard_arrow_left_outlined,
+                              color: AppColors.white,
                             ),
                           ),
                         ),
@@ -99,7 +101,8 @@ class MassageScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                   SizedBox(height: 10.h),
+
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -108,6 +111,7 @@ class MassageScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
+                        style: TextStyle(color: AppColors.white),
                         serviceData.description is Map<String, dynamic>
                             ? (serviceData.description["content"] ?? "")
                             : serviceData.description?.toString() ?? "No description available",
@@ -115,7 +119,7 @@ class MassageScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                   SizedBox(height: 20.h),
 
 
                   // WhatsApp Contact Card

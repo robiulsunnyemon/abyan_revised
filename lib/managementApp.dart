@@ -5,7 +5,8 @@ import 'package:abyansf_asfmanagment_app/view/auth/recovery_verification_screen.
 import 'package:abyansf_asfmanagment_app/view/screens/main_screen/error_handling_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/splash_creen/splash_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ManagementApp extends StatelessWidget {
@@ -16,6 +17,11 @@ class ManagementApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light, // White icons
+      statusBarBrightness: Brightness.dark,
+    ));
     return ScreenUtilInit(
       designSize: Size(360, 690),
       minTextAdapt: true,

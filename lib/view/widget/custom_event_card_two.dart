@@ -19,7 +19,7 @@ class CustomEventCardTwo extends StatelessWidget {
     DateTime parsedDateTime = DateTime.parse(event.createdAt.toString() ?? DateTime.now().toString());
 
     return Card(
-        color: AppColors.greyColor,
+        color: AppColors.white,
         child: Container(
           width: double.infinity,
           height: 95.h,
@@ -57,7 +57,7 @@ class CustomEventCardTwo extends StatelessWidget {
                               fontFamily: "PlayfairDisplay",
                               fontSize: AppStyles.fontL,
                               fontWeight: AppStyles.weightBold,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -69,7 +69,7 @@ class CustomEventCardTwo extends StatelessWidget {
                             Icon(
                               Icons.location_on,
                               size: 16,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -78,7 +78,7 @@ class CustomEventCardTwo extends StatelessWidget {
                                 fontFamily: "Inter",
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
-                                color: AppColors.lightWhite6,
+                                color: AppColors.blackColor,
                               ),
                             ),
                           ],
@@ -90,12 +90,12 @@ class CustomEventCardTwo extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Attendance?',
+                            'Attend?',
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: AppStyles.fontS,
                               fontWeight: AppStyles.weightRegular,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                           ),
                           SizedBox(width: 8.w),
@@ -105,7 +105,7 @@ class CustomEventCardTwo extends StatelessWidget {
                               'Skip',
                               style: TextStyle(
                                 fontFamily: "Inter",
-                                color: AppColors.primaryColor,
+                                color: AppColors.goldenTextColor,
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
                               ),
@@ -143,7 +143,7 @@ class CustomEventCardTwo extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                     ),
                     Text(
@@ -152,7 +152,7 @@ class CustomEventCardTwo extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                     ),
                   ],
