@@ -209,7 +209,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsetsGeometry.all(16.0.sp),
                 child: Row(
                   spacing: 5,
                   children: [
