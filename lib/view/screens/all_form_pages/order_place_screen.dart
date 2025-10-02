@@ -13,7 +13,6 @@ class OrderPlaceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -25,7 +24,8 @@ class OrderPlaceScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: Image.asset(
-                      AssetPath.OrderPlaceImage,
+                      AssetPath.orderPlace,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],
@@ -42,7 +42,7 @@ class OrderPlaceScreen extends StatelessWidget {
                         'Thank you, you will receive a confirmation shortly.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.white,
                           fontSize: 18,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,

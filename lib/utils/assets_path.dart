@@ -44,5 +44,6 @@ class AssetPath {
   static const String OrderPlaceImage = '$_basePath/order_place_image.png';
   static const String bookingIndImage = '$_basePath/Booking_ind_image.svg.png';
   static const String frame190='$_basePath/Frame 190.png';
+  static const String orderPlace='$_basePath/order_place.png';
 
 }
