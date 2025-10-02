@@ -1,6 +1,7 @@
 import 'package:abyansf_asfmanagment_app/models/listting_details_model/listing_details_model.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/assets_path.dart';
 
@@ -12,12 +13,14 @@ class ListingSubImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: CustomAppBar(title: listingDetailData.name),
+              child: Padding(
+                padding:  EdgeInsets.only(left: 16.w),
+                child: CustomAppBar(title: listingDetailData.name),
+              ),
             ),
             SliverList.builder(
               itemCount: listingDetailData.subImages.length,

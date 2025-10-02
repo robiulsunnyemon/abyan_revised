@@ -12,7 +12,6 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("--------------${listingDetailData.name}");
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
