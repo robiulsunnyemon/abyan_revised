@@ -31,52 +31,55 @@ class CustomTextFormFieldLevel extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 63,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: AppColors.white,
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: double.infinity,
+              height: 63,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: AppColors.white,
+                  ),
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                borderRadius: BorderRadius.circular(4),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      levelText,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.hintWhiteColor,
-                        fontSize: 8,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        levelText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.hintWhiteColor,
+                          fontSize: 8,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                    Text(
-                      hintText,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.hintWhiteColor,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
+                      Text(
+                        hintText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.hintWhiteColor,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  onPressed: onTap,
-                  icon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.white,),
-                ),
-              ],
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: onTap,
+                    icon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.white,),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

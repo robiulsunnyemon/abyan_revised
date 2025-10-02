@@ -28,16 +28,17 @@ String? _iso(DateTime? dt) => dt?.toIso8601String();
 /// ==============================
 class YachtFormController extends GetxController {
   // Dropdowns
-  final RxnString yachtSize = RxnString();     // Big | Medium | Small
-  final RxnString duration = RxnString();      // 2 hours | 3 hours | 4 hours | 5 hours+
+  final RxnString yachtSize = RxnString(); // Big | Medium | Small
+  final RxnString duration =
+      RxnString(); // 2 hours | 3 hours | 4 hours | 5 hours+
 
   // Dates
   final Rxn<DateTime> fromDate = Rxn<DateTime>();
   final Rxn<DateTime> toDate = Rxn<DateTime>();
 
   // People & contact
-  final RxString people = ''.obs;     // numeric text
-  final RxString contact = ''.obs;    // phone / WhatsApp
+  final RxString people = ''.obs; // numeric text
+  final RxString contact = ''.obs; // phone / WhatsApp
 
   // (Optional) auth header
   String? authToken;
@@ -57,25 +58,27 @@ class YachtFormController extends GetxController {
     return null;
   }
 
-  Future<void> submitForm({
-    required int id,
-  }) async {
+  Future<void> submitForm({required int id}) async {
     // ✅ validate first
     final err = validate();
     if (err != null) {
-      Get.snackbar('Validation failed', err, snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Validation failed',
+        err,
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return;
     }
 
     // ✅ unwrap Rx / DateTime → ISO (no Rx/DateTime in payload)
     final Map<String, dynamic> data = _removeNulls({
-      "subCategoryId": id,                          // or miniSubCategoryId per API
-      "typeOfAccommodation": yachtSize.value,       // String?
-      "location": { "from": duration.value },       // keep your structure
-      "checkInDate": _iso(fromDate.value),          // String ISO
-      "checkOutDate": _iso(toDate.value),           // String ISO
-      "number of people": peopleCount,              // int
-      "contact": contact.value.trim(),              // String
+      "subCategoryId": id, // or miniSubCategoryId per API
+      "typeOfAccommodation": yachtSize.value, // String?
+      "location": {"from": duration.value}, // keep your structure
+      "checkInDate": _iso(fromDate.value), // String ISO
+      "checkOutDate": _iso(toDate.value), // String ISO
+      "number of people": peopleCount, // int
+      "contact": contact.value.trim(), // String
     });
 
     try {
@@ -136,16 +139,19 @@ class _BindableDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final unique = (items
-        .where((e) => e.trim().isNotEmpty)
-        .map((e) => e.trim())
-        .toSet()
-        .toList())
-      ..sort();
+    final unique =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final current = selected.value;
-      final safeValue = (current != null && unique.contains(current)) ? current : null;
+      final safeValue = (current != null && unique.contains(current))
+          ? current
+          : null;
 
       return DropdownButtonHideUnderline(
         child: Container(
@@ -159,18 +165,43 @@ class _BindableDropdown extends StatelessWidget {
             isExpanded: true,
             value: safeValue,
             iconEnabledColor: AppColors.white,
-            style:TextStyle(color: AppColors.white),
+            style: TextStyle(color: AppColors.white),
             iconDisabledColor: AppColors.white,
-            hint: Text(hint,style: TextStyle(
-              color: AppColors.hintWhiteColor,
-              fontSize: 12,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
-            ),),
+            hint: Text(
+              hint,
+              style: TextStyle(
+                color: AppColors.hintWhiteColor,
+                fontSize: 12,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),
+            selectedItemBuilder: (BuildContext context) {
+              return unique.map((e) {
+                return Align(
+                  alignment: AlignmentGeometry.centerLeft,
+                  child: Text(
+                    e,
+                    style: TextStyle(
+                      color: AppColors.white, // Selected value white
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
             items: unique
-                .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+                .map(
+                  (e) => DropdownMenuItem<String>(
+                    value: e,
+                    child: Text(
+                      e,
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: onChanged,
           ),
@@ -201,8 +232,8 @@ class _DateField extends StatelessWidget {
       final text = (d == null)
           ? label
           : "${d.day.toString().padLeft(2, '0')}-"
-          "${d.month.toString().padLeft(2, '0')}-"
-          "${d.year}";
+                "${d.month.toString().padLeft(2, '0')}-"
+                "${d.year}";
 
       return InkWell(
         onTap: () async {
@@ -225,7 +256,9 @@ class _DateField extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: TextStyle(color: d == null ? AppColors.hintWhiteColor : AppColors.white),
+            style: TextStyle(
+              color: d == null ? AppColors.hintWhiteColor : AppColors.white,
+            ),
           ),
         ),
       );
@@ -238,11 +271,12 @@ class _DateField extends StatelessWidget {
 /// ==============================
 class YachtRequestFormScreen extends StatelessWidget {
   final int id;
+
   YachtRequestFormScreen({super.key, required this.id});
 
   final controller = Get.put(YachtFormController());
 
-  final List<String> size = const ['52ft',' 62ft', '72ft','etc'];
+  final List<String> size = const ['52ft', ' 62ft', '72ft', 'etc'];
   final List<String> time = const ['2 hours', '3 hours', '4 hours', '5 hours+'];
 
   // Text controllers
@@ -316,7 +350,7 @@ class YachtRequestFormScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: peopleCtrl,
                     onChanged: (v) => controller.people.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Please enter here how many people are going',
@@ -330,8 +364,10 @@ class YachtRequestFormScreen extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.white, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: Colors.transparent,
                     ),
@@ -345,7 +381,7 @@ class YachtRequestFormScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     onChanged: (v) => controller.contact.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
@@ -359,8 +395,10 @@ class YachtRequestFormScreen extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.white, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
                       fillColor: Colors.transparent,
                     ),

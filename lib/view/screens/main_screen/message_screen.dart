@@ -48,7 +48,15 @@ class MassageScreen extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Text(serviceData.name, style: AppTextStyle.bold24,overflow: TextOverflow.ellipsis,maxLines: 1,),
+                        Flexible(
+                          flex: 16,
+                          child: Text(
+                            serviceData.name,
+                            style: AppTextStyle.bold24,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                         const Spacer(),
                         const SizedBox(width: 32), // Balance the row
                       ],
@@ -101,7 +109,7 @@ class MassageScreen extends StatelessWidget {
                     ],
                   ),
 
-                   SizedBox(height: 10.h),
+                  SizedBox(height: 10.h),
 
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -114,13 +122,13 @@ class MassageScreen extends StatelessWidget {
                         style: TextStyle(color: AppColors.white),
                         serviceData.description is Map<String, dynamic>
                             ? (serviceData.description["content"] ?? "")
-                            : serviceData.description?.toString() ?? "No description available",
+                            : serviceData.description?.toString() ??
+                                  "No description available",
                       ),
                     ),
                   ),
 
-                   SizedBox(height: 20.h),
-
+                  SizedBox(height: 20.h),
 
                   // WhatsApp Contact Card
                   Container(

@@ -50,8 +50,8 @@ class MessageScreenForListing extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        SizedBox(
-                          width: 250.w,
+                        Flexible(
+                          flex: 16,
                           child: Text(
                             serviceData.data?.name ?? "",
                             style: AppTextStyle.bold24,

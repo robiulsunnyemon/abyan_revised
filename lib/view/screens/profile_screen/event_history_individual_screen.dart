@@ -43,14 +43,14 @@ class _EventHistoryIndividualPageState
       backgroundColor: AppColors.backGroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.w),
           child: RefreshIndicator(
             onRefresh: _onRefresh,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 10,
+                spacing: 10.h,
                 children: [
                   CustomAppBar(title: 'Event Details'),
                   Container(
@@ -64,82 +64,74 @@ class _EventHistoryIndividualPageState
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
                         DateFormat('MMMM dd, yyyy').format(parsedDateTime),
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      const Spacer(),
                       Text(
                         widget.event.time,
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      const Spacer(),
                       Text(
                         'Status:',
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      SizedBox(width: 10.w),
                       Text(
                         widget.event.status,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF00A600),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
-                          height: 1.50,
+                          height: 1.5,
                         ),
                       ),
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: 250.w,
-                            child: Text(
-                              widget.event.title,
-                              style: AppTextStyle.bold20,
-                              maxLines: 1,
-                            ),
+                          Text(
+                            widget.event.title,
+                            style: AppTextStyle.bold20,
+                            maxLines: 1,
                           ),
                           Row(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                width: 20.w,
-                                height: 20.h,
-                                decoration: const BoxDecoration(),
-                                child: Icon(
-                                  Icons.location_on,
-                                  size: 20,
-                                  color: AppColors.white,
-                                ),
+                              Icon(
+                                Icons.location_on,
+                                size: 20.sp,
+                                color: AppColors.white,
                               ),
-                              const SizedBox(width: 6),
+                              SizedBox(width: 6.w),
                               Text(
                                 widget.event.location,
                                 style: TextStyle(
                                   color: AppColors.white,
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -148,20 +140,24 @@ class _EventHistoryIndividualPageState
                           ),
                         ],
                       ),
+                      Spacer(),
                       Row(
                         children: [
                           SvgPicture.asset(
                             AssetPath.lsiconUserCrowd,
+                            width: 20.w,
+                            height: 20.h,
                             colorFilter: ColorFilter.mode(
                               AppColors.white,
-                              BlendMode.srcIn
+                              BlendMode.srcIn,
                             ),
                           ),
+                          SizedBox(width: 4.w),
                           Text(
                             'Max: ${widget.event.maxPerson}',
                             style: TextStyle(
                               color: AppColors.white,
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                             ),
@@ -171,43 +167,50 @@ class _EventHistoryIndividualPageState
                     ],
                   ),
                   Text('About This Event', style: AppTextStyle.bold20),
-                  Text(widget.event.description,style: TextStyle(color: AppColors.white),),
-                  SizedBox(height: 10),
+                  Text(
+                    widget.event.description,
+                    style: TextStyle(color: AppColors.white, fontSize: 14.sp),
+                  ),
+                  SizedBox(height: 8.h),
 
                   if (widget.event.status == "Active")
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Text(
-                            "Skip",
-                            style: TextStyle(
-                              color: AppColors.lightLaserColor,
-                              fontSize: 25.sp,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                            ),
+                        Flexible(
+                          flex: 6,
+                          child: InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Text("Skip", style: AppTextStyle.bold24),
                           ),
                         ),
-                        SizedBox(
-                          width: 180,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              _eventController.bookEvent(
-                                eventId: widget.event.id,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(),
-                            child: Text('Attend',style: TextStyle(color: AppColors.white ),),
+                        Flexible(
+                          flex: 5,
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                _eventController.bookEvent(
+                                  eventId: widget.event.id,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(),
+                              child: Text(
+                                'Attend',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 18.sp,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
 
-                  SizedBox(height: 10),
+                  SizedBox(height: 8.h),
                   if (widget.eventList.isNotEmpty)
                     Text('Upcoming Event', style: AppTextStyle.bold24),
                   SizedBox(

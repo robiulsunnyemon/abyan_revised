@@ -29,7 +29,7 @@ String? _toIso(DateTime? dt) => dt?.toIso8601String();
 /// GetX Controller: Counter
 /// -----------------------------------------
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 to ensure >=1
+  final RxInt count = 0.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
 
   void decrease() {
@@ -182,7 +182,7 @@ class CustomDropdown extends StatelessWidget {
 
       return DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
-          style:TextStyle(color: AppColors.white),
+          style: TextStyle(color: AppColors.white),
           iconStyleData: IconStyleData(
             iconDisabledColor: Colors.white,
             iconEnabledColor: Colors.white,
@@ -198,10 +198,29 @@ class CustomDropdown extends StatelessWidget {
             ),
           ),
           value: safeValue,
+          selectedItemBuilder: (BuildContext context) {
+            return uniqueItems.map((e) {
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  e,
+                  style: TextStyle(
+                    color: AppColors.white, // Selected value white
+                    fontSize: 14,
+                  ),
+                ),
+              );
+            }).toList();
+          },
           items: uniqueItems
               .map(
-                (item) =>
-                    DropdownMenuItem<String>(value: item, child: Text(item)),
+                (item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: TextStyle(color: AppColors.blackColor),
+                  ),
+                ),
               )
               .toList(),
           onChanged: onChanged,
@@ -339,7 +358,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.white
+                        color: AppColors.white,
                       ),
                     ),
                   ),
@@ -510,7 +529,7 @@ class SuperCarScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: phoneCtrl,
                     keyboardType: TextInputType.phone,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     onChanged: (v) => booking.contact.value = v,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
@@ -521,9 +540,7 @@ class SuperCarScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.white,
-                        ),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(

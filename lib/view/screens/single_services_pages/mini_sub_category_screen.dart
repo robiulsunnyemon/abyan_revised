@@ -6,9 +6,9 @@ import '../../../controller/mini_sub_category_controller/mini_sub_category_contr
 import '../../../utils/style/appColor.dart';
 import '../../new_form_list/jets_form.dart';
 
-
 class MiniSubCategoryScreen extends StatelessWidget {
   final int subCategoryId;
+
   MiniSubCategoryScreen({super.key, required this.subCategoryId});
 
   final _miniSubCategoryController = Get.put(MiniSubCategoryController());
@@ -39,7 +39,10 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: AppColors.goldenTextColor,
                     ),
-                    child: const Icon(Icons.keyboard_arrow_left_outlined,color: AppColors.white,),
+                    child: const Icon(
+                      Icons.keyboard_arrow_left_outlined,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ],
@@ -49,39 +52,59 @@ class MiniSubCategoryScreen extends StatelessWidget {
           surfaceTintColor: Colors.white,
         ),
         body: GridView.builder(
-          padding: EdgeInsets.all(16),  // Add padding
+          padding: EdgeInsets.all(16), // Add padding
           itemCount: _miniSubCategoryController.miniSubCategories.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             mainAxisExtent: 213,
-            crossAxisSpacing: 10,  // Add spacing between items
-            mainAxisSpacing: 13,    // Add spacing between rows
+            crossAxisSpacing: 10, // Add spacing between items
+            mainAxisSpacing: 13, // Add spacing between rows
           ),
           itemBuilder: (context, index) {
             return Container(
               width: 169,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: Column(
-                mainAxisSize: MainAxisSize.min,  // Important
+                mainAxisSize: MainAxisSize.min, // Important
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: (){
-                      if(_miniSubCategoryController.miniSubCategories[index].contractWhatsapp){
-                        _contactWhatsappController.fetchServiceDetails(_miniSubCategoryController.miniSubCategories[index].id);
+                    onTap: () {
+                      if (_miniSubCategoryController
+                          .miniSubCategories[index]
+                          .contractWhatsapp) {
+                        _contactWhatsappController.fetchServiceDetails(
+                          _miniSubCategoryController
+                              .miniSubCategories[index]
+                              .id,
+                        );
                       }
-                      if(_miniSubCategoryController.miniSubCategories[index].hasForm){
-                        if(_miniSubCategoryController.miniSubCategories[index].fromName=="Jets"){
-                          Get.to(()=>JetsScreen(
-                           id: _miniSubCategoryController.miniSubCategories[index].id,
-                          ));
-                        }
-                        else if(_miniSubCategoryController.miniSubCategories[index].fromName==""){}
-                        else if(_miniSubCategoryController.miniSubCategories[index].fromName==""){}
-                        else if(_miniSubCategoryController.miniSubCategories[index].fromName==""){}
-
+                      if (_miniSubCategoryController
+                          .miniSubCategories[index]
+                          .hasForm) {
+                        if (_miniSubCategoryController
+                                .miniSubCategories[index]
+                                .fromName ==
+                            "Jets") {
+                          Get.to(
+                            () => JetsScreen(
+                              id: _miniSubCategoryController
+                                  .miniSubCategories[index]
+                                  .id,
+                            ),
+                          );
+                        } else if (_miniSubCategoryController
+                                .miniSubCategories[index]
+                                .fromName ==
+                            "") {
+                        } else if (_miniSubCategoryController
+                                .miniSubCategories[index]
+                                .fromName ==
+                            "") {
+                        } else if (_miniSubCategoryController
+                                .miniSubCategories[index]
+                                .fromName ==
+                            "") {}
                       }
                     },
                     child: ClipRRect(
@@ -94,11 +117,11 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),  // Add spacing
+                  SizedBox(height: 8), // Add spacing
                   Text(
                     _miniSubCategoryController.miniSubCategories[index].name,
                     style: AppTextStyle.bold16,
-                    maxLines: 1,  // Prevent text overflow
+                    maxLines: 1, // Prevent text overflow
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

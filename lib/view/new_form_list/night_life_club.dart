@@ -39,10 +39,7 @@ class NightLifeFormController extends GetxController {
     return null;
   }
 
-  Map<String, dynamic> toJson({
-    required int adults,
-    required int children,
-  }) {
+  Map<String, dynamic> toJson({required int adults, required int children}) {
     return {
       "venue": venue.value,
       "fullName": fullName.value.trim(),
@@ -101,32 +98,56 @@ class _BindableDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final unique = (items
-        .where((e) => e.trim().isNotEmpty)
-        .map((e) => e.trim())
-        .toSet()
-        .toList())
-      ..sort();
+    final unique =
+        (items
+              .where((e) => e.trim().isNotEmpty)
+              .map((e) => e.trim())
+              .toSet()
+              .toList())
+          ..sort();
 
     return Obx(() {
       final current = selected.value;
-      final safeValue = (current != null && unique.contains(current)) ? current : null;
+      final safeValue = (current != null && unique.contains(current))
+          ? current
+          : null;
 
       return DropdownButtonHideUnderline(
         child: Container(
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: DropdownButton<String>(
-            style:TextStyle(color: AppColors.white),
+            style: TextStyle(color: AppColors.white),
             isExpanded: true,
+            iconEnabledColor: AppColors.hintWhiteColor,
+            iconDisabledColor: AppColors.white,
             value: safeValue,
-            hint: Text(hint),
+            hint: Text(hint,style: TextStyle(color: AppColors.hintWhiteColor),),
+            selectedItemBuilder: (BuildContext context) {
+              return unique.map((e) {
+                return Align(
+                  alignment: AlignmentGeometry.centerLeft,
+                  child: Text(
+                    e,
+                    style: TextStyle(color: AppColors.white, fontSize: 14),
+                  ),
+                );
+              }).toList();
+            },
             items: unique
-                .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+                .map(
+                  (e) => DropdownMenuItem<String>(
+                    value: e,
+                    child: Text(
+                      e,
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: onChanged,
           ),
@@ -173,12 +194,12 @@ class _DateField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
-            style: TextStyle(color: d == null ? Colors.grey : Colors.black),
+            style: TextStyle(color: d == null ? AppColors.hintWhiteColor : AppColors.white),
           ),
         ),
       );
@@ -217,12 +238,12 @@ class _TimeField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
             text,
-            style: TextStyle(color: t == null ? Colors.grey : Colors.black),
+            style: TextStyle(color: t == null ? AppColors.hintWhiteColor : AppColors.white),
           ),
         ),
       );
@@ -248,12 +269,12 @@ class NightLifeForm extends StatelessWidget {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController contactCtrl = TextEditingController();
 
-  static const String API_ENDPOINT = 'https://api.example.com/nightlife/request'; // <-- replace
+  static const String API_ENDPOINT =
+      'https://api.example.com/nightlife/request'; // <-- replace
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -283,17 +304,25 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: nameCtrl,
                     onChanged: (v) => form.fullName.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       hintText: 'Enter your full name',
+                      hintStyle: TextStyle(
+                        color: AppColors.hintWhiteColor,
+                        fontFamily: ''
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: AppColors.blackColor,
                     ),
                   ),
                 ),
@@ -305,18 +334,26 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: emailCtrl,
                     onChanged: (v) => form.email.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
+                      hintStyle: TextStyle(
+                          color: AppColors.hintWhiteColor,
+                          fontFamily: ''
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: AppColors.blackColor,
                     ),
                   ),
                 ),
@@ -328,18 +365,26 @@ class NightLifeForm extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     onChanged: (v) => form.contact.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
+                      hintStyle: TextStyle(
+                          color: AppColors.hintWhiteColor,
+                          fontFamily: ''
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lightLaserColor),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: AppColors.lightLaserColor, width: 1.2),
+                        borderSide: BorderSide(
+                          color: AppColors.white,
+                          width: 1.2,
+                        ),
                       ),
-                      fillColor: AppColors.white,
+                      fillColor: AppColors.blackColor,
                     ),
                   ),
                 ),
@@ -347,36 +392,46 @@ class NightLifeForm extends StatelessWidget {
                 // Date & Time
                 Text('Date of reservation', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
-                Row(children: [
-                  Expanded(
-                    child: _DateField(
-                      label: 'Select date',
-                      valueRx: form.reservationDate,
-                      onChanged: (d) => form.reservationDate.value = d,
+                Row(
+                  children: [
+                    Expanded(
+                      child: _DateField(
+                        label: 'Select date',
+                        valueRx: form.reservationDate,
+                        onChanged: (d) => form.reservationDate.value = d,
+                      ),
                     ),
-                  )
-                ]),
+                  ],
+                ),
                 const SizedBox(height: 16),
                 Text('Time', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
-                Row(children: [
-                  Expanded(
-                    child: _TimeField(
-                      label: 'Select time',
-                      valueRx: form.reservationTime,
-                      onChanged: (t) => form.reservationTime.value = t,
+                Row(
+                  children: [
+                    Expanded(
+                      child: _TimeField(
+                        label: 'Select time',
+                        valueRx: form.reservationTime,
+                        onChanged: (t) => form.reservationTime.value = t,
+                      ),
                     ),
-                  )
-                ]),
+                  ],
+                ),
                 const SizedBox(height: 16),
 
                 // Guests
                 Text('Number of guest', style: AppTextStyle.bold16),
                 Row(
                   children: [
-                    IncreaseAndDecrease(type: 'Adults', counter: adultController),
+                    IncreaseAndDecrease(
+                      type: 'Adults',
+                      counter: adultController,
+                    ),
                     const SizedBox(width: 10),
-                    IncreaseAndDecrease(type: 'Children', counter: childrenController),
+                    IncreaseAndDecrease(
+                      type: 'Children',
+                      counter: childrenController,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -458,7 +513,6 @@ class NightLifeForm extends StatelessWidget {
   }
 }
 
-
 class IncreaseAndDecrease extends StatelessWidget {
   final String type;
   final CounterController counter;
@@ -478,7 +532,7 @@ class IncreaseAndDecrease extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightLaserColor),
+            border: Border.all(color: AppColors.white),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -487,7 +541,7 @@ class IncreaseAndDecrease extends StatelessWidget {
               Text(
                 type,
                 style: const TextStyle(
-                  color: AppColors.lightLaserColor,
+                  color: AppColors.white,
                   fontSize: 12,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -499,25 +553,32 @@ class IncreaseAndDecrease extends StatelessWidget {
                     onTap: counter.decrease,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.remove_circle_outline,color: AppColors.lightLaserColor),
-
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Obx(() => Text(
-                    counter.count.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white
+                  Obx(
+                    () => Text(
+                      counter.count.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
-                      child: Icon(Icons.add_circle_outline,color: AppColors.lightLaserColor),
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.lightLaserColor,
+                      ),
                     ),
                   ),
                 ],
@@ -531,8 +592,9 @@ class IncreaseAndDecrease extends StatelessWidget {
 }
 
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 to ensure >=1
+  final RxInt count = 0.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
+
   void decrease() {
     if (count.value > 0) count.value--;
   }

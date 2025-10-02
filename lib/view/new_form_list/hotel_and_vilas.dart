@@ -194,7 +194,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: locationCtrl,
                     onChanged: (v) => form.location.value = v,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: AppColors.white),
@@ -276,7 +276,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: contactCtrl,
                     keyboardType: TextInputType.phone,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     onChanged: (v) => form.contact.value = v,
                     decoration: InputDecoration(
                       hintText: 'Enter your WhatsApp number',
@@ -287,9 +287,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.white,
-                        ),
+                        borderSide: BorderSide(color: AppColors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -419,7 +417,7 @@ class _BindableDropdown extends StatelessWidget {
           ),
           child: DropdownButton<String>(
             isExpanded: true,
-            style:TextStyle(color: AppColors.white),
+            style: TextStyle(color: AppColors.white),
             value: safeValue,
             hint: Text(
               hint,
@@ -428,9 +426,31 @@ class _BindableDropdown extends StatelessWidget {
               ),
             ),
             dropdownColor: Colors.white,
+            selectedItemBuilder: (BuildContext context) {
+              return unique.map((e) {
+                return Align(
+                  alignment: AlignmentGeometry.centerLeft,
+                  child: Text(
+                    e,
+                    style: TextStyle(
+                      color: AppColors.white, // Selected value white
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
             borderRadius: BorderRadius.circular(10),
             items: unique
-                .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+                .map(
+                  (e) => DropdownMenuItem<String>(
+                    value: e,
+                    child: Text(
+                      e,
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: onChanged,
           ),
@@ -501,11 +521,11 @@ class _DateField extends StatelessWidget {
 /// Simple Counter + UI (Adults/Children)
 /// ==============================
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 (>=1)
+  final RxInt count = 0.obs; // Adults default 1 (>=1)
   void increase() => count.value++;
 
   void decrease() {
-    if (count.value > 1)
+    if (count.value > 0)
       count
           .value--; // keep >=1 for adults; children চাইলে আলাদা controller/use-case
   }
@@ -564,7 +584,7 @@ class IncreaseAndDecrease extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.white
+                        color: AppColors.white,
                       ),
                     ),
                   ),

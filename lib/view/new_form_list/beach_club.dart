@@ -595,7 +595,7 @@ class CustomDropdown extends StatelessWidget {
 /// Simple Counter + UI (Adults/Children)
 /// ==============================
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 to ensure >=1
+  final RxInt count = 0.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
 
   void decrease() {

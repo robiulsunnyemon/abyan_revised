@@ -1,5 +1,6 @@
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../api_services/form_api_services/form_api_services.dart';
@@ -15,21 +16,22 @@ import '../../widget/select_counter_card.dart';
 class RestaurantFormScreen extends StatefulWidget {
   final String venueName;
   final int listingId;
-  const RestaurantFormScreen({super.key, required this.venueName, required this.listingId});
+  const RestaurantFormScreen({
+    super.key,
+    required this.venueName,
+    required this.listingId,
+  });
 
   @override
   State<RestaurantFormScreen> createState() => _RestaurantFormScreenState();
 }
 
 class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
-
-
   final TextEditingController venueController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController dateOfPreController = TextEditingController();
-
 
   int adultNumber = 0;
   int childrenNumber = 0;
@@ -39,16 +41,17 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
   late DateTime checkOutDateController;
   String selectedTime = "9:45";
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: CustomAppBar(
-                  title: 'Restaurants'),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: CustomAppBar(title: 'Restaurants'),
+              ),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
@@ -100,17 +103,16 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                   controller: dateOfPreController,
                   headingText: "Date of reservation",
                   hintText: checkInDate,
-                  onTap: ()async{
+                  onTap: () async {
                     final picked = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2000),
                       lastDate: DateTime(2100),
                     );
-
                     if (picked != null) {
                       setState(() {
-                        checkInDateController=picked;
+                        checkInDateController = picked;
                         checkInDate = DateFormat('dd/MM/yyyy').format(picked);
                       });
                     }
@@ -221,19 +223,19 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                     Expanded(
                       child: RequestButton(
                         onTap: () async {
-
                           if (fullNameController.text.isEmpty ||
                               emailController.text.isEmpty ||
                               phoneController.text.isEmpty ||
                               selectedTime.isEmpty ||
                               checkInDate.isEmpty ||
                               adultNumber == 0 && childrenNumber == 0) {
-
                             Get.snackbar(
                               "Validation Error",
                               "Please fill all required fields before sending request",
                               snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: Colors.red.withValues(alpha: 0.8),
+                              backgroundColor: Colors.red.withValues(
+                                alpha: 0.8,
+                              ),
                               colorText: Colors.white,
                               margin: const EdgeInsets.all(10),
                               borderRadius: 8,
@@ -241,36 +243,37 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                             return; // Stop request
                           }
 
-
                           Get.snackbar(
                             "Success",
                             "Request sent successfully!",
                             snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.green.withValues(alpha: 0.8),
+                            backgroundColor: Colors.green.withValues(
+                              alpha: 0.8,
+                            ),
                             colorText: Colors.white,
                             margin: const EdgeInsets.all(10),
                             borderRadius: 8,
                           );
 
-                          Map<String,dynamic> restaurantData={
+                          Map<String, dynamic> restaurantData = {
                             "listingId": widget.listingId,
                             "bookingDate": checkInDateController.toString(),
                             "bookingTime": selectedTime,
                             "name": fullNameController.text,
                             "email": emailController.text,
                             "whatsapp": phoneController.text,
-                            "venueName":widget.venueName,
+                            "venueName": widget.venueName,
                             "numberofguest_adult": adultNumber,
                             "numberofguest_child": childrenNumber,
-
                           };
 
-                          final response=await FormRequestApiServices.formRequest(
-                              data: restaurantData,
-                              url: "bookings"
-                          );
-                          if(response.statusCode==201){
-                            Get.to(()=>CustomBottomBar());
+                          final response =
+                              await FormRequestApiServices.formRequest(
+                                data: restaurantData,
+                                url: "bookings",
+                              );
+                          if (response.statusCode == 201) {
+                            Get.to(() => CustomBottomBar());
                           }
                         },
                       ),
@@ -279,7 +282,6 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

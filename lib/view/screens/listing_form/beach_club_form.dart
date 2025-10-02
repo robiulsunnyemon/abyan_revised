@@ -167,7 +167,7 @@ class _BeachClubFormState extends State<BeachClubForm> {
                             counterText: adultNumber.toString(),
                             hintText: "Adults",
                             decreaseOnTap: () {
-                              if (adultNumber > 0) {
+                              if (adultNumber >= 0) {
                                 setState(() {
                                   adultNumber--;
                                 });
@@ -185,7 +185,7 @@ class _BeachClubFormState extends State<BeachClubForm> {
                             counterText: childrenNumber.toString(),
                             hintText: "Child",
                             decreaseOnTap: () {
-                              if (childrenNumber > 0) {
+                              if (childrenNumber >= 0) {
                                 setState(() {
                                   childrenNumber--;
                                 });

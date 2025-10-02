@@ -35,6 +35,7 @@ class CustomTextEditingFormFieldWithSuffix extends StatelessWidget {
             ),
           ),
           TextFormField(
+            onTap: onTap,
             readOnly: isReadOnly,
             controller: controller,
             decoration: InputDecoration(

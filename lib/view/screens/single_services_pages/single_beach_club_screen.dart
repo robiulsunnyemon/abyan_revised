@@ -280,6 +280,8 @@ class SingleBeachClubScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      /*
+                      //client want to remove
                       const SizedBox(height: 7),
                       Text("Member Privileges", style: AppTextStyle.bold24),
                       const SizedBox(height: 10),
@@ -298,8 +300,8 @@ class SingleBeachClubScreen extends StatelessWidget {
                             child: CardContainer(image: AssetPath.otherImage),
                           ),
                         ],
-                      ),
-                      const SizedBox(height: 6),
+                      ),*/
+                      // const SizedBox(height: 6),
                       Text(
                         "Drink on arrival and  appetizer",
                         style: TextStyle(
@@ -414,7 +416,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                           .listingData
                                           .value
                                           ?.fromName ==
-                                      "Nightlife") {
+                                      "nightlife") {
                                     Get.to(
                                       () => NightLifeForm(
                                         // venueName: _listingController

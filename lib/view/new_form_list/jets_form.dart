@@ -201,7 +201,7 @@ class _BindableDropdown extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: DropdownButton<String>(
-                style:TextStyle(color: AppColors.white),
+                style: TextStyle(color: AppColors.white),
                 isExpanded: true,
                 value: safeValue,
                 hint: Text(
@@ -212,9 +212,29 @@ class _BindableDropdown extends StatelessWidget {
                 ),
                 dropdownColor: Colors.white,
                 borderRadius: BorderRadius.circular(10),
+                selectedItemBuilder: (BuildContext context) {
+                  return unique.map((e) {
+                    return Align(
+                      alignment: AlignmentGeometry.centerLeft,
+                      child: Text(
+                        e,
+                        style: TextStyle(
+                          color: AppColors.white, // Selected value white
+                          fontSize: 14,
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
                 items: unique
                     .map(
-                      (e) => DropdownMenuItem<String>(value: e, child: Text(e)),
+                      (e) => DropdownMenuItem<String>(
+                        value: e,
+                        child: Text(
+                          e,
+                          style: TextStyle(color: AppColors.blackColor),//black dile selected color o black hoye jay
+                        ),
+                      ),
                     )
                     .toList(),
                 onChanged: onChanged,
@@ -378,7 +398,7 @@ class JetsScreen extends StatelessWidget {
                         child: _DateField(
                           label: 'Return',
                           valueRx: controller.returnDate,
-                          onChanged: (d) => controller.departDate.value = d,
+                          onChanged: (d) => controller.returnDate.value = d,
                         ),
                       ),
                     ],
@@ -409,7 +429,7 @@ class JetsScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
                     controller: contactCtrl,
-                    style:TextStyle(color: AppColors.white),
+                    style: TextStyle(color: AppColors.white),
                     onChanged: (v) => controller.contact.value = v,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -556,7 +576,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Obx(
-                        () => Text(
+                    () => Text(
                       counter.count.value.toString(),
                       style: TextStyle(
                         fontSize: 14.sp,
@@ -587,7 +607,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
 }
 
 class CounterController extends GetxController {
-  final RxInt count = 1.obs; // Adults default 1 to ensure >=1
+  final RxInt count = 0.obs; // Adults default 1 to ensure >=1
   void increase() => count.value++;
 
   void decrease() {
