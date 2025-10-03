@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,6 +49,18 @@ class MassageScreen extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
+                        SizedBox(width: 10.w),
+                        Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(AssetPath.asfLogo),
+                              fit: BoxFit.cover, // optional
+                            ),
+                          ),
+                          height: 50, // or ScreenUtil: 100.h
+                          width: 50,  // or ScreenUtil: 100.w
+                        ),
+                        SizedBox(width: 10.w),
                         Flexible(
                           flex: 16,
                           child: Text(

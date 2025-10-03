@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../utils/assets_path.dart';
 import '../../../utils/style/appColor.dart';
 import '../constant/constans.dart';
 
@@ -50,6 +51,18 @@ class MessageScreenForListing extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
+                        SizedBox(width: 10.w),
+                        Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(AssetPath.asfLogo),
+                              fit: BoxFit.cover, // optional
+                            ),
+                          ),
+                          height: 50, // or ScreenUtil: 100.h
+                          width: 50,  // or ScreenUtil: 100.w
+                        ),
+                        SizedBox(width: 10.w),
                         Flexible(
                           flex: 16,
                           child: Text(

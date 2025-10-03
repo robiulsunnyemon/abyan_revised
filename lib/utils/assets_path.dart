@@ -45,5 +45,6 @@ class AssetPath {
   static const String frame190='$_basePath/Frame 190.png';
   static const String orderPlace='$_basePath/order_place.png';
   static const String menuList='$_basePath/menu_list.png';
+  static const String asfLogo='$_basePath/asf_logo.png';
 
 }
