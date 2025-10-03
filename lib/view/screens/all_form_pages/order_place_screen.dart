@@ -30,7 +30,6 @@ class OrderPlaceScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
