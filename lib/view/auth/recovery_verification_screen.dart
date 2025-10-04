@@ -510,7 +510,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
         cursorColor: AppColors.white,
         maxLength: 1,
         keyboardType: TextInputType.number,
-        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: AppColors.white),
         decoration: InputDecoration(
           fillColor: Colors.transparent,
           counterText: "",

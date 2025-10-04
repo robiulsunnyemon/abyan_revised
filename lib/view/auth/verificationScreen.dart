@@ -78,7 +78,7 @@ class Verificationscreen extends StatelessWidget {
                   onPressed: () {
                     () => LoginScreen();
                   },
-                  child: Text('Confirm'),
+                  child: Text('Confirm',style: TextStyle(color: AppColors.white),),
                 ),
               ),
               SizedBox(height: 10.h,),

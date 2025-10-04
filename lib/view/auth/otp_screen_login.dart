@@ -106,8 +106,19 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
         textAlign: TextAlign.center,
         maxLength: 1,
         keyboardType: TextInputType.number,
-        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: AppColors.white),
         decoration: InputDecoration(
+          fillColor: AppColors.backGroundColor,
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.white,
+            )
+          ),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: AppColors.white,
+              )
+          ),
           counterText: "",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -125,7 +136,6 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
