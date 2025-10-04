@@ -276,7 +276,7 @@ class YachtRequestFormScreen extends StatelessWidget {
 
   final controller = Get.put(YachtFormController());
 
-  final List<String> size = const ['52ft', ' 62ft', '72ft', 'etc'];
+  final List<String> size = const ['52ft', ' 62ft', '72ft'];
   final List<String> time = const ['2 hours', '3 hours', '4 hours', '5 hours+'];
 
   // Text controllers

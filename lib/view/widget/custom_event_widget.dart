@@ -123,7 +123,7 @@ class CustomEventWidget extends StatelessWidget {
                               'Skip',
                               style: TextStyle(
                                 fontFamily: "Inter",
-                                color: AppColors.primaryColor,
+                                color: AppColors.goldenTextColor,
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
                               ),
@@ -148,7 +148,7 @@ class CustomEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontWeight: AppStyles.weightRegular,
                         fontSize: AppStyles.fontM,
-                        color: AppColors.lightLaserColor,
+                        color: AppColors.goldenTextColor,
                         decoration: TextDecoration.underline,
                         decorationColor: AppColors.lightLaserColor,
                         decorationThickness: 1.0,
