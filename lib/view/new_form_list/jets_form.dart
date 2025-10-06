@@ -215,7 +215,7 @@ class _BindableDropdown extends StatelessWidget {
                 selectedItemBuilder: (BuildContext context) {
                   return unique.map((e) {
                     return Align(
-                      alignment: AlignmentGeometry.centerLeft,
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         e,
                         style: TextStyle(
