@@ -294,7 +294,7 @@ class YachtRequestFormScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Yacht'),
+                const CustomAppBar(title: 'Luxury Yachts'),
                 const SizedBox(height: 8),
 
                 // Size of Yacht

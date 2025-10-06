@@ -418,7 +418,7 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () {
                             InviteFriendShowLog.show(context);
                           },
-                          text: 'Invite your friend',
+                          text: 'Invite a friend',
                           isArrowTrue: true,
                         ),
                         SizedBox(height: 12.h),

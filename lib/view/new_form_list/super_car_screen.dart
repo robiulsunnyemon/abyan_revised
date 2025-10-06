@@ -441,7 +441,7 @@ class SuperCarScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Super car'),
+                const CustomAppBar(title: 'Super Cars'),
                 const SizedBox(height: 10),
 
                 /// Car Brand
