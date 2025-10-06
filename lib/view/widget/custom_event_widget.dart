@@ -39,8 +39,9 @@ class CustomEventWidget extends StatelessWidget {
           width: double.infinity,
           height: 95.h,
           decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(8)),
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Row(
@@ -73,7 +74,7 @@ class CustomEventWidget extends StatelessWidget {
                               fontFamily: "PlayfairDisplay",
                               fontSize: AppStyles.fontL,
                               fontWeight: AppStyles.weightBold,
-                              color: AppColors.blackColor,
+                              color: AppColors.goldenTextColor,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

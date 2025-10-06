@@ -82,7 +82,7 @@ class OrderPlaceScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Request'),
+                              Text('Go'),
                               SizedBox(width: 10),
                               Icon(Icons.arrow_circle_right_outlined)
                             ],

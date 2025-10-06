@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../utils/style/app_text_styles.dart';
 import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
+import '../widget/custom_bottom_bar.dart';
 
 dynamic _deepUnwrap(dynamic v) {
   // Rx types → .value
@@ -76,8 +77,7 @@ class BeachClubFormController extends GetxController {
   }
 
   String? validate({required int adults, required int children}) {
-    if (venue.value == null) return "Please select a venue.";
-    if (fullName.value.trim().isEmpty) return "Please enter your full name.";
+
     if (email.value.trim().isEmpty) return "Please enter your email.";
     if (!email.value.contains('@')) return "Please enter a valid email.";
     if (contact.value.trim().isEmpty) return "Please enter WhatsApp number.";
@@ -105,11 +105,9 @@ class BeachClubFormController extends GetxController {
 
     // Build raw payload (Rx/DateTime/TimeOfDay allowed here)
     final raw = <String, dynamic>{
-      "listingId": id,
+      "listingId": 2,
       "bookingDate": reservationDate.value,
-      // DateTime? (deepSanitize ISO করবে)
       "bookingTime": reservationTime.value,
-      // TimeOfDay? (deepSanitize HH:mm করবে)
       "name": fullName.value.trim(),
       "email": email.value.trim(),
       "whatsapp": contact.value.trim(),
@@ -165,9 +163,9 @@ class BeachClubFormController extends GetxController {
 /// ==============================
 class BeachClubForm extends StatelessWidget {
   final int listingId;
-  final String venueName;
+  final String venueNames;
 
-  BeachClubForm({super.key, required this.listingId, required this.venueName});
+  BeachClubForm({super.key, required this.listingId, required this.venueNames});
 
   // Controller bind
   final form = Get.put(BeachClubFormController());
@@ -205,7 +203,7 @@ class BeachClubForm extends StatelessWidget {
                   isReadOnly: true,
                   controller: beachClubController,
                   headingText: "Venue",
-                  hintText: venueName,
+                  hintText: venueNames,
                 ),
                 const SizedBox(height: 16),
 
@@ -380,12 +378,36 @@ class BeachClubForm extends StatelessWidget {
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            await form.submitForm(
-                              adult: adults,
-                              children: children,
-                              id: listingId,
+
+                            final Map<String, dynamic> beachClubData = {
+                              "listingId": listingId,
+                              "venue": form.venue.value,
+                              "fullName": nameCtrl.text,
+                              "email": emailCtrl.text,
+                              "contact": phoneCtrl.text,
+
+                              "reservationDate": form.reservationDate.value?.toIso8601String(),
+
+                              "reservationTime": form.reservationTime.value != null
+                                  ? "${form.reservationTime.value!.hour.toString().padLeft(2, '0')}:${form.reservationTime.value!.minute.toString().padLeft(2, '0')}"
+                                  : null,
+
+                              "guests": {
+                                "adults": adults,
+                                "children": children,
+                              },
+                            };
+
+                            final response = await FormRequestApiServices.formRequest(
+                              data: beachClubData,
+                              url: "bookings",
                             );
-                            // Success snackbar & navigation handled inside submitForm
+
+                            if (response.statusCode == 201) {
+                              Get.to(() => CustomBottomBar());
+                            }else{
+                              Get.snackbar("Error", response.body);
+                            }
                           } catch (e) {
                             Get.snackbar(
                               'Failed',

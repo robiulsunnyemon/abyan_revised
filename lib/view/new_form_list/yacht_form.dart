@@ -100,6 +100,7 @@ class YachtFormController extends GetxController {
           'Success',
           'Your form submitted successfully',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.yellow.withOpacity(.08),
         );
         Get.to(() => const OrderPlaceScreen());
       } else {

@@ -23,8 +23,6 @@ class FormRequestApiServices{
         },
         body: jsonEncode(data),
       );
-      print("response status code request form ${response.statusCode}");
-      print("response status code request body ${response.body}");
       return response;
     } catch (e) {
       print("error form request: ${e.toString()}");

@@ -115,10 +115,6 @@ class BookingFormController extends GetxController {
       final response = await FormRequestApiServices.formRequest(
         data: body,
         url: "sub-category-bookings",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   if (authToken != null) "Authorization": "Bearer $authToken",
-        // },
       );
 
       if (response.statusCode == 201) {
@@ -126,9 +122,10 @@ class BookingFormController extends GetxController {
           'Success',
           'Your request has been submitted.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.yellow.withOpacity(.08),
         );
         Get.to(() => const OrderPlaceScreen());
-        // Or: Get.to(() => const OrderPlaceScreen());
+
       } else {
         Get.snackbar(
           'Failed',

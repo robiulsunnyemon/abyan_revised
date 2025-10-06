@@ -401,7 +401,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "Beach club") {
                                     Get.to(
                                       () => BeachClubForm(
-                                        venueName: _listingController
+                                        venueNames: _listingController
                                             .listingData
                                             .value!
                                             .name,
@@ -409,6 +409,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                             .listingData
                                             .value!
                                             .id,
+
                                       ),
                                     );
                                   }
@@ -419,14 +420,11 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "nightlife") {
                                     Get.to(
                                       () => NightLifeForm(
-                                        // venueName: _listingController
-                                        //     .listingData
-                                        //     .value!
-                                        //     .fromName!,
-                                        // listingId: _listingController
-                                        //     .listingData
-                                        //     .value!
-                                        //     .id,
+                                        venueName: _listingController.listingData.value!.name,
+                                        id: _listingController
+                                            .listingData
+                                            .value!
+                                            .id,
                                       ),
                                     );
                                   }

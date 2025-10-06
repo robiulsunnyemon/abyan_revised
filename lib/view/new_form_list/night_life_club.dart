@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:abyansf_asfmanagment_app/api_services/api_urls/api_urls.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,10 @@ import 'package:http/http.dart' as http;
 
 import '../../../utils/style/app_text_styles.dart';
 import '../../../view_models/controller/counter_controller.dart';
+import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
+import '../widget/custom_bottom_bar.dart';
+import '../widget/custom_text_editing_form_field.dart';
 import '../widget/increase_and_decrease.dart';
 
 /// ==============================
@@ -75,9 +80,25 @@ class NightLifeFormController extends GetxController {
       body: jsonEncode(toJson(adults: adults, children: children)),
     );
 
+    print(resp.body);
+    print(resp.statusCode);
+    print("called");
+
     if (resp.statusCode >= 200 && resp.statusCode < 300) return resp;
     throw Exception('Failed to submit. [${resp.statusCode}] ${resp.body}');
   }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /// ==============================
@@ -254,7 +275,9 @@ class _TimeField extends StatelessWidget {
 /// Screen: NightLifeForm
 /// ==============================
 class NightLifeForm extends StatelessWidget {
-  NightLifeForm({super.key});
+  final int id;
+  final String venueName;
+  NightLifeForm({super.key, required this.id, required this.venueName});
 
   final form = Get.put(NightLifeFormController());
 
@@ -268,12 +291,15 @@ class NightLifeForm extends StatelessWidget {
   final TextEditingController nameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController contactCtrl = TextEditingController();
+  final TextEditingController nightlifeController = TextEditingController();
 
-  static const String API_ENDPOINT =
-      'https://api.example.com/nightlife/request'; // <-- replace
+
+  static final String API_ENDPOINT =
+      '${ApiUrls.baseUrl}/sub-category-bookings';
 
   @override
   Widget build(BuildContext context) {
+    print(venueName);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -287,13 +313,12 @@ class NightLifeForm extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Venue
-                Text('Choose Venue', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
-                _BindableDropdown(
-                  items: type,
-                  hint: 'Select your Venue',
-                  selected: form.venue,
-                  onChanged: (v) => form.venue.value = v,
+                CustomTextEditingFormField(
+                  isReadOnly: true,
+                  controller: nightlifeController,
+                  headingText: "Venue",
+                  hintText: venueName,
                 ),
                 const SizedBox(height: 16),
 
@@ -466,20 +491,47 @@ class NightLifeForm extends StatelessWidget {
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            final uri = Uri.parse(API_ENDPOINT);
-                            await form.submit(
-                              endpoint: uri,
-                              adults: adults,
-                              children: children,
+
+                            final Map<String, dynamic> nightlifeData = {
+                              "subCategoryId": id,
+                              "venue": nightlifeController.text,
+                              "fullName": nameCtrl.text,
+                              "email": emailCtrl.text,
+                              "contact": contactCtrl.text,
+
+                              // 🔥 DateTime → String এ convert করা
+                              "reservationDate": form.reservationDate.value?.toIso8601String(),
+
+                              // 🔥 TimeOfDay → String এ convert করা
+                              "reservationTime": form.reservationTime.value != null
+                                  ? "${form.reservationTime.value!.hour.toString().padLeft(2, '0')}:${form.reservationTime.value!.minute.toString().padLeft(2, '0')}"
+                                  : null,
+
+                              "guests": {
+                                "adults": adults,
+                                "children": children,
+                              },
+                            };
+
+                            final response = await FormRequestApiServices.formRequest(
+                              data: nightlifeData,
+                              url: "sub-category-bookings",
                             );
 
-                            Get.to(() => const OrderPlaceScreen());
-                            Get.snackbar(
-                              'Success',
-                              'Your request has been submitted.',
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 2),
-                            );
+
+
+                            if (response.statusCode == 201) {
+                              Get.to(() => CustomBottomBar());
+                              Get.snackbar(
+                                'Success',
+                                'Your request has been submitted.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: Colors.yellow.withOpacity(.08),
+                              );
+                            }
+
+
                           } catch (e) {
                             Get.snackbar(
                               'Failed',

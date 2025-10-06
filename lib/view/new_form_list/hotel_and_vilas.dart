@@ -115,7 +115,7 @@ class HotelVillasFormController extends GetxController {
         'Success',
         'Your Form submit successfully',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(.08),
+        backgroundColor: Colors.yellow.withOpacity(.08),
       );
       Get.to(() => const OrderPlaceScreen());
     } else {
@@ -335,12 +335,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                               id: id,
                             );
 
-                            // success snackbar চাইলে service-এর 201 case-এ দেখাতে পারেন
-                            // এখানে চাইলে দেখাতে পারেন:
-                            // Get.snackbar('Success', 'Your request has been submitted.',
-                            //   snackPosition: SnackPosition.BOTTOM,
-                            //   duration: const Duration(seconds: 2),
-                            // );
+
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
