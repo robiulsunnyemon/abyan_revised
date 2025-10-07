@@ -42,7 +42,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 220,
+                      height: 160.h,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(

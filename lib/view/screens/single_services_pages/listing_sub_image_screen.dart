@@ -28,7 +28,7 @@ class ListingSubImageScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
-                    height: 300,
+                    height: 220.h,
                     width: double.infinity,
                     child: Container(
                       width: double.infinity,
@@ -56,7 +56,7 @@ class ListingSubImageScreen extends StatelessWidget {
                                     size: 16,
                                   ),
                                   Text(
-                                    'Down town Residence',
+                                    listingDetailData.location ?? 'Down town Residence',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
