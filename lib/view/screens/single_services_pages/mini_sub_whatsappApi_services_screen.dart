@@ -1,17 +1,22 @@
-import 'package:abyansf_asfmanagment_app/utils/assets_path.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
+// whatsapp_message_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
+import '../../../controller/mini_sub_whatsapp_api_services/mini_sub_whatsapp_api_services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
+
+import '../../../utils/assets_path.dart';
 import '../../../utils/style/appColor.dart';
+import '../../../utils/style/app_text_styles.dart';
 
-class MassageScreen extends StatelessWidget {
-  MassageScreen({super.key});
+class MiniWhatsappMessageScreen extends StatelessWidget {
+  MiniWhatsappMessageScreen({super.key});
 
-  final _contactWhatsappController = Get.put(ContactWhatsappController());
+  final ServiceController _contactWhatsappController = Get.put(ServiceController());
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +141,7 @@ class MassageScreen extends StatelessWidget {
                         serviceData.description is Map<String, dynamic>
                             ? (serviceData.description["content"] ?? "")
                             : serviceData.description?.toString() ??
-                                  "No description available",
+                            "No description available",
                       ),
                     ),
                   ),

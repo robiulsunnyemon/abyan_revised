@@ -21,10 +21,12 @@ class ContactWhatsappController extends GetxController {
       if(response.success){
         Get.to(() => MassageScreen());
       }else{
+        print(response.data);
         Get.snackbar('Error', 'Failed to fetch service details: ${response.data}');
       }
     } catch (e) {
       errorMessage(e.toString());
+      print(e);
       Get.snackbar('Error', 'Failed to fetch service details: $e');
     } finally {
       isLoading(false);

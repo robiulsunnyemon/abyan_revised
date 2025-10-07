@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
 import '../../../controller/mini_sub_category_controller/mini_sub_category_controller.dart';
+import '../../../controller/mini_sub_whatsapp_api_services/mini_sub_whatsapp_api_services.dart';
 import '../../../utils/style/appColor.dart';
 import '../../new_form_list/jets_form.dart';
 
@@ -12,9 +13,11 @@ class MiniSubCategoryScreen extends StatelessWidget {
   MiniSubCategoryScreen({super.key, required this.subCategoryId});
 
   final _miniSubCategoryController = Get.put(MiniSubCategoryController());
-  final _contactWhatsappController = Get.put(ContactWhatsappController());
+
+  final _miniSubWhatsappApiServicesController = Get.put(ServiceController());
 
   Future<void> _onRefresh() async {
+    print("called");
     _miniSubCategoryController.fetchMiniSubCategories(subCategoryId);
   }
 
@@ -24,7 +27,6 @@ class MiniSubCategoryScreen extends StatelessWidget {
       onRefresh: _onRefresh,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Luxury Travels'),
           leading: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
@@ -73,11 +75,9 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       if (_miniSubCategoryController
                           .miniSubCategories[index]
                           .contractWhatsapp) {
-                        _contactWhatsappController.fetchServiceDetails(
-                          _miniSubCategoryController
-                              .miniSubCategories[index]
-                              .id,
-                        );
+                        print("${_miniSubCategoryController.miniSubCategories[index].id}");
+
+                        _miniSubWhatsappApiServicesController.fetchServiceDetails(_miniSubCategoryController.miniSubCategories[index].id);
                       }
                       if (_miniSubCategoryController
                           .miniSubCategories[index]
