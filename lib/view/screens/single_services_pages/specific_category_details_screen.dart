@@ -119,7 +119,6 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                                       return GestureDetector(
                                         onTap: () {
                                           if (listingItem.contractWhatsapp) {
-                                            print("contract whatsapp");
                                             _listingWhatsappController
                                                 .fetchListingWhatsapp(
                                                   listingItem.id,

@@ -1,8 +1,10 @@
 import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/main_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../controller/contact_whatsapp_controller/contact_whatsapp_controller.dart';
+import '../../../controller/main_category_controller/main_category_controller.dart';
 import '../../../controller/mini_sub_category_controller/mini_sub_category_controller.dart';
 import '../../../controller/mini_sub_whatsapp_api_services/mini_sub_whatsapp_api_services.dart';
 import '../../../controller/specific_category_controller/specific_category_controller.dart';
@@ -16,6 +18,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
   MiniSubCategoryScreen({super.key, required this.subCategoryId});
 
   final _specificCategoryController = Get.put(SpecificCategoryController());
+  final _mainCategoryController = Get.put(MainCategoryController());
   final _miniSubCategoryController = Get.put(MiniSubCategoryController());
   final _miniSubWhatsappApiServicesController = Get.put(ServiceController());
 
@@ -65,7 +68,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      _miniSubCategoryController.miniSubCategories[0].img  ??
+                      _miniSubCategoryController.subCategoryData.value?.img ??
                           AppConstants.defaultImageUrl,
                     ),
                     fit: BoxFit.cover,

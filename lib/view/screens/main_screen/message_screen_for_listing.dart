@@ -60,7 +60,7 @@ class MessageScreenForListing extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 30.h),
                 Column(
                   children: [
                     Container(

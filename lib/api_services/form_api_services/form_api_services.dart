@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
 import '../../shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import '../api_urls/api_urls.dart';
 

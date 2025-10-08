@@ -1,12 +1,9 @@
-// services/api_service.dart
 import 'dart:convert';
 import 'package:abyansf_asfmanagment_app/api_services/api_urls/api_urls.dart';
 import 'package:http/http.dart' as http;
 import '../../models/admin_whatsapp_model.dart';
 
-
 class ApiService {
-
 
   Future<WhatsAppResponse> getWhatsAppInfo() async {
     try {

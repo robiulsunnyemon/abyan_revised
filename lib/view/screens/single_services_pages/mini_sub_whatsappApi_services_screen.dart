@@ -111,7 +111,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 30.h),
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -128,7 +128,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 30.h),
                     // WhatsApp Contact Card
                     Container(
                       height: 170,

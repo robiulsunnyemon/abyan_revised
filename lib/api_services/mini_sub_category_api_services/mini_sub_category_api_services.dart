@@ -9,7 +9,7 @@ import '../../shared_preferences_services/auth_pref_services/auth_pref_services.
 class MiniSubCategoryApiService {
 
 
-  static Future<List<MiniSubCategory>> getMiniSubCategoriesBySubCategory(int subCategoryId) async {
+  static Future<SubCategoryFullModel> getMiniSubCategoriesBySubCategory(int subCategoryId) async {
     await AuthPrefService.loadToken();
     final token= AuthPrefService.token;
 
@@ -23,11 +23,19 @@ class MiniSubCategoryApiService {
 
     print("sub category mini response ${response.statusCode}");
     if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
+
       // Extract the miniSubCategory array from the response
-      final List<dynamic> miniSubCategoriesJson = jsonData['data']['miniSubCategory'];
-      return miniSubCategoriesJson.map((json) => MiniSubCategory.fromJson(json)).toList();
+      // final List<dynamic> miniSubCategoriesJson = jsonData['data']['miniSubCategory'];
+
+
+
+      final jsonData = json.decode(response.body);
+      print("Full response: $jsonData");
+
+      final data = jsonData['data'];
+      return SubCategoryFullModel.fromJson(data);
     } else {
+      print('helllo -------------');
       throw Exception('Failed to load mini sub-categories');
     }
   }
