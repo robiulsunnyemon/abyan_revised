@@ -61,7 +61,6 @@ class ListingSubImageScreen extends StatelessWidget {
                                         size: 16,
                                       ),
                                     ),
-                                    /// ✅ Text now expands safely within available space
                                     Expanded(
                                       child: Text(
                                         listingDetailData.location ??
@@ -77,8 +76,6 @@ class ListingSubImageScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-
-                              /// RIGHT SIDE
                               Row(
                                 children: [
                                   Image.asset(

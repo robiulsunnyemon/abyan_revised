@@ -66,6 +66,7 @@ class YachtFormController extends GetxController {
         'Validation failed',
         err,
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red
       );
       return;
     }
@@ -89,10 +90,6 @@ class YachtFormController extends GetxController {
       final response = await FormRequestApiServices.formRequest(
         data: data,
         url: "sub-category-bookings",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   if (authToken != null) "Authorization": "Bearer $authToken",
-        // },
       );
 
       if (response.statusCode == 201) {
@@ -100,7 +97,7 @@ class YachtFormController extends GetxController {
           'Success',
           'Your form submitted successfully',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.yellow.withOpacity(.08),
+          backgroundColor: Colors.green,
         );
         Get.to(() => const OrderPlaceScreen());
       } else {
@@ -439,12 +436,11 @@ class YachtRequestFormScreen extends StatelessWidget {
 
                             await controller.submitForm(id: id);
 
-                            // success handled inside submitForm
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }

@@ -1,4 +1,5 @@
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -226,6 +227,8 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                           if (fullNameController.text.isEmpty ||
                               emailController.text.isEmpty ||
                               phoneController.text.isEmpty ||
+                              checkInDate == "01/01/2026" ||
+                              selectedTime == "9:45" ||
                               selectedTime.isEmpty ||
                               checkInDate.isEmpty ||
                               adultNumber == 0 && childrenNumber == 0) {
@@ -273,7 +276,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                                 url: "bookings",
                               );
                           if (response.statusCode == 201) {
-                            Get.to(() => CustomBottomBar());
+                            Get.to(() => OrderPlaceScreen());
                           }
                         },
                       ),

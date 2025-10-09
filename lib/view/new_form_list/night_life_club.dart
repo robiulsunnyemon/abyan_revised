@@ -299,7 +299,6 @@ class NightLifeForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(venueName);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -493,16 +492,12 @@ class NightLifeForm extends StatelessWidget {
 
 
                             final Map<String, dynamic> nightlifeData = {
-                              "subCategoryId": id,
+                              "listingId": id,
                               "venue": nightlifeController.text,
                               "fullName": nameCtrl.text,
                               "email": emailCtrl.text,
                               "contact": contactCtrl.text,
-
-                              // 🔥 DateTime → String এ convert করা
                               "reservationDate": form.reservationDate.value?.toIso8601String(),
-
-                              // 🔥 TimeOfDay → String এ convert করা
                               "reservationTime": form.reservationTime.value != null
                                   ? "${form.reservationTime.value!.hour.toString().padLeft(2, '0')}:${form.reservationTime.value!.minute.toString().padLeft(2, '0')}"
                                   : null,
@@ -515,19 +510,19 @@ class NightLifeForm extends StatelessWidget {
 
                             final response = await FormRequestApiServices.formRequest(
                               data: nightlifeData,
-                              url: "sub-category-bookings",
+                              url: "bookings",
                             );
-
-
+                            
+                            print("response status code: ${jsonDecode(response.body)}");
 
                             if (response.statusCode == 201) {
-                              Get.to(() => CustomBottomBar());
+                              Get.to(() => const OrderPlaceScreen());
                               Get.snackbar(
                                 'Success',
                                 'Your request has been submitted.',
                                 snackPosition: SnackPosition.BOTTOM,
                                 duration: const Duration(seconds: 2),
-                                backgroundColor: Colors.yellow.withOpacity(.08),
+                                backgroundColor: Colors.green,
                               );
                             }
 

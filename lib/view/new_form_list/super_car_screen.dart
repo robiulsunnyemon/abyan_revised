@@ -80,6 +80,7 @@ class BookingFormController extends GetxController {
         'Validation failed',
         err,
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red
       );
       return;
     }
@@ -122,7 +123,7 @@ class BookingFormController extends GetxController {
           'Success',
           'Your request has been submitted.',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.yellow.withOpacity(.08),
+          backgroundColor: Colors.green,
         );
         Get.to(() => const OrderPlaceScreen());
 
@@ -131,7 +132,7 @@ class BookingFormController extends GetxController {
           'Failed',
           'Server responded: ${response.statusCode}',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(.08),
+          backgroundColor: Colors.red,
         );
       }
     } catch (e) {
@@ -139,7 +140,7 @@ class BookingFormController extends GetxController {
         'Failed',
         e.toString().replaceFirst('Exception: ', ''),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(.08),
+        backgroundColor: Colors.red,
       );
     }
   }
@@ -575,10 +576,8 @@ class SuperCarScreen extends StatelessWidget {
                           try {
                             // Ensure contact sync
                             booking.contact.value = phoneCtrl.text.trim();
-
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
-
                             await booking.submitBooking(
                               adults: adults,
                               children: children,
@@ -589,7 +588,7 @@ class SuperCarScreen extends StatelessWidget {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }

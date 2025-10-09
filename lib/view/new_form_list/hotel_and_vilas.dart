@@ -83,6 +83,7 @@ class HotelVillasFormController extends GetxController {
         'Validation failed',
         err,
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red
       );
       return;
     }
@@ -115,7 +116,7 @@ class HotelVillasFormController extends GetxController {
         'Success',
         'Your Form submit successfully',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.yellow.withOpacity(.08),
+        backgroundColor: Colors.green,
       );
       Get.to(() => const OrderPlaceScreen());
     } else {
@@ -123,7 +124,7 @@ class HotelVillasFormController extends GetxController {
         'Failed',
         'Server responded: ${response.statusCode}',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(.08),
+        backgroundColor: Colors.red,
       );
     }
   }

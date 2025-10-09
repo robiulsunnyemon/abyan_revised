@@ -24,6 +24,7 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("lo");
     return RefreshIndicator(
       onRefresh: _onRefresh,
       child: Scaffold(
@@ -159,48 +160,6 @@ class SpecificCategoryDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
-                          //indicator
-                          // Align(
-                          //   alignment: Alignment.center,
-                          //   child: SizedBox(
-                          //     width: 320.w,
-                          //     height: 40,
-                          //     child: Obx(
-                          //           () => Wrap(
-                          //             alignment: WrapAlignment.center,
-                          //             spacing: 4,
-                          //             children: List.generate(
-                          //               _specificCategoryController
-                          //                   .specificCategories[categoryIndex]
-                          //                   .listings
-                          //                   .length,
-                          //                   (indicatorIndex) {
-                          //                 final isActive =
-                          //                     _specificCategoryController
-                          //                         .sliderIndices[categoryIndex]
-                          //                         ?.value ==
-                          //                         indicatorIndex;
-                          //                 return AnimatedContainer(
-                          //                   duration: const Duration(milliseconds: 300),
-                          //                   margin: const EdgeInsets.symmetric(
-                          //                     horizontal: 4,
-                          //                   ),
-                          //                   width: isActive ? 16 : 6,
-                          //                   height: 6,
-                          //                   decoration: BoxDecoration(
-                          //                     borderRadius: BorderRadius.circular(30),
-                          //                     color: isActive
-                          //                         ? AppColors.primaryColor
-                          //                         : AppColors.lightGrey,
-                          //                   ),
-                          //                 );
-                          //               },
-                          //             ),
-                          //           ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       );
                     },

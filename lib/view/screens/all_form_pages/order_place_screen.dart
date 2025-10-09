@@ -68,7 +68,7 @@ class OrderPlaceScreen extends StatelessWidget {
                                   borderRadius: BorderRadiusGeometry.circular(4)
                               )
                           ),
-                          child: Text('Cancel'),
+                          child: Text('Go to home'),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -82,7 +82,7 @@ class OrderPlaceScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Go'),
+                              Text('Go to profile'),
                               SizedBox(width: 10),
                               Icon(Icons.arrow_circle_right_outlined)
                             ],

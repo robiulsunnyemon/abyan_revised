@@ -61,7 +61,7 @@ class BeachClubFormController extends GetxController {
   String? authToken;
 
   Map<String, dynamic> toJson({required int adults, required int children}) {
-    // (toJson ইউজ করতে চাইলে ব্যবহার করুন — deepSanitize ছাড়াই ক্লিন)
+
     return {
       "venueName": venue.value,
       "name": fullName.value.trim(),
@@ -187,6 +187,7 @@ class BeachClubForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -404,7 +405,13 @@ class BeachClubForm extends StatelessWidget {
                             );
 
                             if (response.statusCode == 201) {
-                              Get.to(() => CustomBottomBar());
+                              Get.snackbar(
+                                'Success',
+                                'Your request has been submitted.',
+                                backgroundColor: Colors.green,
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                              Get.to(() => const OrderPlaceScreen());
                             }else{
                               Get.snackbar("Error", response.body);
                             }
@@ -412,7 +419,7 @@ class BeachClubForm extends StatelessWidget {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }

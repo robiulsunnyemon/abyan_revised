@@ -129,9 +129,9 @@ class JetsFormController extends GetxController {
           'Success',
           'Your request has been submitted.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green
         );
         Get.to(() => const OrderPlaceScreen());
-        // Or: Get.to(() => const OrderPlaceScreen());
       } else {
         Get.snackbar(
           'Failed',
