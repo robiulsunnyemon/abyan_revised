@@ -11,7 +11,9 @@ import '../constant/constans.dart';
 
 class MessageScreenForListing extends StatelessWidget {
   MessageScreenForListing({super.key});
+
   final _listingWhatsappController = Get.put(ListingWhatsappController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +91,20 @@ class MessageScreenForListing extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 30.h),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          style: TextStyle(color: AppColors.white),
+                          serviceData.data?.description ?? "",
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 50.h),
                     Container(
                       height: 160.h,
@@ -149,7 +165,9 @@ class MessageScreenForListing extends StatelessWidget {
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text("Could not open WhatsApp"),
+                                        content: Text(
+                                          "Could not open WhatsApp",
+                                        ),
                                       ),
                                     );
                                   }

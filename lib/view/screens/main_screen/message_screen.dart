@@ -106,7 +106,7 @@ class MassageScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30.h), 
+                    SizedBox(height: 30.h),
                     // WhatsApp Contact Card
                     Container(
                       height: 170,
