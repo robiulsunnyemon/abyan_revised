@@ -36,7 +36,7 @@ class EventScreen extends StatelessWidget {
                 children: [
                   HomeAppBar(showTitle: true),
                   const SizedBox(height: 15),
-                  Text('Upcoming Event', style: AppTextStyle.bold24),
+                  Text('Upcoming Events', style: AppTextStyle.bold24),
                   const SizedBox(height: 10),
                   Obx(() {
                     if (_eventController.upcomingEvents.isEmpty) {
@@ -70,7 +70,7 @@ class EventScreen extends StatelessWidget {
                     }
                   }),
                   const SizedBox(height: 10),
-                  Text('Past Event', style: AppTextStyle.bold24),
+                  Text('Past Events', style: AppTextStyle.bold24),
                   const SizedBox(height: 10),
                   Obx(() {
                     if (_eventController.pastEvents.isEmpty) {

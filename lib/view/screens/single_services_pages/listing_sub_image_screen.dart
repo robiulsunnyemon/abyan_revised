@@ -27,7 +27,7 @@ class ListingSubImageScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
-                    height: 180.h,
+                    height: 160.h,
                     width: double.infinity,
                     child: Container(
                       decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class ListingSubImageScreen extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Align(
+                      /*child: Align(
                         alignment: Alignment(0.8, 0.9),
                         child: Container(
                           width: double.infinity,
@@ -93,7 +93,7 @@ class ListingSubImageScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
+                      ),*/
                     ),
                   ),
                 );

@@ -193,7 +193,7 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
                 const SizedBox(height: 20),
-                Text('Highlight', style: AppTextStyle.bold24),
+                Text('Highlights', style: AppTextStyle.bold24),
                 const SizedBox(height: 13),
 
                 /// Carousel Section
@@ -293,7 +293,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Text('Member Event', style: AppTextStyle.bold24),
+                    Text('Member Events', style: AppTextStyle.bold24),
                     const Spacer(),
                     if (_eventController.upcomingEvents.isNotEmpty)
                       TextButton(
