@@ -32,6 +32,7 @@ class MessageScreenForListing extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: SafeArea(
           child: Obx(() {
+            final serviceData = _listingWhatsappController.listingData.value;
             if (serviceData == null) {
               return Center(child: CircularProgressIndicator());
             }

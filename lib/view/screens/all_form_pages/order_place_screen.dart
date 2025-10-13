@@ -74,7 +74,7 @@ class OrderPlaceScreen extends StatelessWidget {
                       SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(onPressed: (){
-                          Get.to(() => CustomBottomBar());
+                          Get.to(() => CustomBottomBar(initialIndex: 3));
                         },
                           style: ElevatedButton.styleFrom(
                               shadowColor: Colors.transparent
