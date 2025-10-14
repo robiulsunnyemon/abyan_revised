@@ -77,116 +77,140 @@ class HomeScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: _subCategoryController.subCategories.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (_subCategoryController
-                                        .subCategories[index]
-                                        .contractWhatsapp) {
-                                      _contactWhatsappController
-                                          .fetchServiceDetails(
-                                            _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          );
-                                      Get.to(() => MassageScreen());
-                                    }
-                                    if (_subCategoryController
-                                        .subCategories[index]
-                                        .hasSpecificCategory) {
-                                      _specificCategoryController
-                                          .fetchSubcategoryDetails(
-                                            _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          );
-                                    }
-                                    if (_subCategoryController
-                                        .subCategories[index]
-                                        .hasForm) {
-                                      if (_subCategoryController
-                                              .subCategories[index]
-                                              .fromName ==
-                                          "Jets") {
-                                        Get.to(
-                                          () => JetsScreen(
-                                            id: _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          ),
-                                        );
-                                      } else if (_subCategoryController
-                                              .subCategories[index]
-                                              .fromName ==
-                                          "Hotel & Villas") {
-                                        Get.to(
-                                          () => HotelAndVillasScreen(
-                                            id: _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          ),
-                                        );
-                                      } else if (_subCategoryController
-                                              .subCategories[index]
-                                              .fromName ==
-                                          "Yacht") {
-                                        Get.to(
-                                          () => YachtRequestFormScreen(
-                                            id: _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          ),
-                                        );
-                                      } else if (_subCategoryController
-                                              .subCategories[index]
-                                              .fromName ==
-                                          "Super Car") {
-                                        Get.to(
-                                          () => SuperCarScreen(
-                                            id: _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          ),
-                                        );
-                                      }
-                                    }
-                                    if (_subCategoryController
-                                        .subCategories[index]
-                                        .hasMiniSubCategory) {
-                                      _miniSubCategoryController
-                                          .fetchMiniSubCategories(
-                                            _subCategoryController
-                                                .subCategories[index]
-                                                .id,
-                                          );
-                                    }
-                                  },
-                                  child: CircleAvatar(
+                          if(index + 1 == _subCategoryController.subCategories.length ){
+                            return  Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
                                     radius: 40,
+
                                     backgroundImage: NetworkImage(
-                                      _subCategoryController
-                                              .subCategories[index]
-                                              .img ??
-                                          ApiUrls.defaultImageUrl,
+                                     "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg",
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  _subCategoryController
-                                      .subCategories[index]
-                                      .name,
-                                  style: AppTextStyle.bold14.copyWith(
-                                    fontFamily: 'Inter',
+                                  const SizedBox(height: 6),
+                                  Text(
+                                 "More",
+                                    style: AppTextStyle.bold14.copyWith(
+                                      fontFamily: 'Inter',
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
+                                ],
+                              ),
+                            );
+                          } else{
+                            return Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (_subCategoryController
+                                          .subCategories[index]
+                                          .contractWhatsapp) {
+                                        _contactWhatsappController
+                                            .fetchServiceDetails(
+                                          _subCategoryController
+                                              .subCategories[index]
+                                              .id,
+                                        );
+                                        Get.to(() => MassageScreen());
+                                      }
+                                      if (_subCategoryController
+                                          .subCategories[index]
+                                          .hasSpecificCategory) {
+                                        _specificCategoryController
+                                            .fetchSubcategoryDetails(
+                                          _subCategoryController
+                                              .subCategories[index]
+                                              .id,
+                                        );
+                                      }
+                                      if (_subCategoryController
+                                          .subCategories[index]
+                                          .hasForm) {
+                                        if (_subCategoryController
+                                            .subCategories[index]
+                                            .fromName ==
+                                            "Jets") {
+                                          Get.to(
+                                                () => JetsScreen(
+                                              id: _subCategoryController
+                                                  .subCategories[index]
+                                                  .id,
+                                            ),
+                                          );
+                                        } else if (_subCategoryController
+                                            .subCategories[index]
+                                            .fromName ==
+                                            "Hotel & Villas") {
+                                          Get.to(
+                                                () => HotelAndVillasScreen(
+                                              id: _subCategoryController
+                                                  .subCategories[index]
+                                                  .id,
+                                            ),
+                                          );
+                                        } else if (_subCategoryController
+                                            .subCategories[index]
+                                            .fromName ==
+                                            "Yacht") {
+                                          Get.to(
+                                                () => YachtRequestFormScreen(
+                                              id: _subCategoryController
+                                                  .subCategories[index]
+                                                  .id,
+                                            ),
+                                          );
+                                        } else if (_subCategoryController
+                                            .subCategories[index]
+                                            .fromName ==
+                                            "Super Car") {
+                                          Get.to(
+                                                () => SuperCarScreen(
+                                              id: _subCategoryController
+                                                  .subCategories[index]
+                                                  .id,
+                                            ),
+                                          );
+                                        }
+                                      }
+                                      if (_subCategoryController
+                                          .subCategories[index]
+                                          .hasMiniSubCategory) {
+                                        _miniSubCategoryController
+                                            .fetchMiniSubCategories(
+                                          _subCategoryController
+                                              .subCategories[index]
+                                              .id,
+                                        );
+                                      }
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundImage: NetworkImage(
+                                        _subCategoryController
+                                            .subCategories[index]
+                                            .img ??
+                                            ApiUrls.defaultImageUrl,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    _subCategoryController
+                                        .subCategories[index]
+                                        .name,
+                                    style: AppTextStyle.bold14.copyWith(
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         },
                       ),
                     );
