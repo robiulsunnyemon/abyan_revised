@@ -409,7 +409,7 @@ class ProfileScreen extends StatelessWidget {
                           text: 'Booking History',
                           isArrowTrue: true,
                           onTap: () {
-                            showMyDialog(context);
+                            Get.to(EventBookingHistoryScreen());
                           },
                         ),
                         SizedBox(height: 12.h),
@@ -522,7 +522,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Future<void> showMyDialog(BuildContext context) async {
+  /*Future<void> showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -575,7 +575,7 @@ class ProfileScreen extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 
 
 }

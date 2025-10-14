@@ -39,23 +39,19 @@ class ExploreScreen extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                        left: 0,
-                        right: 0,
-                        bottom: 8,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 16.h,
+                    horizontal: 16.w,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text("Explore", style: AppTextStyle.bold24),
                       ),
-                      color: Colors.transparent,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text("Explore", style: AppTextStyle.bold24)],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Obx(() {
@@ -68,23 +64,23 @@ class ExploreScreen extends StatelessWidget {
                     itemCount: _mainCategoryController.mainCategories.length,
                     itemBuilder: (context, index) {
                       MainCategory mainCategory =
-                          _mainCategoryController.mainCategories[index];
+                      _mainCategoryController.mainCategories[index];
                       return Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.w),
                               child: Text(
                                 mainCategory.name,
                                 style: AppTextStyle.bold24,
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 10.h),
                             if (mainCategory.subCategories.isEmpty)
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.w),
                                 child: Center(
                                   child: Text('No subcategories found'),
                                 ),
@@ -95,89 +91,74 @@ class ExploreScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 4.0.h,
-                                      crossAxisSpacing: 14.0.w,
-                                      childAspectRatio: 0.70,
-                                    ),
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10.w,
+                                  childAspectRatio: 0.68,
+                                ),
                                 itemBuilder: (context, index) {
                                   SubCategory subCategory =
-                                      mainCategory.subCategories[index];
+                                  mainCategory.subCategories[index];
                                   return Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
                                           if (subCategory.hasSpecificCategory) {
                                             _specificCategoryController
                                                 .fetchSubcategoryDetails(
-                                                  subCategory.id,
-                                                );
-                                          } else if (subCategory
-                                              .contractWhatsapp) {
+                                              subCategory.id,
+                                            );
+                                          } else if (subCategory.contractWhatsapp) {
                                             _contactWhatsappController
                                                 .fetchServiceDetails(
-                                                  subCategory.id,
-                                                );
+                                              subCategory.id,
+                                            );
                                           } else if (subCategory.hasForm) {
-                                            if (subCategory.fromName ==
-                                                "Jets") {
-                                              Get.to(
-                                                () => JetsScreen(
-                                                  id: subCategory.id,
-                                                ),
-                                              );
+                                            if (subCategory.fromName == "Jets") {
+                                              Get.to(() => JetsScreen(
+                                                id: subCategory.id,
+                                              ));
                                             } else if (subCategory.fromName ==
                                                 "Hotel & Villas") {
-                                              Get.to(
-                                                () => HotelAndVillasScreen(
-                                                  id: subCategory.id,
-                                                ),
-                                              );
+                                              Get.to(() =>
+                                                  HotelAndVillasScreen(
+                                                    id: subCategory.id,
+                                                  ));
                                             } else if (subCategory.fromName ==
                                                 "Yacht") {
-                                              Get.to(
-                                                () => YachtRequestFormScreen(
-                                                  id: subCategory.id,
-                                                ),
-                                              );
+                                              Get.to(() => YachtRequestFormScreen(
+                                                id: subCategory.id,
+                                              ));
                                             } else if (subCategory.fromName ==
                                                 "Super Car") {
-                                              Get.to(
-                                                () => SuperCarScreen(
-                                                  id: subCategory.id,
-                                                ),
-                                              );
+                                              Get.to(() => SuperCarScreen(
+                                                id: subCategory.id,
+                                              ));
                                             }
-                                          } else if (subCategory
-                                              .hasMiniSubCategory) {
+                                          } else if (subCategory.hasMiniSubCategory) {
                                             _miniSubCategoryController
                                                 .fetchMiniSubCategories(
-                                                  subCategory.id,
-                                                );
+                                              subCategory.id,
+                                            );
                                           }
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
+                                          borderRadius: BorderRadius.circular(10.r),
                                           child: Image.network(
                                             subCategory.img ??
                                                 ApiUrls.defaultImageUrl,
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             height:
-                                                MediaQuery.of(
-                                                  context,
-                                                ).size.width /
+                                            MediaQuery.of(context).size.width /
                                                 2,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: EdgeInsets.only(top: 10.h),
                                         child: Text(
                                           subCategory.name,
                                           style: AppTextStyle.bold16,

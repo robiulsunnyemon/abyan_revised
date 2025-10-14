@@ -408,6 +408,7 @@ class JetsScreen extends StatelessWidget {
 
                 // Guests
                 Text('Number of guest', style: AppTextStyle.bold16),
+                SizedBox(height: 10.h,),
                 Row(
                   children: [
                     _IncreaseAndDecrease(
@@ -537,69 +538,67 @@ class _IncreaseAndDecrease extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Container(
-          height: 48,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            children: [
-              /// left side text -> Expanded so it takes available space
-              Expanded(
-                child: Text(
-                  type,
-                  style: AppTextStyle.regular12.copyWith(
-                    color: AppColors.hintWhiteColor,
-                  ),
-                  overflow: TextOverflow.ellipsis, // overflow handle
-                ),
-              ),
+    // Screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-              /// counter section
-              Row(
-                mainAxisSize: MainAxisSize.min, // shrink to content
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.white),
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              type,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 12.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: counter.decrease,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.remove_circle_outline,
-                        color: AppColors.goldenTextColor,
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4,left: 4,right: 4),
+                    child: Obx(
+                          () => Text(
+                        counter.count.value.toString(),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  Obx(
-                    () => Text(
-                      counter.count.value.toString(),
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
                   InkWell(
                     onTap: counter.increase,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.add_circle_outline,
-                        color: AppColors.goldenTextColor,
-                      ),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

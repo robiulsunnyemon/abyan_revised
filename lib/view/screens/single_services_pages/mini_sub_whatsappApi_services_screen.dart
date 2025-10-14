@@ -95,7 +95,6 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     Container(
-                      height: 170,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
@@ -103,59 +102,62 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                           colors: [Color(0xffDFD2A9), Color(0xffEEE9D3)],
                         ),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Text(
-                              'To learn more about this service in detail, contact now on WhatsApp.',
-                              style: AppTextStyle.bold16,
-                              textAlign: TextAlign.center,
+                      child: Padding(
+                        padding:  EdgeInsets.only(bottom: 16.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                'To learn more about this service in detail, contact now on WhatsApp.',
+                                style: AppTextStyle.bold16,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(elevation: 0),
-                            onPressed: () async {
-                              final whatsappUrl =
-                                  serviceData.adminWhatsApp?.mobileWhatsappLink;
-                              debugPrint("Attempting to launch: $whatsappUrl");
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(elevation: 0),
+                              onPressed: () async {
+                                final whatsappUrl =
+                                    serviceData.adminWhatsApp?.mobileWhatsappLink;
+                                debugPrint("Attempting to launch: $whatsappUrl");
 
-                              try {
-                                // First try launching directly without canLaunch check
-                                await launchUrl(
-                                  Uri.parse(whatsappUrl!),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              } catch (e) {
-                                debugPrint(
-                                  "Direct launch failed, trying alternative: $e",
-                                );
-                                // If direct launch fails, try with canLaunch check
                                 try {
-                                  if (await canLaunch(whatsappUrl!)) {
-                                    await launch(whatsappUrl!);
-                                  } else {
-                                    await launch(
-                                      "https://play.google.com/store/apps/details?id=com.whatsapp",
-                                      forceSafariVC: false,
-                                      forceWebView: false,
+                                  // First try launching directly without canLaunch check
+                                  await launchUrl(
+                                    Uri.parse(whatsappUrl!),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                } catch (e) {
+                                  debugPrint(
+                                    "Direct launch failed, trying alternative: $e",
+                                  );
+                                  // If direct launch fails, try with canLaunch check
+                                  try {
+                                    if (await canLaunch(whatsappUrl!)) {
+                                      await launch(whatsappUrl!);
+                                    } else {
+                                      await launch(
+                                        "https://play.google.com/store/apps/details?id=com.whatsapp",
+                                        forceSafariVC: false,
+                                        forceWebView: false,
+                                      );
+                                    }
+                                  } catch (e2) {
+                                    debugPrint("Fallback launch failed: $e2");
+                                    // Show error to user
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("Could not open WhatsApp"),
+                                      ),
                                     );
                                   }
-                                } catch (e2) {
-                                  debugPrint("Fallback launch failed: $e2");
-                                  // Show error to user
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Could not open WhatsApp"),
-                                    ),
-                                  );
                                 }
-                              }
-                            },
-                            child: const Text('WhatsApp'),
-                          ),
-                        ],
+                              },
+                              child: const Text('WhatsApp'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_text_editing_form_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/style/app_text_styles.dart';
@@ -632,6 +633,7 @@ class CounterController extends GetxController {
   }
 }
 
+
 class IncreaseAndDecrease extends StatelessWidget {
   final String type;
   final CounterController counter;
@@ -644,68 +646,70 @@ class IncreaseAndDecrease extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Container(
-          height: 48,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                type,
-                style: const TextStyle(
-                  color: AppColors.white,
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.white),
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              type,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 12.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: counter.decrease,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.remove_circle_outline,
-                        color: AppColors.goldenTextColor,
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4,left: 4,right: 4),
+                    child: Obx(
+                          () => Text(
+                        counter.count.value.toString(),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Obx(
-                    () => Text(
-                      counter.count.value.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.add_circle_outline,
-                        color: AppColors.goldenTextColor,
-                      ),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+

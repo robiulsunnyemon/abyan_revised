@@ -37,7 +37,6 @@ class CustomEventWidget extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          height: 95.h,
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
