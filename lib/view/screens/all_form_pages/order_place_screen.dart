@@ -56,7 +56,11 @@ class OrderPlaceScreen extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.to(() => CustomBottomBar());
+                            Get.offAll(
+                                  () => CustomBottomBar(initialIndex: 0),
+                              transition: Transition.fadeIn,
+                              duration: const Duration(milliseconds: 100),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.white,
@@ -74,7 +78,11 @@ class OrderPlaceScreen extends StatelessWidget {
                       SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(onPressed: (){
-                          Get.to(() => CustomBottomBar(initialIndex: 3));
+                          Get.offAll(
+                                () => CustomBottomBar(initialIndex: 3),
+                            transition: Transition.fadeIn,
+                            duration: const Duration(milliseconds: 0),
+                          );
                         },
                           style: ElevatedButton.styleFrom(
                               shadowColor: Colors.transparent

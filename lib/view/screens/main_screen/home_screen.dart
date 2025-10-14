@@ -8,6 +8,8 @@ import 'package:abyansf_asfmanagment_app/view/new_form_list/jets_form.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/super_car_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/yacht_form.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/main_screen/explore_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_event_widget.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/home_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -75,31 +77,9 @@ class HomeScreen extends StatelessWidget {
                       height: 145,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: _subCategoryController.subCategories.length,
+                        itemCount: _subCategoryController.subCategories.length + 1, // +1 for "More"
                         itemBuilder: (context, index) {
-                          if(index + 1 == _subCategoryController.subCategories.length ){
-                            return  Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 40,
-
-                                    backgroundImage: NetworkImage(
-                                     "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg",
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                 "More",
-                                    style: AppTextStyle.bold14.copyWith(
-                                      fontFamily: 'Inter',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else{
+                          if (index == _subCategoryController.subCategories.length) {
                             return Padding(
                               padding: const EdgeInsets.all(8),
                               child: Column(
@@ -107,113 +87,94 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      if (_subCategoryController
-                                          .subCategories[index]
-                                          .contractWhatsapp) {
-                                        _contactWhatsappController
-                                            .fetchServiceDetails(
-                                          _subCategoryController
-                                              .subCategories[index]
-                                              .id,
-                                        );
-                                        Get.to(() => MassageScreen());
-                                      }
-                                      if (_subCategoryController
-                                          .subCategories[index]
-                                          .hasSpecificCategory) {
-                                        _specificCategoryController
-                                            .fetchSubcategoryDetails(
-                                          _subCategoryController
-                                              .subCategories[index]
-                                              .id,
-                                        );
-                                      }
-                                      if (_subCategoryController
-                                          .subCategories[index]
-                                          .hasForm) {
-                                        if (_subCategoryController
-                                            .subCategories[index]
-                                            .fromName ==
-                                            "Jets") {
-                                          Get.to(
-                                                () => JetsScreen(
-                                              id: _subCategoryController
-                                                  .subCategories[index]
-                                                  .id,
-                                            ),
-                                          );
-                                        } else if (_subCategoryController
-                                            .subCategories[index]
-                                            .fromName ==
-                                            "Hotel & Villas") {
-                                          Get.to(
-                                                () => HotelAndVillasScreen(
-                                              id: _subCategoryController
-                                                  .subCategories[index]
-                                                  .id,
-                                            ),
-                                          );
-                                        } else if (_subCategoryController
-                                            .subCategories[index]
-                                            .fromName ==
-                                            "Yacht") {
-                                          Get.to(
-                                                () => YachtRequestFormScreen(
-                                              id: _subCategoryController
-                                                  .subCategories[index]
-                                                  .id,
-                                            ),
-                                          );
-                                        } else if (_subCategoryController
-                                            .subCategories[index]
-                                            .fromName ==
-                                            "Super Car") {
-                                          Get.to(
-                                                () => SuperCarScreen(
-                                              id: _subCategoryController
-                                                  .subCategories[index]
-                                                  .id,
-                                            ),
-                                          );
-                                        }
-                                      }
-                                      if (_subCategoryController
-                                          .subCategories[index]
-                                          .hasMiniSubCategory) {
-                                        _miniSubCategoryController
-                                            .fetchMiniSubCategories(
-                                          _subCategoryController
-                                              .subCategories[index]
-                                              .id,
-                                        );
-                                      }
+                                      Get.offAll(
+                                            () => CustomBottomBar(initialIndex: 2),
+                                        transition: Transition.fadeIn,
+                                        duration: const Duration(milliseconds: 0),
+                                      );
+
                                     },
                                     child: CircleAvatar(
                                       radius: 40,
-                                      backgroundImage: NetworkImage(
-                                        _subCategoryController
-                                            .subCategories[index]
-                                            .img ??
-                                            ApiUrls.defaultImageUrl,
-                                      ),
+                                      backgroundColor: AppColors.primaryColor,
+                                      backgroundImage: NetworkImage("https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg"),
                                     ),
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    _subCategoryController
-                                        .subCategories[index]
-                                        .name,
-                                    style: AppTextStyle.bold14.copyWith(
-                                      fontFamily: 'Inter',
-                                    ),
+                                    'More',
+                                    style: AppTextStyle.bold14.copyWith(fontFamily: 'Inter'),
                                   ),
                                 ],
                               ),
                             );
                           }
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    if (_subCategoryController.subCategories[index].contractWhatsapp) {
+                                      _contactWhatsappController.fetchServiceDetails(
+                                        _subCategoryController.subCategories[index].id,
+                                      );
+                                      Get.to(() => MassageScreen());
+                                    }
+                                    if (_subCategoryController.subCategories[index].hasSpecificCategory) {
+                                      _specificCategoryController.fetchSubcategoryDetails(
+                                        _subCategoryController.subCategories[index].id,
+                                      );
+                                    }
+                                    if (_subCategoryController.subCategories[index].hasForm) {
+                                      if (_subCategoryController.subCategories[index].fromName == "Jets") {
+                                        Get.to(() => JetsScreen(
+                                          id: _subCategoryController.subCategories[index].id,
+                                        ));
+                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                          "Hotel & Villas") {
+                                        Get.to(() => HotelAndVillasScreen(
+                                          id: _subCategoryController.subCategories[index].id,
+                                        ));
+                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                          "Yacht") {
+                                        Get.to(() => YachtRequestFormScreen(
+                                          id: _subCategoryController.subCategories[index].id,
+                                        ));
+                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                          "Super Car") {
+                                        Get.to(() => SuperCarScreen(
+                                          id: _subCategoryController.subCategories[index].id,
+                                        ));
+                                      }
+                                    }
+                                    if (_subCategoryController.subCategories[index].hasMiniSubCategory) {
+                                      _miniSubCategoryController.fetchMiniSubCategories(
+                                        _subCategoryController.subCategories[index].id,
+                                      );
+                                    }
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage: NetworkImage(
+                                      _subCategoryController.subCategories[index].img ??
+                                          ApiUrls.defaultImageUrl,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  _subCategoryController.subCategories[index].name,
+                                  style: AppTextStyle.bold14.copyWith(fontFamily: 'Inter'),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     );
+
                   }
                 }),
                 const SizedBox(height: 20),
@@ -236,35 +197,42 @@ class HomeScreen extends StatelessWidget {
                     return CarouselSlider.builder(
                       itemCount: highlightController.highlightsList.length,
                       itemBuilder: (context, index, realIndex) {
-                        final highlight = highlightController.highlightsList[index];
-                        print('Highlights length: ${highlightController.highlightsList.length}');
+                        final highlight =
+                            highlightController.highlightsList[index];
+                        print(
+                          'Highlights length: ${highlightController.highlightsList.length}',
+                        );
 
                         return GestureDetector(
                           onTap: () {
-
-                            Event event=Event(
-                                id: highlight.event!.id,
-                                title: highlight.event!.title,
-                                eventImg: highlight.event!.eventImg,
-                                date: highlight.event!.date,
-                                time: highlight.event!.time,
-                                description: highlight.event!.description,
-                                maxPerson: highlight.event!.maxPerson,
-                                location: highlight.event!.location,
-                                status: highlight.event!.status,
-                                createdAt: highlight.event!.createdAt,
-                                updatedAt: highlight.updatedAt
+                            Event event = Event(
+                              id: highlight.event!.id,
+                              title: highlight.event!.title,
+                              eventImg: highlight.event!.eventImg,
+                              date: highlight.event!.date,
+                              time: highlight.event!.time,
+                              description: highlight.event!.description,
+                              maxPerson: highlight.event!.maxPerson,
+                              location: highlight.event!.location,
+                              status: highlight.event!.status,
+                              createdAt: highlight.event!.createdAt,
+                              updatedAt: highlight.updatedAt,
                             );
 
-                            Get.to(() => EventHistoryIndividualPage(
-                              event: event,
-                               eventList: _eventController.upcomingEvents,
-                            ));
+                            Get.to(
+                              () => EventHistoryIndividualPage(
+                                event: event,
+                                eventList: _eventController.upcomingEvents,
+                              ),
+                            );
                           },
                           child: HomeCarouselWidget(
-                            imagePath: highlight.event?.eventImg ?? AppConstants.defaultImageUrl,
+                            imagePath:
+                                highlight.event?.eventImg ??
+                                AppConstants.defaultImageUrl,
                             title: highlight.event?.title ?? "Default Name",
-                            location: highlight.event?.location ?? "Unknown Location",
+                            location:
+                                highlight.event?.location ?? "Unknown Location",
                             personIcon: AssetPath.personImage,
                             clockIcon: AssetPath.clockImage,
                           ),
