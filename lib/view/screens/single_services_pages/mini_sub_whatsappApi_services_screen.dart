@@ -54,23 +54,6 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              serviceData.name,
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                     SizedBox(height: 20.h),
                     Container(

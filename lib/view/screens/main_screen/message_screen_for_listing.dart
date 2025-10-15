@@ -53,20 +53,6 @@ class MessageScreenForListing extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            serviceData.data?.name ?? "",
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                     SizedBox(height: 20.h),
                     Container(
