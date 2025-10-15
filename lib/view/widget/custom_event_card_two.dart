@@ -10,7 +10,7 @@ import '../screens/constant/constans.dart';
 
 class CustomEventCardTwo extends StatelessWidget {
   final bool status;
-  final Event event;
+  final UpcomingEvent event;
   const CustomEventCardTwo({super.key, this.status = false, required this.event});
 
   @override

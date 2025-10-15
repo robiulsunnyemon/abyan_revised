@@ -12,7 +12,7 @@ import '../screens/profile_screen/event_history_individual_screen.dart';
 
 class CustomEventWidget extends StatelessWidget {
   final bool status;
-  final Event? event;
+  final UpcomingEvent? event;
 
   CustomEventWidget({super.key, this.status = false, this.event});
 

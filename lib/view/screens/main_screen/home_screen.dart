@@ -205,7 +205,7 @@ class HomeScreen extends StatelessWidget {
 
                         return GestureDetector(
                           onTap: () {
-                            Event event = Event(
+                            UpcomingEvent event = UpcomingEvent(
                               id: highlight.event!.id,
                               title: highlight.event!.title,
                               eventImg: highlight.event!.eventImg,

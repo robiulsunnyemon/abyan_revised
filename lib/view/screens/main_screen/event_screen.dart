@@ -52,7 +52,7 @@ class EventScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: _eventController.upcomingEvents.length,
                         itemBuilder: (context, index) {
-                          final Event upcomingEvent =
+                          final UpcomingEvent upcomingEvent =
                               _eventController.upcomingEvents[index];
                           return InkWell(
                             onTap: () {
@@ -86,7 +86,7 @@ class EventScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: _eventController.pastEvents.length,
                         itemBuilder: (context, index) {
-                          final Event pastEvent =
+                          final UpcomingEvent pastEvent =
                               _eventController.pastEvents[index];
                           return InkWell(
                             onTap: () {

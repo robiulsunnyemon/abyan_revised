@@ -24,14 +24,14 @@ class EditProfile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(
+                /*CustomAppBar(
                   title: 'Edit Profile',
                   action: GestureDetector(
                       onTap: () {
                         _profileController.updateUserProfile();
                       },
                       child: Icon(Icons.check, color: AppColors.green)),
-                ),
+                ),*/
                 Text(
                   'Name',
                   textAlign: TextAlign.center,
