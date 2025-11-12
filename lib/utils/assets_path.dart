@@ -3,6 +3,8 @@ class AssetPath {
   static const String splashScreen1 = '$_basePath/splash_screen1.png';
   static const String splashScreen2 = '$_basePath/splash_screen2.png';
   static const String splashScreen3 = '$_basePath/splash_screen3.png';
+  static const String splashScreenNew2 = '$_basePath/splash_screen_new2.jpg';
+  static const String splashScreenNew3 = '$_basePath/splash_screen_new3.jpg';
   static const String planeImage = '$_basePath/plane_image.png';
   static const String personImage = '$_basePath/person_image.png';
   static const String clockImage = '$_basePath/Clock.png';

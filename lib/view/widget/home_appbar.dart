@@ -60,15 +60,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 120.w,
-          child: Obx(()=>Text(
-            "Hi, ${_profileController.user.value?.name ?? "known"}",
-            style: _nameTextStyle(),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),)
-        ),
+        Obx(()=>Text(
+          "Hi, ${_profileController.user.value?.name ?? "known"}",
+          style: _nameTextStyle(),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),),
         const SizedBox(height: 2),
         Text(
           "Find the amazing event near you",

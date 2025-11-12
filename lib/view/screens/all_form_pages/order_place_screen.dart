@@ -56,7 +56,11 @@ class OrderPlaceScreen extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.to(() => CustomBottomBar());
+                            Get.offAll(
+                                  () => CustomBottomBar(initialIndex: 0),
+                              transition: Transition.fadeIn,
+                              duration: const Duration(milliseconds: 100),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.white,
@@ -68,13 +72,17 @@ class OrderPlaceScreen extends StatelessWidget {
                                   borderRadius: BorderRadiusGeometry.circular(4)
                               )
                           ),
-                          child: Text('Cancel'),
+                          child: Text('Go to home'),
                         ),
                       ),
                       SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(onPressed: (){
-                          Get.to(() => CustomBottomBar());
+                          Get.offAll(
+                                () => CustomBottomBar(initialIndex: 3),
+                            transition: Transition.fadeIn,
+                            duration: const Duration(milliseconds: 0),
+                          );
                         },
                           style: ElevatedButton.styleFrom(
                               shadowColor: Colors.transparent
@@ -82,7 +90,7 @@ class OrderPlaceScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Request'),
+                              Text('Go to profile'),
                               SizedBox(width: 10),
                               Icon(Icons.arrow_circle_right_outlined)
                             ],

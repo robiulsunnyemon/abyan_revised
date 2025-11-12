@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../../controller/profile_controller/profile_controller.dart';
 
 class EditProfile extends StatefulWidget {
-  EditProfile({super.key});
+  const EditProfile({super.key});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -87,7 +87,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                 SizedBox(height: 25.h),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -104,14 +104,14 @@ class _EditProfileState extends State<EditProfile> {
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular20,
                         ),
-                        const SizedBox(height: 10),
+                         SizedBox(height: 10.h),
                         Text(
                           'Full Name',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding:  EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
 
                             controller: _profileController.nameController,
@@ -126,7 +126,7 @@ class _EditProfileState extends State<EditProfile> {
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding:  EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             controller: _profileController.emailController,
                             decoration: InputDecoration(
@@ -140,7 +140,7 @@ class _EditProfileState extends State<EditProfile> {
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding:  EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             controller: _profileController.phoneController,
                             decoration: InputDecoration(
@@ -152,11 +152,11 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                 SizedBox(height: 16.h),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   width: double.infinity,
                   child: Padding(
@@ -169,14 +169,14 @@ class _EditProfileState extends State<EditProfile> {
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular20,
                         ),
-                        const SizedBox(height: 10),
+                         SizedBox(height: 10.h),
                         Text(
                           'Create Password',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding:  EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             obscureText: isVisible == false,
                             decoration: InputDecoration(
@@ -197,12 +197,12 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         Text(
-                          'Retype password',
+                          'Confirm password',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding:  EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             obscureText: isVisible == false,
                             decoration: InputDecoration(
@@ -226,9 +226,9 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                 SizedBox(height: 20.h),
                 SizedBox(
-                  width: double.infinity,
+                    width: double.infinity,
                     child: ElevatedButton(onPressed: (){}, child: Text('Profile Update'))),
               ],
             ),

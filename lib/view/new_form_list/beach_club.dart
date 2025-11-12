@@ -3,11 +3,13 @@ import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_text_editing_form_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/style/app_text_styles.dart';
 import '../../api_services/form_api_services/form_api_services.dart';
 import '../../utils/style/appColor.dart';
+import '../widget/custom_bottom_bar.dart';
 
 dynamic _deepUnwrap(dynamic v) {
   // Rx types → .value
@@ -60,7 +62,7 @@ class BeachClubFormController extends GetxController {
   String? authToken;
 
   Map<String, dynamic> toJson({required int adults, required int children}) {
-    // (toJson ইউজ করতে চাইলে ব্যবহার করুন — deepSanitize ছাড়াই ক্লিন)
+
     return {
       "venueName": venue.value,
       "name": fullName.value.trim(),
@@ -76,8 +78,7 @@ class BeachClubFormController extends GetxController {
   }
 
   String? validate({required int adults, required int children}) {
-    if (venue.value == null) return "Please select a venue.";
-    if (fullName.value.trim().isEmpty) return "Please enter your full name.";
+
     if (email.value.trim().isEmpty) return "Please enter your email.";
     if (!email.value.contains('@')) return "Please enter a valid email.";
     if (contact.value.trim().isEmpty) return "Please enter WhatsApp number.";
@@ -105,11 +106,9 @@ class BeachClubFormController extends GetxController {
 
     // Build raw payload (Rx/DateTime/TimeOfDay allowed here)
     final raw = <String, dynamic>{
-      "listingId": id,
+      "listingId": 2,
       "bookingDate": reservationDate.value,
-      // DateTime? (deepSanitize ISO করবে)
       "bookingTime": reservationTime.value,
-      // TimeOfDay? (deepSanitize HH:mm করবে)
       "name": fullName.value.trim(),
       "email": email.value.trim(),
       "whatsapp": contact.value.trim(),
@@ -165,9 +164,9 @@ class BeachClubFormController extends GetxController {
 /// ==============================
 class BeachClubForm extends StatelessWidget {
   final int listingId;
-  final String venueName;
+  final String venueNames;
 
-  BeachClubForm({super.key, required this.listingId, required this.venueName});
+  BeachClubForm({super.key, required this.listingId, required this.venueNames});
 
   // Controller bind
   final form = Get.put(BeachClubFormController());
@@ -189,6 +188,7 @@ class BeachClubForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -205,7 +205,7 @@ class BeachClubForm extends StatelessWidget {
                   isReadOnly: true,
                   controller: beachClubController,
                   headingText: "Venue",
-                  hintText: venueName,
+                  hintText: venueNames,
                 ),
                 const SizedBox(height: 16),
 
@@ -380,17 +380,47 @@ class BeachClubForm extends StatelessWidget {
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
 
-                            await form.submitForm(
-                              adult: adults,
-                              children: children,
-                              id: listingId,
+
+                            final Map<String, dynamic> beachClubData = {
+                              "listingId": listingId,
+                              "venue": form.venue.value,
+                              "fullName": nameCtrl.text,
+                              "email": emailCtrl.text,
+                              "contact": phoneCtrl.text,
+
+                              "reservationDate": form.reservationDate.value?.toIso8601String(),
+
+                              "reservationTime": form.reservationTime.value != null
+                                  ? "${form.reservationTime.value!.hour.toString().padLeft(2, '0')}:${form.reservationTime.value!.minute.toString().padLeft(2, '0')}"
+                                  : null,
+
+                              "guests": {
+                                "adults": adults,
+                                "children": children,
+                              },
+                            };
+
+                            final response = await FormRequestApiServices.formRequest(
+                              data: beachClubData,
+                              url: "bookings",
                             );
-                            // Success snackbar & navigation handled inside submitForm
+
+                            if (response.statusCode == 201) {
+                              Get.snackbar(
+                                'Success',
+                                'Your request has been submitted.',
+                                backgroundColor: Colors.green,
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                              Get.to(() => const OrderPlaceScreen());
+                            }else{
+                              Get.snackbar("Error", response.body);
+                            }
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }
@@ -603,6 +633,7 @@ class CounterController extends GetxController {
   }
 }
 
+
 class IncreaseAndDecrease extends StatelessWidget {
   final String type;
   final CounterController counter;
@@ -615,68 +646,70 @@ class IncreaseAndDecrease extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Container(
-          height: 48,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                type,
-                style: const TextStyle(
-                  color: AppColors.white,
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.white),
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              type,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 12.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: counter.decrease,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.remove_circle_outline,
-                        color: AppColors.goldenTextColor,
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4,left: 4,right: 4),
+                    child: Obx(
+                          () => Text(
+                        counter.count.value.toString(),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Obx(
-                    () => Text(
-                      counter.count.value.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.add_circle_outline,
-                        color: AppColors.goldenTextColor,
-                      ),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+

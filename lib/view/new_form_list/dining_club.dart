@@ -424,6 +424,7 @@ class DiningForm extends StatelessWidget {
                               'Success',
                               'Your request has been submitted.',
                               snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.yellow.withOpacity(.08),
                               duration: const Duration(seconds: 2),
                             );
                           } catch (e) {

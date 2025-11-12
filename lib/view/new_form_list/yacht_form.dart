@@ -66,6 +66,7 @@ class YachtFormController extends GetxController {
         'Validation failed',
         err,
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red
       );
       return;
     }
@@ -89,10 +90,6 @@ class YachtFormController extends GetxController {
       final response = await FormRequestApiServices.formRequest(
         data: data,
         url: "sub-category-bookings",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   if (authToken != null) "Authorization": "Bearer $authToken",
-        // },
       );
 
       if (response.statusCode == 201) {
@@ -100,6 +97,7 @@ class YachtFormController extends GetxController {
           'Success',
           'Your form submitted successfully',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
         );
         Get.to(() => const OrderPlaceScreen());
       } else {
@@ -276,7 +274,11 @@ class YachtRequestFormScreen extends StatelessWidget {
 
   final controller = Get.put(YachtFormController());
 
-  final List<String> size = const ['52ft', ' 62ft', '72ft'];
+  final List<String> size = const ['52ft - 62ft',
+  '62ft - 72ft',
+  '72ft - 82ft',
+  '82ft - 92ft',
+  '92ft+'];
   final List<String> time = const ['2 hours', '3 hours', '4 hours', '5 hours+'];
 
   // Text controllers
@@ -294,7 +296,7 @@ class YachtRequestFormScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Yacht'),
+                const CustomAppBar(title: 'Luxury Yachts'),
                 const SizedBox(height: 8),
 
                 // Size of Yacht
@@ -434,12 +436,11 @@ class YachtRequestFormScreen extends StatelessWidget {
 
                             await controller.submitForm(id: id);
 
-                            // success handled inside submitForm
                           } catch (e) {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }

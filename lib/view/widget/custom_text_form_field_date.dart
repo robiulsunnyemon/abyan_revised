@@ -1,5 +1,6 @@
 import 'package:abyansf_asfmanagment_app/utils/style/appColor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormFieldLevel extends StatelessWidget {
   final String headingText;
@@ -17,7 +18,7 @@ class CustomTextFormFieldLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110,
+      height: 90.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 7,
@@ -35,8 +36,6 @@ class CustomTextFormFieldLevel extends StatelessWidget {
             onTap: onTap,
             child: Container(
               width: double.infinity,
-              height: 63,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
@@ -46,39 +45,42 @@ class CustomTextFormFieldLevel extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        levelText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.hintWhiteColor,
-                          fontSize: 8,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16,top: 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          levelText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.hintWhiteColor,
+                            fontSize: 8,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      Text(
-                        hintText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.hintWhiteColor,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
+                        Text(
+                          hintText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.hintWhiteColor,
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: onTap,
-                    icon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.white,),
-                  ),
-                ],
+                      ],
+                    ),
+                    IconButton(
+                      onPressed: onTap,
+                      icon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.white,),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

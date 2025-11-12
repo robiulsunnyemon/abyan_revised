@@ -58,6 +58,19 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
   );
+  static TextStyle get regular22 => TextStyle(
+    fontFamily: 'PlayfairDisplay',
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.goldenTextColor,
+  );
+
+  static TextStyle get bold22 => TextStyle(
+    fontFamily: 'PlayfairDisplay',
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.goldenTextColor,
+  );
 
   static TextStyle get regular20 => TextStyle(
     fontFamily: 'PlayfairDisplay',

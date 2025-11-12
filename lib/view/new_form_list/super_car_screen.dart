@@ -1,6 +1,7 @@
 // super_car_screen_full.dart
 import 'dart:convert'; // if your service encodes, you can remove this
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 // import 'package:http/http.dart' as http; // remove if unused
@@ -80,6 +81,7 @@ class BookingFormController extends GetxController {
         'Validation failed',
         err,
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red
       );
       return;
     }
@@ -115,10 +117,6 @@ class BookingFormController extends GetxController {
       final response = await FormRequestApiServices.formRequest(
         data: body,
         url: "sub-category-bookings",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   if (authToken != null) "Authorization": "Bearer $authToken",
-        // },
       );
 
       if (response.statusCode == 201) {
@@ -126,15 +124,16 @@ class BookingFormController extends GetxController {
           'Success',
           'Your request has been submitted.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
         );
         Get.to(() => const OrderPlaceScreen());
-        // Or: Get.to(() => const OrderPlaceScreen());
+
       } else {
         Get.snackbar(
           'Failed',
           'Server responded: ${response.statusCode}',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.withOpacity(.08),
+          backgroundColor: Colors.red,
         );
       }
     } catch (e) {
@@ -142,7 +141,7 @@ class BookingFormController extends GetxController {
         'Failed',
         e.toString().replaceFirst('Exception: ', ''),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(.08),
+        backgroundColor: Colors.red,
       );
     }
   }
@@ -317,66 +316,67 @@ class IncreaseAndDecrease extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Container(
-          height: 48,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                type,
-                style: const TextStyle(
-                  color: AppColors.white,
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.white),
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              type,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 12.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: counter.decrease,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.remove_circle_outline,
-                        color: AppColors.goldenTextColor,
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4,left: 4,right: 4),
+                    child: Obx(
+                          () => Text(
+                        counter.count.value.toString(),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Obx(
-                    () => Text(
-                      counter.count.value.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
                   InkWell(
                     onTap: counter.increase,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.add_circle_outline,
-                        color: AppColors.goldenTextColor,
-                      ),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: AppColors.goldenTextColor,
+                      size: 24.sp,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -441,7 +441,7 @@ class SuperCarScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Super car'),
+                const CustomAppBar(title: 'Super Cars'),
                 const SizedBox(height: 10),
 
                 /// Car Brand
@@ -578,10 +578,8 @@ class SuperCarScreen extends StatelessWidget {
                           try {
                             // Ensure contact sync
                             booking.contact.value = phoneCtrl.text.trim();
-
                             final adults = adultController.count.value;
                             final children = childrenController.count.value;
-
                             await booking.submitBooking(
                               adults: adults,
                               children: children,
@@ -592,7 +590,7 @@ class SuperCarScreen extends StatelessWidget {
                             Get.snackbar(
                               'Failed',
                               e.toString().replaceFirst('Exception: ', ''),
-                              backgroundColor: Colors.red.withOpacity(.08),
+                              backgroundColor: Colors.red,
                               snackPosition: SnackPosition.BOTTOM,
                             );
                           }

@@ -1,3 +1,4 @@
+import 'package:abyansf_asfmanagment_app/view/screens/all_form_pages/order_place_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -14,21 +15,23 @@ import '../../widget/select_counter_card.dart';
 class BeachClubForm extends StatefulWidget {
   final String venueName;
   final int listingId;
-  const BeachClubForm({super.key, required this.venueName, required this.listingId});
+
+  const BeachClubForm({
+    super.key,
+    required this.venueName,
+    required this.listingId,
+  });
 
   @override
   State<BeachClubForm> createState() => _BeachClubFormState();
 }
 
 class _BeachClubFormState extends State<BeachClubForm> {
-
-
   final TextEditingController venueController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController dateOfPreController = TextEditingController();
-
 
   int adultNumber = 0;
   int childrenNumber = 0;
@@ -38,17 +41,14 @@ class _BeachClubFormState extends State<BeachClubForm> {
   late DateTime checkOutDateController;
   String selectedTime = "9:45";
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: const CustomAppBar(title: 'Beach Club'),
-            ),
+            SliverToBoxAdapter(child: const CustomAppBar(title: 'Beach Club')),
             SliverToBoxAdapter(child: SizedBox(height: 30)),
             SliverToBoxAdapter(
               child: Padding(
@@ -99,7 +99,7 @@ class _BeachClubFormState extends State<BeachClubForm> {
                   controller: dateOfPreController,
                   headingText: "Date of reservation",
                   hintText: checkInDate,
-                  onTap: ()async{
+                  onTap: () async {
                     final picked = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
@@ -109,7 +109,7 @@ class _BeachClubFormState extends State<BeachClubForm> {
 
                     if (picked != null) {
                       setState(() {
-                        checkInDateController=picked;
+                        checkInDateController = picked;
                         checkInDate = DateFormat('dd/MM/yyyy').format(picked);
                       });
                     }
@@ -232,7 +232,9 @@ class _BeachClubFormState extends State<BeachClubForm> {
                               "Validation Error",
                               "Please fill all required fields before sending request",
                               snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: Colors.red.withValues(alpha: 0.8),
+                              backgroundColor: Colors.red.withValues(
+                                alpha: 0.8,
+                              ),
                               colorText: Colors.white,
                               margin: const EdgeInsets.all(10),
                               borderRadius: 8,
@@ -240,36 +242,37 @@ class _BeachClubFormState extends State<BeachClubForm> {
                             return; // Stop request
                           }
 
-
                           Get.snackbar(
                             "Success",
                             "Request sent successfully!",
                             snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.green.withValues(alpha: 0.8),
+                            backgroundColor: Colors.green.withValues(
+                              alpha: 0.8,
+                            ),
                             colorText: Colors.white,
                             margin: const EdgeInsets.all(10),
                             borderRadius: 8,
                           );
 
-                          Map<String,dynamic> data={
+                          Map<String, dynamic> data = {
                             "listingId": widget.listingId,
                             "bookingDate": checkInDateController.toString(),
                             "bookingTime": selectedTime,
                             "name": fullNameController.text,
                             "email": emailController.text,
                             "whatsapp": phoneController.text,
-                            "venueName":widget.venueName,
+                            "venueName": widget.venueName,
                             "numberofguest_adult": adultNumber,
                             "numberofguest_child": childrenNumber,
-
                           };
 
-                          final response=await FormRequestApiServices.formRequest(
-                              data: data,
-                              url: "bookings"
-                          );
-                          if(response.statusCode==201){
-                            Get.to(()=>CustomBottomBar());
+                          final response =
+                              await FormRequestApiServices.formRequest(
+                                data: data,
+                                url: "bookings",
+                              );
+                          if (response.statusCode == 201) {
+                            Get.offAll(() => OrderPlaceScreen());
                           }
                         },
                       ),
@@ -278,7 +281,6 @@ class _BeachClubFormState extends State<BeachClubForm> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

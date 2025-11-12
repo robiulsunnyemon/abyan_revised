@@ -16,7 +16,7 @@ class EventUpcomingModel {
 }
 
 class EventData {
-  final List<Event> events;
+  final List<UpcomingEvent> events;
   final Pagination pagination;
 
   EventData({
@@ -26,7 +26,7 @@ class EventData {
 
   factory EventData.fromJson(Map<String, dynamic> json) {
     var eventsList = json['events'] as List;
-    List<Event> events = eventsList.map((e) => Event.fromJson(e)).toList();
+    List<UpcomingEvent> events = eventsList.map((e) => UpcomingEvent.fromJson(e)).toList();
 
     return EventData(
       events: events,
@@ -35,7 +35,7 @@ class EventData {
   }
 }
 
-class Event {
+class UpcomingEvent {
   final int id;
   final String title;
   final String eventImg;
@@ -49,7 +49,7 @@ class Event {
   final DateTime updatedAt;
   //final int bookingCount;
 
-  Event({
+  UpcomingEvent({
     required this.id,
     required this.title,
     required this.eventImg,
@@ -64,8 +64,8 @@ class Event {
     //required this.bookingCount,
   });
 
-  factory Event.fromJson(Map<String, dynamic> json) {
-    return Event(
+  factory UpcomingEvent.fromJson(Map<String, dynamic> json) {
+    return UpcomingEvent(
       id: json['id'],
       title: json['title'],
       eventImg: json['event_img'],

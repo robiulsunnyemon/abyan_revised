@@ -15,8 +15,7 @@ class CancelButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: ShapeDecoration(
           color: Colors.white,
           shape: RoundedRectangleBorder(

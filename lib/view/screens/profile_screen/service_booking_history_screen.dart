@@ -15,7 +15,6 @@ class ServiceBookingHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,10 +23,8 @@ class ServiceBookingHistoryScreen extends StatelessWidget {
               children: [
                 CustomAppBar(title: 'Booking History'),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(6).r,
+                    Flexible(
                       child: ElevatedButton(
                         onPressed: () {
                           _bookingController.changeStatusType("All");
@@ -42,40 +39,37 @@ class ServiceBookingHistoryScreen extends StatelessWidget {
                         child: Text('All', style: AppTextStyle.regular16),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0).r,
+                    Flexible(
                       child: ElevatedButton(
-                        onPressed: () {
-                          _bookingController.changeStatusType("Pending");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(6).r,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+                          onPressed: () {
+                            _bookingController.changeStatusType("Pending");
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(6).r,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                           ),
+                          child: Text('Pending', style: AppTextStyle.regular16),
                         ),
-                        child: Text('Pending', style: AppTextStyle.regular16),
-                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(6).r,
+                    Flexible(
                       child: ElevatedButton(
-                        onPressed: () {
-                          _bookingController.changeStatusType("Active");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(6).r,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+                          onPressed: () {
+                            _bookingController.changeStatusType("Active");
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(6).r,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                           ),
+                          child: Text('Confirm', style: AppTextStyle.regular16),
                         ),
-                        child: Text('Confirm', style: AppTextStyle.regular16),
-                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0).r,
+                    Flexible(
                       child: ElevatedButton(
                         onPressed: () {
                           _bookingController.changeStatusType("Cancel");

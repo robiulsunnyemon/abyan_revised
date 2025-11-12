@@ -8,6 +8,8 @@ import 'package:abyansf_asfmanagment_app/view/new_form_list/jets_form.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/super_car_screen.dart';
 import 'package:abyansf_asfmanagment_app/view/new_form_list/yacht_form.dart';
 import 'package:abyansf_asfmanagment_app/view/screens/constant/constans.dart';
+import 'package:abyansf_asfmanagment_app/view/screens/main_screen/explore_screen.dart';
+import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/custom_event_widget.dart';
 import 'package:abyansf_asfmanagment_app/view/widget/home_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -75,8 +77,46 @@ class HomeScreen extends StatelessWidget {
                       height: 145,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: _subCategoryController.subCategories.length,
+                        itemCount:
+                            _subCategoryController.subCategories.length +
+                            1, // +1 for "More"
                         itemBuilder: (context, index) {
+                          if (index ==
+                              _subCategoryController.subCategories.length) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.offAll(
+                                        () => CustomBottomBar(initialIndex: 2),
+                                        transition: Transition.fadeIn,
+                                        duration: const Duration(
+                                          milliseconds: 0,
+                                        ),
+                                      );
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: AppColors.primaryColor,
+                                      backgroundImage: NetworkImage(
+                                        "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg",
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    'More',
+                                    style: AppTextStyle.bold14.copyWith(
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                           return Padding(
                             padding: const EdgeInsets.all(8),
                             child: Column(
@@ -193,7 +233,7 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
                 const SizedBox(height: 20),
-                Text('Highlight', style: AppTextStyle.bold24),
+                Text('Highlights', style: AppTextStyle.bold24),
                 const SizedBox(height: 13),
 
                 /// Carousel Section
@@ -212,35 +252,42 @@ class HomeScreen extends StatelessWidget {
                     return CarouselSlider.builder(
                       itemCount: highlightController.highlightsList.length,
                       itemBuilder: (context, index, realIndex) {
-                        final highlight = highlightController.highlightsList[index];
-                        print('Highlights length: ${highlightController.highlightsList.length}');
+                        final highlight =
+                            highlightController.highlightsList[index];
+                        print(
+                          'Highlights length: ${highlightController.highlightsList.length}',
+                        );
 
                         return GestureDetector(
                           onTap: () {
-
-                            Event event=Event(
-                                id: highlight.event!.id,
-                                title: highlight.event!.title,
-                                eventImg: highlight.event!.eventImg,
-                                date: highlight.event!.date,
-                                time: highlight.event!.time,
-                                description: highlight.event!.description,
-                                maxPerson: highlight.event!.maxPerson,
-                                location: highlight.event!.location,
-                                status: highlight.event!.status,
-                                createdAt: highlight.event!.createdAt,
-                                updatedAt: highlight.updatedAt
+                            UpcomingEvent event = UpcomingEvent(
+                              id: highlight.event!.id,
+                              title: highlight.event!.title,
+                              eventImg: highlight.event!.eventImg,
+                              date: highlight.event!.date,
+                              time: highlight.event!.time,
+                              description: highlight.event!.description,
+                              maxPerson: highlight.event!.maxPerson,
+                              location: highlight.event!.location,
+                              status: highlight.event!.status,
+                              createdAt: highlight.event!.createdAt,
+                              updatedAt: highlight.updatedAt,
                             );
 
-                            Get.to(() => EventHistoryIndividualPage(
-                              event: event,
-                               eventList: _eventController.upcomingEvents,
-                            ));
+                            Get.to(
+                              () => EventHistoryIndividualPage(
+                                event: event,
+                                eventList: _eventController.upcomingEvents,
+                              ),
+                            );
                           },
                           child: HomeCarouselWidget(
-                            imagePath: highlight.event?.eventImg ?? AppConstants.defaultImageUrl,
+                            imagePath:
+                                highlight.event?.eventImg ??
+                                AppConstants.defaultImageUrl,
                             title: highlight.event?.title ?? "Default Name",
-                            location: highlight.event?.location ?? "Unknown Location",
+                            location:
+                                highlight.event?.location ?? "Unknown Location",
                             personIcon: AssetPath.personImage,
                             clockIcon: AssetPath.clockImage,
                           ),
@@ -293,12 +340,19 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Text('Member Event', style: AppTextStyle.bold24),
+                    Text('Member Events', style: AppTextStyle.bold24),
                     const Spacer(),
                     if (_eventController.upcomingEvents.isNotEmpty)
                       TextButton(
                         onPressed: () {
-                          Get.to(() => AllUpcomingEventScreen());
+                          Navigator.of(context).pushAndRemoveUntil(
+                            PageRouteBuilder(
+                              pageBuilder: (context, animation1, animation2) => CustomBottomBar(initialIndex: 1),
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                                (route) => false,
+                          );
                         },
                         child: Text(
                           'See all',

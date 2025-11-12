@@ -16,6 +16,7 @@ class Data {
   final int id;
   final String name;
   final String mainImage;
+  final String description;
   final String? location;
   final bool isActive;
   final AdminWhatsApp? adminWhatsApp;
@@ -29,6 +30,7 @@ class Data {
     required this.isActive,
     this.adminWhatsApp,
     this.specificCategory,
+    required this.description
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class Data {
       mainImage: json['main_image'] ?? '',
       location: json['location'],
       isActive: json['isActive'] ?? false,
+      description: json['description']??"",
       adminWhatsApp: json['adminWhatsApp'] != null
           ? AdminWhatsApp.fromJson(json['adminWhatsApp'])
           : null,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
 import '../../shared_preferences_services/auth_pref_services/auth_pref_services.dart';
 import '../api_urls/api_urls.dart';
 
@@ -23,8 +22,6 @@ class FormRequestApiServices{
         },
         body: jsonEncode(data),
       );
-      print("response status code request form ${response.statusCode}");
-      print("response status code request body ${response.body}");
       return response;
     } catch (e) {
       print("error form request: ${e.toString()}");

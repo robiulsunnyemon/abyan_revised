@@ -2,7 +2,6 @@ import 'package:abyansf_asfmanagment_app/models/listting_details_model/listing_d
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../utils/assets_path.dart';
 
 class ListingSubImageScreen extends StatelessWidget {
@@ -18,7 +17,7 @@ class ListingSubImageScreen extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding:  EdgeInsets.only(left: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: CustomAppBar(title: listingDetailData.name),
               ),
             ),
@@ -28,10 +27,9 @@ class ListingSubImageScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
-                    height: 300,
+                    height: 160.h,
                     width: double.infinity,
                     child: Container(
-                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
@@ -41,35 +39,44 @@ class ListingSubImageScreen extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Align(
+                      /*child: Align(
                         alignment: Alignment(0.8, 0.9),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.not_listed_location_sharp,
-                                    color: Colors.white,
-                                    size: 16,
-                                  ),
-                                  Text(
-                                    'Down town Residence',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              /// LEFT SIDE
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Icon(
+                                        Icons.not_listed_location_sharp,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      child: Text(
+                                        listingDetailData.location ??
+                                            'Down town Residence',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.sp,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
+                              Row(
                                 children: [
                                   Image.asset(
                                     AssetPath.personImage,
@@ -83,10 +90,10 @@ class ListingSubImageScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
+                      ),*/
                     ),
                   ),
                 );
@@ -98,6 +105,7 @@ class ListingSubImageScreen extends StatelessWidget {
     );
   }
 }
+
 
 /*
 Stack(

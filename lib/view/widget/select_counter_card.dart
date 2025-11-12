@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/assets_path.dart';
@@ -20,17 +21,15 @@ class SelectCounterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Container(
-          height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
-            borderRadius: BorderRadius.circular(4),
-          ),
+      child: Container(
+        decoration: BoxDecoration( 
+          border: Border.all(color: AppColors.white),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding:  EdgeInsets.only(left: 6,top: 8,bottom: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 hintText,
@@ -43,13 +42,15 @@ class SelectCounterCard extends StatelessWidget {
                 ),
               ),
               Row(
-                spacing: 10,
                 children: [
                   GestureDetector(
                     onTap: decreaseOnTap,
                     child: SvgPicture.asset(AssetPath.minusIcons),
                   ),
-                  Text(counterText,style: TextStyle(color: AppColors.hintWhiteColor),),
+                  Padding(
+                    padding:  EdgeInsets.only(left: 4.w,right: 4.w,bottom: 4.h),
+                    child: Text(counterText,style: TextStyle(color: AppColors.hintWhiteColor),),
+                  ),
                   GestureDetector(
                     onTap: increaseOnTap,
                     child: SvgPicture.asset(AssetPath.plusIcons),

@@ -1,30 +1,32 @@
-import 'package:abyansf_asfmanagment_app/controller/listing_whatsapp_controller/listing_whatsapp_controller.dart';
-import 'package:abyansf_asfmanagment_app/utils/style/app_text_styles.dart';
+// whatsapp_message_screen.dart
+
 import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../controller/mini_sub_whatsapp_api_services/mini_sub_whatsapp_api_services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../utils/assets_path.dart';
 import '../../../utils/style/appColor.dart';
-import '../constant/constans.dart';
+import '../../../utils/style/app_text_styles.dart';
 
-class MessageScreenForListing extends StatelessWidget {
-  MessageScreenForListing({super.key});
+class MiniWhatsappMessageScreen extends StatelessWidget {
+  MiniWhatsappMessageScreen({super.key});
 
-  final _listingWhatsappController = Get.put(ListingWhatsappController());
+  final ServiceController _contactWhatsappController = Get.put(
+    ServiceController(),
+  );
 
   @override
+  @override
   Widget build(BuildContext context) {
-    final serviceData = _listingWhatsappController.listingData.value;
-
+    final serviceData = _contactWhatsappController.serviceData.value;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: Size.fromHeight(100),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsetsGeometry.only(left: 16),
-            child: CustomAppBar(title: '' /*serviceData!.name*/),
+            padding: const EdgeInsets.only(left: 16),
+            child: CustomAppBar(title: /*serviceData!.name*/ ''),
           ),
         ),
       ),
@@ -32,24 +34,23 @@ class MessageScreenForListing extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: SafeArea(
           child: Obx(() {
-            final serviceData = _listingWhatsappController.listingData.value;
+            final serviceData = _contactWhatsappController.serviceData.value;
             if (serviceData == null) {
               return Center(child: CircularProgressIndicator());
             }
             return Center(
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      height: 160.h,
+                      height: 170,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         image: DecorationImage(
-                          image: NetworkImage(
-                            serviceData.data?.mainImage ??
-                                AppConstants.defaultImageUrl,
-                          ),
+                          image: NetworkImage(serviceData.img),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -63,12 +64,15 @@ class MessageScreenForListing extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          style: TextStyle( 
+                          style: TextStyle(
                             color: AppColors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
-                          serviceData.data?.description ?? "",
+                          serviceData.description is Map<String, dynamic>
+                              ? (serviceData.description["content"] ?? "")
+                              : serviceData.description?.toString() ??
+                                    "No description available",
                         ),
                       ),
                     ),
@@ -98,28 +102,23 @@ class MessageScreenForListing extends StatelessWidget {
                               style: ElevatedButton.styleFrom(elevation: 0),
                               onPressed: () async {
                                 final whatsappUrl =
-                                    serviceData
-                                        .data
-                                        ?.adminWhatsApp
-                                        ?.mobileWhatsappLink ??
-                                    "";
+                                    serviceData.adminWhatsApp?.mobileWhatsappLink;
                                 debugPrint("Attempting to launch: $whatsappUrl");
 
                                 try {
                                   // First try launching directly without canLaunch check
                                   await launchUrl(
-                                    Uri.parse(whatsappUrl),
+                                    Uri.parse(whatsappUrl!),
                                     mode: LaunchMode.externalApplication,
                                   );
                                 } catch (e) {
                                   debugPrint(
                                     "Direct launch failed, trying alternative: $e",
                                   );
-
                                   // If direct launch fails, try with canLaunch check
                                   try {
-                                    if (await canLaunch(whatsappUrl)) {
-                                      await launch(whatsappUrl);
+                                    if (await canLaunch(whatsappUrl!)) {
+                                      await launch(whatsappUrl!);
                                     } else {
                                       await launch(
                                         "https://play.google.com/store/apps/details?id=com.whatsapp",
@@ -130,17 +129,14 @@ class MessageScreenForListing extends StatelessWidget {
                                   } catch (e2) {
                                     debugPrint("Fallback launch failed: $e2");
                                     // Show error to user
-                                    if (context.mounted) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text("Could not open WhatsApp"),
-                                        ),
-                                      );
-                                    }
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("Could not open WhatsApp"),
+                                      ),
+                                    );
                                   }
                                 }
                               },
-
                               child: const Text('WhatsApp'),
                             ),
                           ],

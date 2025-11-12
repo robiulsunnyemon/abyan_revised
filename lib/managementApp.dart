@@ -1,10 +1,4 @@
 
-import 'package:abyansf_asfmanagment_app/shared_preferences_services/auth_pref_services/auth_pref_services.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/resendOTPScreen.dart';
-import 'package:abyansf_asfmanagment_app/view/auth/recovery_verification_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/main_screen/error_handling_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/screens/splash_creen/splash_screen.dart';
-import 'package:abyansf_asfmanagment_app/view/widget/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

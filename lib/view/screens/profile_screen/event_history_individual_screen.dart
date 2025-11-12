@@ -12,8 +12,8 @@ import '../../../controller/event_controller/event_controller.dart';
 import '../../widget/custom_event_card_two.dart';
 
 class EventHistoryIndividualPage extends StatefulWidget {
-  Event event;
-  final List<Event> eventList;
+  UpcomingEvent event;
+  final List<UpcomingEvent> eventList;
 
   EventHistoryIndividualPage({
     super.key,
@@ -189,6 +189,7 @@ class _EventHistoryIndividualPageState
                         Flexible(
                           flex: 5,
                           child: SizedBox(
+                            height: 40.h,
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () async {
@@ -201,7 +202,7 @@ class _EventHistoryIndividualPageState
                                 'Attend',
                                 style: TextStyle(
                                   color: AppColors.white,
-                                  fontSize: 18.sp,
+                                  fontSize: 16.sp,
                                 ),
                               ),
                             ),
@@ -219,7 +220,7 @@ class _EventHistoryIndividualPageState
                       shrinkWrap: true,
                       itemCount: widget.eventList.length,
                       itemBuilder: (context, index) {
-                        Event events = widget.eventList[index];
+                        UpcomingEvent events = widget.eventList[index];
                         return InkWell(
                           onTap: () {
                             setState(() {

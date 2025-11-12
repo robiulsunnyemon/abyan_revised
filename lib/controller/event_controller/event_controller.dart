@@ -7,8 +7,8 @@ class EventController extends GetxController {
 
 
   var isLoading = false.obs;
-  var upcomingEvents = <Event>[].obs;
-  var pastEvents = <Event>[].obs;
+  var upcomingEvents = <UpcomingEvent>[].obs;
+  var pastEvents = <UpcomingEvent>[].obs;
   var pagination = Pagination(page: 1, limit: 10, total: 0, pages: 1).obs;
   var errorMessage = ''.obs;
 

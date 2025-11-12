@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/style/appColor.dart';
 import '../../utils/style/app_text_styles.dart';
 
@@ -26,33 +27,41 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           showBack
               ? GestureDetector(
-            onTap: onBackTap ?? () => Navigator.pop(context),
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.goldenTextColor,
-              ),
-              child: const Icon(Icons.keyboard_arrow_left_outlined,color: AppColors.white,),
-            ),
-          )
+                  onTap: onBackTap ?? () => Navigator.pop(context),
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.goldenTextColor,
+                    ),
+                    child: const Icon(
+                      Icons.keyboard_arrow_left_outlined,
+                      color: AppColors.white,
+                    ),
+                  ),
+                )
               : const SizedBox(width: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                  width: 200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(title, style: AppTextStyle.bold24,maxLines: 1,),
-                    ],
-                  )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: AppTextStyle.bold24,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          action ?? const SizedBox(),
+          action ?? SizedBox(width: 5.w,),
         ],
       ),
     );

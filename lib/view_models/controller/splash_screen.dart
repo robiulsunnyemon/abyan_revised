@@ -20,8 +20,8 @@ class SplashController extends GetxController {
 
   final List<String> images = [
     AssetPath.splashScreen1,
-    AssetPath.splashScreen2,
-    AssetPath.splashScreen3,
+    AssetPath.splashScreenNew2,
+    AssetPath.splashScreenNew3,
   ];
 
   late Timer _timer;
