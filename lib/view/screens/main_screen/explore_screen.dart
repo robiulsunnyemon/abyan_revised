@@ -64,7 +64,7 @@ class ExploreScreen extends StatelessWidget {
                     itemCount: _mainCategoryController.mainCategories.length,
                     itemBuilder: (context, index) {
                       MainCategory mainCategory =
-                      _mainCategoryController.mainCategories[index];
+                          _mainCategoryController.mainCategories[index];
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -91,68 +91,82 @@ class ExploreScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 10.w,
-                                  childAspectRatio: 0.68,
-                                ),
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 10.w,
+                                      childAspectRatio: 0.68,
+                                    ),
                                 itemBuilder: (context, index) {
                                   SubCategory subCategory =
-                                  mainCategory.subCategories[index];
+                                      mainCategory.subCategories[index];
                                   return Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
                                           if (subCategory.hasSpecificCategory) {
                                             _specificCategoryController
                                                 .fetchSubcategoryDetails(
-                                              subCategory.id,
-                                            );
-                                          } else if (subCategory.contractWhatsapp) {
+                                                  subCategory.id,
+                                                );
+                                          } else if (subCategory
+                                              .contractWhatsapp) {
                                             _contactWhatsappController
                                                 .fetchServiceDetails(
-                                              subCategory.id,
-                                            );
+                                                  subCategory.id,
+                                                );
                                           } else if (subCategory.hasForm) {
-                                            if (subCategory.fromName == "Jets") {
-                                              Get.to(() => JetsScreen(
-                                                id: subCategory.id,
-                                              ));
+                                            if (subCategory.fromName ==
+                                                "Jets") {
+                                              Get.to(
+                                                () => JetsScreen(
+                                                  id: subCategory.id,
+                                                ),
+                                              );
                                             } else if (subCategory.fromName ==
                                                 "Hotel & Villas") {
-                                              Get.to(() =>
-                                                  HotelAndVillasScreen(
-                                                    id: subCategory.id,
-                                                  ));
+                                              Get.to(
+                                                () => HotelAndVillasScreen(
+                                                  id: subCategory.id,
+                                                ),
+                                              );
                                             } else if (subCategory.fromName ==
                                                 "Yacht") {
-                                              Get.to(() => YachtRequestFormScreen(
-                                                id: subCategory.id,
-                                              ));
+                                              Get.to(
+                                                () => YachtRequestFormScreen(
+                                                  id: subCategory.id,
+                                                ),
+                                              );
                                             } else if (subCategory.fromName ==
                                                 "Super Car") {
-                                              Get.to(() => SuperCarScreen(
-                                                id: subCategory.id,
-                                              ));
+                                              Get.to(
+                                                () => SuperCarScreen(
+                                                  id: subCategory.id,
+                                                ),
+                                              );
                                             }
-                                          } else if (subCategory.hasMiniSubCategory) {
+                                          } else if (subCategory
+                                              .hasMiniSubCategory) {
                                             _miniSubCategoryController
                                                 .fetchMiniSubCategories(
-                                              subCategory.id,
-                                            );
+                                                  subCategory.id,
+                                                );
                                           }
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.r),
+                                          borderRadius: BorderRadius.circular(
+                                            10.r,
+                                          ),
                                           child: Image.network(
                                             subCategory.img ??
                                                 ApiUrls.defaultImageUrl,
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             height:
-                                            MediaQuery.of(context).size.width /
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.width /
                                                 2,
                                           ),
                                         ),
@@ -163,7 +177,7 @@ class ExploreScreen extends StatelessWidget {
                                           subCategory.name,
                                           style: AppTextStyle.bold16,
                                           maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ],

@@ -17,7 +17,7 @@ class ListingSubImageScreen extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.only(left: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: CustomAppBar(title: listingDetailData.name),
               ),
             ),

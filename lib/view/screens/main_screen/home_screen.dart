@@ -77,9 +77,12 @@ class HomeScreen extends StatelessWidget {
                       height: 145,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: _subCategoryController.subCategories.length + 1, // +1 for "More"
+                        itemCount:
+                            _subCategoryController.subCategories.length +
+                            1, // +1 for "More"
                         itemBuilder: (context, index) {
-                          if (index == _subCategoryController.subCategories.length) {
+                          if (index ==
+                              _subCategoryController.subCategories.length) {
                             return Padding(
                               padding: const EdgeInsets.all(8),
                               child: Column(
@@ -88,22 +91,27 @@ class HomeScreen extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       Get.offAll(
-                                            () => CustomBottomBar(initialIndex: 2),
+                                        () => CustomBottomBar(initialIndex: 2),
                                         transition: Transition.fadeIn,
-                                        duration: const Duration(milliseconds: 0),
+                                        duration: const Duration(
+                                          milliseconds: 0,
+                                        ),
                                       );
-
                                     },
                                     child: CircleAvatar(
                                       radius: 40,
                                       backgroundColor: AppColors.primaryColor,
-                                      backgroundImage: NetworkImage("https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg"),
+                                      backgroundImage: NetworkImage(
+                                        "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/6dd39f96e4249857.jpeg",
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
                                     'More',
-                                    style: AppTextStyle.bold14.copyWith(fontFamily: 'Inter'),
+                                    style: AppTextStyle.bold14.copyWith(
+                                      fontFamily: 'Inter',
+                                    ),
                                   ),
                                 ],
                               ),
@@ -116,57 +124,105 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    if (_subCategoryController.subCategories[index].contractWhatsapp) {
-                                      _contactWhatsappController.fetchServiceDetails(
-                                        _subCategoryController.subCategories[index].id,
-                                      );
+                                    if (_subCategoryController
+                                        .subCategories[index]
+                                        .contractWhatsapp) {
+                                      _contactWhatsappController
+                                          .fetchServiceDetails(
+                                            _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          );
                                       Get.to(() => MassageScreen());
                                     }
-                                    if (_subCategoryController.subCategories[index].hasSpecificCategory) {
-                                      _specificCategoryController.fetchSubcategoryDetails(
-                                        _subCategoryController.subCategories[index].id,
-                                      );
+                                    if (_subCategoryController
+                                        .subCategories[index]
+                                        .hasSpecificCategory) {
+                                      _specificCategoryController
+                                          .fetchSubcategoryDetails(
+                                            _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          );
                                     }
-                                    if (_subCategoryController.subCategories[index].hasForm) {
-                                      if (_subCategoryController.subCategories[index].fromName == "Jets") {
-                                        Get.to(() => JetsScreen(
-                                          id: _subCategoryController.subCategories[index].id,
-                                        ));
-                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                    if (_subCategoryController
+                                        .subCategories[index]
+                                        .hasForm) {
+                                      if (_subCategoryController
+                                              .subCategories[index]
+                                              .fromName ==
+                                          "Jets") {
+                                        Get.to(
+                                          () => JetsScreen(
+                                            id: _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          ),
+                                        );
+                                      } else if (_subCategoryController
+                                              .subCategories[index]
+                                              .fromName ==
                                           "Hotel & Villas") {
-                                        Get.to(() => HotelAndVillasScreen(
-                                          id: _subCategoryController.subCategories[index].id,
-                                        ));
-                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                        Get.to(
+                                          () => HotelAndVillasScreen(
+                                            id: _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          ),
+                                        );
+                                      } else if (_subCategoryController
+                                              .subCategories[index]
+                                              .fromName ==
                                           "Yacht") {
-                                        Get.to(() => YachtRequestFormScreen(
-                                          id: _subCategoryController.subCategories[index].id,
-                                        ));
-                                      } else if (_subCategoryController.subCategories[index].fromName ==
+                                        Get.to(
+                                          () => YachtRequestFormScreen(
+                                            id: _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          ),
+                                        );
+                                      } else if (_subCategoryController
+                                              .subCategories[index]
+                                              .fromName ==
                                           "Super Car") {
-                                        Get.to(() => SuperCarScreen(
-                                          id: _subCategoryController.subCategories[index].id,
-                                        ));
+                                        Get.to(
+                                          () => SuperCarScreen(
+                                            id: _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          ),
+                                        );
                                       }
                                     }
-                                    if (_subCategoryController.subCategories[index].hasMiniSubCategory) {
-                                      _miniSubCategoryController.fetchMiniSubCategories(
-                                        _subCategoryController.subCategories[index].id,
-                                      );
+                                    if (_subCategoryController
+                                        .subCategories[index]
+                                        .hasMiniSubCategory) {
+                                      _miniSubCategoryController
+                                          .fetchMiniSubCategories(
+                                            _subCategoryController
+                                                .subCategories[index]
+                                                .id,
+                                          );
                                     }
                                   },
                                   child: CircleAvatar(
                                     radius: 40,
                                     backgroundImage: NetworkImage(
-                                      _subCategoryController.subCategories[index].img ??
+                                      _subCategoryController
+                                              .subCategories[index]
+                                              .img ??
                                           ApiUrls.defaultImageUrl,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 6),
                                 Text(
-                                  _subCategoryController.subCategories[index].name,
-                                  style: AppTextStyle.bold14.copyWith(fontFamily: 'Inter'),
+                                  _subCategoryController
+                                      .subCategories[index]
+                                      .name,
+                                  style: AppTextStyle.bold14.copyWith(
+                                    fontFamily: 'Inter',
+                                  ),
                                 ),
                               ],
                             ),
@@ -174,7 +230,6 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                     );
-
                   }
                 }),
                 const SizedBox(height: 20),
@@ -290,7 +345,14 @@ class HomeScreen extends StatelessWidget {
                     if (_eventController.upcomingEvents.isNotEmpty)
                       TextButton(
                         onPressed: () {
-                          Get.to(() => AllUpcomingEventScreen());
+                          Navigator.of(context).pushAndRemoveUntil(
+                            PageRouteBuilder(
+                              pageBuilder: (context, animation1, animation2) => CustomBottomBar(initialIndex: 1),
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                                (route) => false,
+                          );
                         },
                         child: Text(
                           'See all',

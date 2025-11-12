@@ -14,7 +14,7 @@ class CustomBookingEventWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime parsedDateTime = DateTime.parse(bookingEvent.createdAt.toString());
     return Card(
-      color: AppColors.greyColor,
+      color: AppColors.white,
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)), // responsive radius
@@ -52,7 +52,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                               fontFamily: "Inter",
                               fontSize: AppStyles.fontXL.sp,
                               fontWeight: AppStyles.weightRegular,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                               overflow: TextOverflow.ellipsis,
                             ),maxLines: 1,
                           ),
@@ -65,7 +65,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                               fontFamily: "Inter",
                               fontSize: AppStyles.fontL.sp,
                               fontWeight: AppStyles.weightRegular,
-                              color: AppColors.lightLaserColor,
+                              color: AppColors.blackColor,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -82,7 +82,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                             fontFamily: "PlayfairDisplay",
                             fontSize: AppStyles.fontL.sp,
                             fontWeight: AppStyles.weightBold,
-                            color: AppColors.lightWhite6,
+                            color: AppColors.blackColor,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -93,7 +93,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                             Icon(
                               Icons.location_on,
                               size: 16.sp,
-                              color: AppColors.lightWhite6,
+                              color: AppColors.blackColor,
                             ),
                             SizedBox(width: 4.w),
                             Text(
@@ -102,7 +102,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                                 fontFamily: "Inter",
                                 fontSize: AppStyles.fontS.sp,
                                 fontWeight: AppStyles.weightRegular,
-                                color: AppColors.lightWhite6,
+                                color: AppColors.blackColor,
                               ),
                             ),
                           ],
@@ -126,7 +126,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                         fontSize: AppStyles.fontM.sp,
                         color: AppColors.lightLaserColor,
                         decoration: TextDecoration.underline,
-                        decorationColor: AppColors.lightLaserColor,
+                        decorationColor: AppColors.goldenTextColor,
                         decorationThickness: 1.0,
                         height: 1.4.h,
                       ),
@@ -139,7 +139,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS.sp,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -150,7 +150,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: AppStyles.fontXS.sp,
                         fontWeight: AppStyles.weightRegular,
-                        color: AppColors.lightWhite6,
+                        color: AppColors.blackColor,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

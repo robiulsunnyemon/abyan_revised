@@ -51,7 +51,7 @@ class SpecificCarauselContainer extends StatelessWidget {
             const SizedBox(height: 6),
             Row(
               children: [
-                location != null
+                (location != null && location!.isNotEmpty)
                     ? const Icon(
                   Icons.location_on,
                   size: 16,

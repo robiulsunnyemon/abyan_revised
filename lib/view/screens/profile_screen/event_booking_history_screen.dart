@@ -42,15 +42,16 @@ class EventBookingHistoryScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50.r),
                             ),
-                            backgroundColor: _bookingController.isSelect.value == 0
+                            backgroundColor:
+                                _bookingController.isSelect.value == 0
                                 ? AppColors.primaryColor
-                                : AppColors.lightGrey,
+                                : AppColors.white,
                           ),
                           child: Text(
                             'All',
                             style: AppTextStyle.regular16.copyWith(
                               fontSize: 16.sp, // responsive font
-                              color: AppColors.white,
+                              color: AppColors.blackColor,
                             ),
                           ),
                         ),
@@ -67,15 +68,16 @@ class EventBookingHistoryScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50.r),
                             ),
-                            backgroundColor: _bookingController.isSelect.value == 1
+                            backgroundColor:
+                                _bookingController.isSelect.value == 1
                                 ? AppColors.primaryColor
-                                : AppColors.lightGrey,
+                                : AppColors.white,
                           ),
                           child: Text(
                             'Past',
                             style: AppTextStyle.regular16.copyWith(
                               fontSize: 16.sp,
-                              color: AppColors.white,
+                              color: AppColors.blackColor,
                             ),
                           ),
                         ),
@@ -92,16 +94,19 @@ class EventBookingHistoryScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50.r),
                             ),
-                            backgroundColor: _bookingController.isSelect.value == 2
+                            backgroundColor:
+                                _bookingController.isSelect.value == 2
                                 ? AppColors.primaryColor
-                                : AppColors.lightGrey,
+                                : AppColors.white,
                           ),
                           child: Text(
                             'Active',
                             style: AppTextStyle.regular16.copyWith(
                               fontSize: 16.sp,
-                              color: AppColors.white,
+                              color: AppColors.blackColor,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
                       ),
@@ -117,16 +122,19 @@ class EventBookingHistoryScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50.r),
                             ),
-                            backgroundColor: _bookingController.isSelect.value == 3
+                            backgroundColor:
+                                _bookingController.isSelect.value == 3
                                 ? AppColors.primaryColor
-                                : AppColors.lightGrey,
+                                : AppColors.white,
                           ),
                           child: Text(
                             'Cancel',
                             style: AppTextStyle.regular16.copyWith(
                               fontSize: 16.sp,
-                              color: AppColors.white,
+                              color: AppColors.blackColor,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
                       ),
@@ -154,11 +162,15 @@ class EventBookingHistoryScreen extends StatelessWidget {
                         final Booking bookingEvent =
                             _bookingController.bookingsAll[index];
                         return GestureDetector(
-                          onTap: (){
-                            Get.to(BookingHistoryIndividualScreen(event: bookingEvent.event,));
+                          onTap: () {
+                            Get.to(
+                              BookingHistoryIndividualScreen(
+                                event: bookingEvent.event,
+                              ),
+                            );
                           },
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(vertical: 2.h),
+                            padding: EdgeInsets.symmetric(vertical: 2.h),
                             child: CustomBookingEventWidget(
                               bookingEvent: bookingEvent,
                             ),
