@@ -24,7 +24,7 @@ class EventBookingHistoryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              CustomAppBar(title: 'Booking History'),
+              CustomAppBar(title: 'Event History'),
               Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

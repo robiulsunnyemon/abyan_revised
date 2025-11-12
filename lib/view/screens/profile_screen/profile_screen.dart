@@ -256,6 +256,11 @@ class ProfileScreen extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Get.to(() => EditProfile());
+          }, icon: Icon(Icons.edit))
+        ],
         centerTitle: true,
         automaticallyImplyLeading: false,
         surfaceTintColor: AppColors.white,
@@ -406,7 +411,7 @@ class ProfileScreen extends StatelessWidget {
                         SizedBox(height: 12.h),
                         buildRowItem(
                           icon: Icons.calendar_month,
-                          text: 'Booking History',
+                          text: 'Event History',
                           isArrowTrue: true,
                           onTap: () {
                             showMyDialog(context);
