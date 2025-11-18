@@ -190,7 +190,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Location
-                Text('Location', style: AppTextStyle.bold16),
+                Text('City', style: AppTextStyle.bold16),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 16),
                   child: TextFormField(
@@ -220,15 +220,15 @@ class HotelAndVillasScreen extends StatelessWidget {
                 ),
 
                 // Hotel name
-                Text('Name of hotel', style: AppTextStyle.bold16),
-                const SizedBox(height: 8),
-                _BindableDropdown(
-                  items: hotelNames,
-                  hint: 'Name of hotel',
-                  selected: form.hotelName,
-                  onChanged: (v) => form.hotelName.value = v,
-                ),
-                const SizedBox(height: 16),
+                // Text('Name of hotel', style: AppTextStyle.bold16),
+                // const SizedBox(height: 8),
+                // _BindableDropdown(
+                //   items: hotelNames,
+                //   hint: 'Name of hotel',
+                //   selected: form.hotelName,
+                //   onChanged: (v) => form.hotelName.value = v,
+                // ),
+                const SizedBox(height: 6),
 
                 // Dates
                 Text('Date', style: AppTextStyle.bold16),
