@@ -101,4 +101,7 @@ flutter:
     fonts:
       - asset: assets/font/Inter-Regular.ttf
 
+  - family: copperplategothic
+    fonts:
+      - asset: assets/font/copperplategothic_bold.ttf
   

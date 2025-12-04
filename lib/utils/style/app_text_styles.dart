@@ -53,7 +53,7 @@ abstract class AppTextStyle {
   );
 
   static TextStyle get bold24 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 22.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
@@ -73,14 +73,14 @@ abstract class AppTextStyle {
   );
 
   static TextStyle get regular20 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 20.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.goldenTextColor,
   );
 
   static TextStyle get bold20 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
@@ -101,14 +101,14 @@ abstract class AppTextStyle {
   );
 
   static TextStyle get regular16 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.goldenTextColor,
   );
 
   static TextStyle get bold16 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 15.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
@@ -122,7 +122,7 @@ abstract class AppTextStyle {
   );
 
   static TextStyle get bold14 => TextStyle(
-    fontFamily: 'PlayfairDisplay',
+    fontFamily: 'copperplategothic',
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
@@ -295,4 +295,6 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w500,
     color: AppColors.goldenTextColor,
   );
+
+
 }

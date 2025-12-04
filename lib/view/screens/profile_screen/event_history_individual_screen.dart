@@ -202,6 +202,7 @@ class _EventHistoryIndividualPageState
                                 'Attend',
                                 style: TextStyle(
                                   color: AppColors.white,
+                                  fontFamily: "copperplategothic",
                                   fontSize: 16.sp,
                                 ),
                               ),

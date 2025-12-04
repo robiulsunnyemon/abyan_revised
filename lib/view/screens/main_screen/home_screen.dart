@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                                   Text(
                                     'More',
                                     style: AppTextStyle.bold14.copyWith(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'copperplategothic',
                                     ),
                                   ),
                                 ],
@@ -220,8 +220,8 @@ class HomeScreen extends StatelessWidget {
                                   _subCategoryController
                                       .subCategories[index]
                                       .name,
-                                  style: AppTextStyle.bold14.copyWith(
-                                    fontFamily: 'Inter',
+                                  style: AppTextStyle.bold12.copyWith(
+                                    fontFamily: 'copperplategothic',
                                   ),
                                 ),
                               ],
@@ -357,6 +357,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(
                           'See all',
                           style: AppTextStyle.bold16.copyWith(
+                            fontFamily: "PlayfairDisplay",
                             color: AppColors.primaryColor,
                           ),
                         ),
@@ -370,7 +371,7 @@ class HomeScreen extends StatelessWidget {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("You have no event"),
+                        child: Image.asset(AssetPath.noEventImage,scale: 4,)
                       ),
                     );
                   } else {

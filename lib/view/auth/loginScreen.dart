@@ -31,13 +31,14 @@ class LoginScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.goldenTextColor,
-                    fontSize: 40,
+                    fontSize: 36,
+                    fontFamily: "copperplategothic",
                     fontWeight: AppStyles.weightBold,
                   ),
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Welcome back you’ve\nbeen missed!',
+                  'Welcome back!!',
                   textAlign: TextAlign.center,
         
                   style: TextStyle(
@@ -81,8 +82,6 @@ class LoginScreen extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-        
-        
                           _loginController.login(
                             email: _loginController.emailTEController.text,
                             password:
@@ -98,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
-                            fontFamily: 'PlayfairDisplay',
+                            fontFamily: 'copperplategothic',
                             fontWeight: FontWeight.w500,
                           ),
                         ),

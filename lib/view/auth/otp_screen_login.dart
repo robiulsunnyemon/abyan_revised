@@ -147,7 +147,7 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
               style: TextStyle(
                 color: AppColors.goldenTextColor,
                 fontSize: 32,
-                fontFamily: 'PlayfairDisplay',
+                fontFamily: 'copperplategothic',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -195,7 +195,10 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
                 ),
                 child: const Text(
                   "Verify",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: "copperplategothic",
+                      fontSize: 16,
+                      color: Colors.white),
                 ),
               ),
             ),

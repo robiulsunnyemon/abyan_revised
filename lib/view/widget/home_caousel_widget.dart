@@ -44,7 +44,7 @@ class HomeCarouselWidget extends StatelessWidget {
               Text(
                 title ?? '',
                 style: const TextStyle(
-                  fontFamily: "Playfair Display",
+                  fontFamily: "copperplategothic",
                   fontSize: 20, // replace with AppStyles.fontXL if needed
                   fontWeight: FontWeight.bold, // AppStyles.weightBold
                   color: Colors.white, // AppColors.lightWhite6

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../../controller/profile_controller/profile_controller.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  const   EditProfile({super.key});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -17,8 +17,12 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool isVisible = false;
+  bool isConfirmPassVisible = false;
 
-  final _profileController = Get.put(ProfileController());
+  final ProfileController _profileController = Get.put(
+    ProfileController(),
+    permanent: true,
+  );
   final ImagePickerController _imagePickerController = Get.find();
 
   @override
@@ -47,16 +51,28 @@ class _EditProfileState extends State<EditProfile> {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        Obx(
-                              () => CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              _profileController.user.value?.profilePic ??
-                                  AppConstants.defaultImageUrl,
-                            ),
+                        // Obx(
+                        //   () => CircleAvatar(
+                        //     backgroundImage: NetworkImage(
+                        //       _profileController.user.value?.profilePic ??
+                        //           AppConstants.defaultImageUrl,
+                        //     ),
+                        //     radius: 34,
+                        //     backgroundColor: Colors.white,
+                        //   ),
+                        // ),
+
+                        Obx(() {
+                          final imgFile = _imagePickerController.selectedImage.value;
+                          return CircleAvatar(
                             radius: 34,
                             backgroundColor: Colors.white,
-                          ),
-                        ),
+                            backgroundImage: imgFile != null
+                                ? FileImage(imgFile)
+                                : NetworkImage(_profileController.user.value?.profilePic ?? AppConstants.defaultImageUrl) as ImageProvider,
+                          );
+                        }),
+
                         Positioned(
                           bottom: 5,
                           right: 5,
@@ -69,10 +85,7 @@ class _EditProfileState extends State<EditProfile> {
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                               ),
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                                size: 13,
-                              ),
+                              child: Icon(Icons.camera_alt_outlined, size: 13),
                             ),
                           ),
                         ),
@@ -80,14 +93,14 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     SizedBox(width: 20),
                     Obx(
-                          () => Text(
+                      () => Text(
                         _profileController.user.value?.name ?? "Known",
                         style: AppTextStyle.bold20,
                       ),
                     ),
                   ],
                 ),
-                 SizedBox(height: 25.h),
+                SizedBox(height: 25.h),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -104,19 +117,18 @@ class _EditProfileState extends State<EditProfile> {
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular20,
                         ),
-                         SizedBox(height: 10.h),
+                        SizedBox(height: 10.h),
                         Text(
                           'Full Name',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
-
                             controller: _profileController.nameController,
                             decoration: InputDecoration(
-                              //hintText: _profileController.user.value?.name
+                              hintText: _profileController.user.value?.name ?? ''
                             ),
                           ),
                         ),
@@ -126,7 +138,7 @@ class _EditProfileState extends State<EditProfile> {
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             controller: _profileController.emailController,
                             decoration: InputDecoration(
@@ -140,11 +152,11 @@ class _EditProfileState extends State<EditProfile> {
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
                             controller: _profileController.phoneController,
                             decoration: InputDecoration(
-                              hintText: _profileController.user.value?.email,
+                              hintText: _profileController.user.value?.whatsapp,
                             ),
                           ),
                         ),
@@ -152,7 +164,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                 SizedBox(height: 16.h),
+                SizedBox(height: 16.h),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -169,15 +181,16 @@ class _EditProfileState extends State<EditProfile> {
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular20,
                         ),
-                         SizedBox(height: 10.h),
+                        SizedBox(height: 10.h),
                         Text(
                           'Create Password',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
+                            controller: _profileController.passwordController,
                             obscureText: isVisible == false,
                             decoration: InputDecoration(
                               hintText: '*******',
@@ -202,19 +215,20 @@ class _EditProfileState extends State<EditProfile> {
                           style: AppTextStyle.regular16,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
                           child: TextFormField(
-                            obscureText: isVisible == false,
+                            controller: _profileController.confirmPasswordController,
+                            obscureText: isConfirmPassVisible == false,
                             decoration: InputDecoration(
                               hintText: '*******',
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isVisible = !isVisible;
+                                    isConfirmPassVisible = !isConfirmPassVisible;
                                   });
                                 },
                                 icon: Icon(
-                                  isVisible
+                                  isConfirmPassVisible
                                       ? Icons.visibility
                                       : Icons.visibility_off,
                                 ),
@@ -226,10 +240,21 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                 SizedBox(height: 20.h),
+                SizedBox(height: 20.h),
                 SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(onPressed: (){}, child: Text('Profile Update'))),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _profileController.updateUserProfile();
+                    },
+                    child: Text(
+                      'Profile Update',
+                      style: AppTextStyle.regular16.copyWith(
+                        color: AppColors.blackColor,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

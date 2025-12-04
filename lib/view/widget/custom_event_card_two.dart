@@ -54,8 +54,7 @@ class CustomEventCardTwo extends StatelessWidget {
                           child: Text(
                             event.title ?? "Breakfast",
                             style: TextStyle(
-                              fontFamily: "PlayfairDisplay",
-                              fontSize: AppStyles.fontL,
+                              fontFamily: "copperplategothic",
                               fontWeight: AppStyles.weightBold,
                               color: AppColors.blackColor,
                             ),

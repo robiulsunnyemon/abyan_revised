@@ -17,8 +17,19 @@ class NotificationController extends GetxController {
     super.onInit();
     fetchNotifications();
   }
+  Future<void> markAsRead(int index) async {
+    notifications[index].isRead = true;   // UI update
+    notifications.refresh();
 
-  Future<void> fetchNotifications() async {
+    try {
+      await NotificationApiService.markAsRead(notifications[index].id);
+    } catch (e) {
+      print("Mark as read failed: $e");
+    }
+  }
+
+
+/*  Future<void> fetchNotifications() async {
     try {
       isLoading.value = true;
       final response = await NotificationApiService.fetchNotifications();
@@ -29,8 +40,20 @@ class NotificationController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-  }
+  }*/
 
+  Future<void> fetchNotifications() async {
+    try {
+      isLoading.value = true;
+      final response = await NotificationApiService.fetchNotifications();
+
+      if (response.success) {
+        notifications.assignAll(response.data.notifications);
+      }
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
 
 

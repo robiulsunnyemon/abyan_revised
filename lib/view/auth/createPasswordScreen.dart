@@ -23,12 +23,13 @@ class CreatePasswordScreen extends StatelessWidget {
               style: TextStyle(
                 color: AppColors.goldenTextColor,
                 fontSize: 40,
+                fontFamily: "copperplategothic",
                 fontWeight: AppStyles.weightBold,
               ),
             ),
             SizedBox(height: 20),
             Text(
-              'Type and confirm a secure new password for your amount',
+              'Type and confirm a secure new password for your account',
               textAlign: TextAlign.center,
 
               style: TextStyle(
@@ -65,7 +66,7 @@ class CreatePasswordScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontFamily: '§',
+                        fontFamily: 'copperplategothic',
                         fontWeight: FontWeight.w500,
                       ),
                     ),

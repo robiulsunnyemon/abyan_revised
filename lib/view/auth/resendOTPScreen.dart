@@ -23,6 +23,7 @@ class ResendOTPScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.goldenTextColor,
+                fontFamily: "copperplategothic",
                 fontSize: 30.sp,
                 fontWeight: AppStyles.weightBold,
               ),
@@ -64,6 +65,7 @@ class ResendOTPScreen extends StatelessWidget {
                       'Submit',
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: "copperplategothic",
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),

@@ -10,9 +10,9 @@ class OnbordingScreen extends StatelessWidget {
   OnbordingScreen({super.key});
 
   final List<String> imagePaths = [
-    "assets/images/image 1.png",
-    "assets/images/image 2.png",
-    "assets/images/image 3.png",
+    "assets/images/onboardign1.png",
+    "assets/images/onboarding2.png",
+    "assets/images/onboarding3.png",
     "assets/images/image 4.png",
     "assets/images/image 5.png",
     "assets/images/image 6.png",
@@ -81,6 +81,7 @@ class OnbordingScreen extends StatelessWidget {
                 style: TextStyle(
                   color: AppColors.goldenTextColor,
                   fontSize: 30,
+                  fontFamily: "copperplategothic",
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -92,7 +93,7 @@ class OnbordingScreen extends StatelessWidget {
             SizedBox(
               width: 353,
               child: Text(
-                'Supercars, yachts, travel, entertainment, lifestyle, and more exclusively tailored to your standards.',
+                'Supercars, Yachts, Travel, Entertainment, Lifestyle, and more exclusively tailored to your standards.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.white,
@@ -129,8 +130,8 @@ class OnbordingScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
-                          fontFamily: 'PlayfairDisplay',
-                          fontWeight: FontWeight.w500,
+                          fontFamily: 'copperplategothic',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
@@ -153,8 +154,8 @@ class OnbordingScreen extends StatelessWidget {
                         style: TextStyle(
                           color: AppColors.blackColor,
                           fontSize: 16,
-                          fontFamily: 'Playfair Display',
-                          fontWeight: FontWeight.w500,
+                          fontFamily: 'copperplategothic',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
@@ -169,7 +170,7 @@ class OnbordingScreen extends StatelessWidget {
             SizedBox(
               width: 343,
               child: Text(
-                'By Continuing, you agree to L’invite’s terms of services and acknowledge you’ve read our privacy policy',
+                'By Continuing, you agree to ASF Management of services and acknowledge you’ve read our privacy policy',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: AppColors.white,

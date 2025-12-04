@@ -159,7 +159,7 @@ class _RestaurantFormScreenState extends State<RestaurantFormScreen> {
                       style: TextStyle(
                         color: AppColors.goldenTextColor,
                         fontSize: 16,
-                        fontFamily: 'PlayfairDisplay',
+                        fontFamily: 'copperplategothic',
                         fontWeight: FontWeight.w600,
                       ),
                     ),

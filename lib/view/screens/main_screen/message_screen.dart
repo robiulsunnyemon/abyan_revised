@@ -133,7 +133,7 @@ class MassageScreen extends StatelessWidget {
                                   }
                                 }
                               },
-                              child: const Text('WhatsApp'),
+                              child:  Text('WhatsApp',style: AppTextStyle.regular16.copyWith(color: AppColors.white),),
                             ),
                           ],
                         ),
