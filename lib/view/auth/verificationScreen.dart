@@ -19,7 +19,13 @@ class Verificationscreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Verification', style: AppTextStyle.bold30.copyWith(color: AppColors.goldenTextColor)),
+              Text(
+                'Verification',
+                style: AppTextStyle.bold30.copyWith(
+                  fontFamily: "copperplategothic",
+                  color: AppColors.goldenTextColor,
+                ),
+              ),
               Text(
                 'We sent Verification code to your Email address',
                 textAlign: TextAlign.center,
@@ -46,11 +52,11 @@ class Verificationscreen extends StatelessWidget {
                     fieldWidth: 60,
                     activeFillColor: Colors.transparent,
                     errorBorderColor: AppColors.red,
-                    inactiveColor: AppColors.lightGreyBorder,     // default
-                    selectedColor: AppColors.lightGreyBorder,     // when selected
+                    inactiveColor: AppColors.lightGreyBorder,
+                    // default
+                    selectedColor: AppColors.lightGreyBorder,
+                    // when selected
                     activeColor: AppColors.lightGreyBorder,
-
-
 
                     inactiveFillColor: Colors.transparent,
                     selectedFillColor: Colors.transparent,
@@ -63,12 +69,12 @@ class Verificationscreen extends StatelessWidget {
                   onCompleted: (v) {
                     print("Completed");
                   },
-                  onChanged: (value) {
-                  },
+                  onChanged: (value) {},
                   beforeTextPaste: (text) {
                     print("Allowing to paste $text");
                     return true;
-                  }, appContext: context,
+                  },
+                  appContext: context,
                 ),
               ),
 
@@ -78,10 +84,16 @@ class Verificationscreen extends StatelessWidget {
                   onPressed: () {
                     () => LoginScreen();
                   },
-                  child: Text('Confirm',style: TextStyle(color: AppColors.white),),
+                  child: Text(
+                    'Confirm',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontFamily: "copperplategothic",
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(height: 10.h),
               Text.rich(
                 TextSpan(
                   children: [

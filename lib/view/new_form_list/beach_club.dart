@@ -198,7 +198,7 @@ class BeachClubForm extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Beach club'),
+                const CustomAppBar(title: 'Beach clubs'),
                 const SizedBox(height: 20),
 
                 CustomTextEditingFormField(
@@ -364,7 +364,7 @@ class BeachClubForm extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
-                        child: const Text('Cancel'),
+                        child:  Text('Cancel',style:AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -430,8 +430,8 @@ class BeachClubForm extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Request'),
+                          children:  [
+                            Text('Request',style:AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                             SizedBox(width: 10),
                             Icon(Icons.arrow_circle_right_outlined),
                           ],

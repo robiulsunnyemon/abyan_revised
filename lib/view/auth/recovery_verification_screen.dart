@@ -562,7 +562,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
               style: TextStyle(
                 color: AppColors.goldenTextColor,
                 fontSize: 32,
-                fontFamily: 'PlayfairDisplay',
+                fontFamily: 'copperplategothic',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -610,7 +610,7 @@ class _RecoveryVerificationScreenState extends State<RecoveryVerificationScreen>
                 ),
                 child: const Text(
                   "Verify",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: Colors.white,fontFamily:"copperplategothic"),
                 ),
               ),
             ),

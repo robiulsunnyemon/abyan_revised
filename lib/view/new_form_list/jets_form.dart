@@ -129,7 +129,7 @@ class JetsFormController extends GetxController {
           'Success',
           'Your request has been submitted.',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green
+          backgroundColor: Colors.green,
         );
         Get.to(() => const OrderPlaceScreen());
       } else {
@@ -232,7 +232,9 @@ class _BindableDropdown extends StatelessWidget {
                         value: e,
                         child: Text(
                           e,
-                          style: TextStyle(color: AppColors.blackColor),//black dile selected color o black hoye jay
+                          style: TextStyle(
+                            color: AppColors.blackColor,
+                          ), //black dile selected color o black hoye jay
                         ),
                       ),
                     )
@@ -339,9 +341,9 @@ class JetsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Jets'),
+                CustomAppBar(title: 'PRIVATE Jets'),
                 // Travel type
-                Text('Travel Type', style: AppTextStyle.bold16),
+                Text('TRIP Type', style: AppTextStyle.bold16),
                 const SizedBox(height: 8),
                 _BindableDropdown(
                   items: trip,
@@ -359,20 +361,20 @@ class JetsScreen extends StatelessWidget {
                     Expanded(
                       child: _BindableDropdown(
                         items: cities,
-                        hint: 'Start Point',
+                        hint: 'From\nStart Point',
                         selected: controller.fromCity,
                         onChanged: (v) => controller.fromCity.value = v,
-                        label: 'From',
+                        // label: 'From',
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: _BindableDropdown(
                         items: cities,
-                        hint: 'Destination',
+                        hint: 'To\nEnd Point',
                         selected: controller.toCity,
-                        onChanged: (v) => controller.toCity.value = v,
-                        label: 'To',
+                        onChanged: (v) => controller.toCity.value = '',
+                        // label: 'To',
                       ),
                     ),
                   ],
@@ -388,7 +390,7 @@ class JetsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _DateField(
-                          label: 'Departure',
+                          label: 'Start',
                           valueRx: controller.departDate,
                           onChanged: (d) => controller.departDate.value = d,
                         ),
@@ -405,10 +407,9 @@ class JetsScreen extends StatelessWidget {
                   );
                 }),
                 const SizedBox(height: 16),
-
                 // Guests
                 Text('Number of guest', style: AppTextStyle.bold16),
-                SizedBox(height: 10.h,),
+                SizedBox(height: 10.h),
                 Row(
                   children: [
                     _IncreaseAndDecrease(
@@ -470,7 +471,12 @@ class JetsScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
-                        child: const Text('Cancel'),
+                        child: Text(
+                          'Cancel',
+                          style: AppTextStyle.regular16.copyWith(
+                            color: AppColors.blackColor,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -504,8 +510,13 @@ class JetsScreen extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Request'),
+                          children: [
+                            Text(
+                              'Request',
+                              style: AppTextStyle.regular16.copyWith(
+                                color: AppColors.blackColor,
+                              ),
+                            ),
                             SizedBox(width: 10),
                             Icon(Icons.arrow_circle_right_outlined),
                           ],
@@ -562,7 +573,7 @@ class _IncreaseAndDecrease extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+              padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -575,9 +586,13 @@ class _IncreaseAndDecrease extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 4,left: 4,right: 4),
+                    padding: const EdgeInsets.only(
+                      bottom: 4,
+                      left: 4,
+                      right: 4,
+                    ),
                     child: Obx(
-                          () => Text(
+                      () => Text(
                         counter.count.value.toString(),
                         style: TextStyle(
                           fontSize: 16.sp,

@@ -70,7 +70,7 @@ class CustomEventWidget extends StatelessWidget {
                           child: Text(
                             event?.title ?? "Breakfast",
                             style: TextStyle(
-                              fontFamily: "PlayfairDisplay",
+                              fontFamily: "copperplategothic",
                               fontSize: AppStyles.fontL,
                               fontWeight: AppStyles.weightBold,
                               color: AppColors.goldenTextColor,
@@ -123,7 +123,7 @@ class CustomEventWidget extends StatelessWidget {
                               'Skip',
                               style: TextStyle(
                                 fontFamily: "Inter",
-                                color: AppColors.goldenTextColor,
+                                color: AppColors.primaryColor,
                                 fontSize: AppStyles.fontS,
                                 fontWeight: AppStyles.weightRegular,
                               ),
@@ -148,7 +148,7 @@ class CustomEventWidget extends StatelessWidget {
                         fontFamily: "Inter",
                         fontWeight: AppStyles.weightRegular,
                         fontSize: AppStyles.fontM,
-                        color: AppColors.goldenTextColor,
+                        color: AppColors.lightLaserColor,
                         decoration: TextDecoration.underline,
                         decorationColor: AppColors.lightLaserColor,
                         decorationThickness: 1.0,

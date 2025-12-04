@@ -41,7 +41,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
             return Center(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
@@ -55,7 +55,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                         ),
                       ),
                       child: Padding(
-                        padding:  EdgeInsets.only(bottom: 16.h),
+                        padding: EdgeInsets.only(bottom: 16.h),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -101,9 +101,12 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(elevation: 0),
                               onPressed: () async {
-                                final whatsappUrl =
-                                    serviceData.adminWhatsApp?.mobileWhatsappLink;
-                                debugPrint("Attempting to launch: $whatsappUrl");
+                                final whatsappUrl = serviceData
+                                    .adminWhatsApp
+                                    ?.mobileWhatsappLink;
+                                debugPrint(
+                                  "Attempting to launch: $whatsappUrl",
+                                );
 
                                 try {
                                   // First try launching directly without canLaunch check
@@ -131,13 +134,20 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                     // Show error to user
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text("Could not open WhatsApp"),
+                                        content: Text(
+                                          "Could not open WhatsApp",
+                                        ),
                                       ),
                                     );
                                   }
                                 }
                               },
-                              child: const Text('WhatsApp'),
+                              child: Text(
+                                'WhatsApp',
+                                style: AppTextStyle.regular16.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
                             ),
                           ],
                         ),

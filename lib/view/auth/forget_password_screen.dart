@@ -26,6 +26,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               style: TextStyle(
                 color: AppColors.goldenTextColor,
                 fontSize: 30.sp,
+                fontFamily: "copperplategothic",
                 fontWeight: AppStyles.weightBold,
               ),
             ),
@@ -80,6 +81,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
+                        fontFamily: "copperplategothic",
                         fontWeight: FontWeight.w500,
                       ),
                     ),

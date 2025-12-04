@@ -48,5 +48,8 @@ class AssetPath {
   static const String orderPlace='$_basePath/order_place.png';
   static const String menuList='$_basePath/menu_list.png';
   static const String asfLogo='$_basePath/asf_logo.png';
+  static const String noEventImage='$_basePath/noEventImage.png';
+  static const String helpImage='$_basePath/helpImage.png';
+  static const String whatsappIcon='$_basePath/whatsappIcon.png';
 
 }

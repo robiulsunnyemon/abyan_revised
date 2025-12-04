@@ -176,7 +176,7 @@ class HotelAndVillasScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(title: 'Hotel & Villas'),
+                const CustomAppBar(title: 'Hotels & Villas'),
                 const SizedBox(height: 8),
                 // Accommodation type
                 Text('Type of accommodation', style: AppTextStyle.bold16),
@@ -188,7 +188,6 @@ class HotelAndVillasScreen extends StatelessWidget {
                   onChanged: (v) => form.accommodationType.value = v,
                 ),
                 const SizedBox(height: 16),
-
                 // Location
                 Text('City', style: AppTextStyle.bold16),
                 Padding(
@@ -316,7 +315,7 @@ class HotelAndVillasScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
-                        child: const Text('Cancel'),
+                        child:  Text('Cancel',style: AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -352,8 +351,8 @@ class HotelAndVillasScreen extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Request'),
+                          children:  [
+                            Text('Request',style: AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                             SizedBox(width: 10),
                             Icon(Icons.arrow_circle_right_outlined),
                           ],

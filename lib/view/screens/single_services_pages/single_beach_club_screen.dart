@@ -123,7 +123,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                             ],
                           ),
 
-                          ElevatedButton(
+                          /*ElevatedButton(
                             onPressed: () {
                               if (_listingController.listingData.value !=
                                   null) {
@@ -145,7 +145,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
 
@@ -364,7 +364,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              child: Text('Cancel'),
+                              child: Text('Cancel',style: AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                             ),
                           ),
                           SizedBox(width: 10),
@@ -401,6 +401,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                                       "Beach club") {
                                     Get.to(
                                       () => BeachClubForm(
+
                                         venueNames: _listingController
                                             .listingData
                                             .value!
@@ -454,7 +455,7 @@ class SingleBeachClubScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Request'),
+                                  Text('Request',style: AppTextStyle.regular16.copyWith(color: AppColors.blackColor),),
                                   SizedBox(width: 10),
                                   Icon(Icons.arrow_circle_right_outlined),
                                 ],

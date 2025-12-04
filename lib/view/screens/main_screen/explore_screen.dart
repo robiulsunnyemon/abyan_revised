@@ -48,7 +48,7 @@ class ExploreScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Text("Explore", style: AppTextStyle.bold24),
+                        child: Center(child: Text("Explore", style: AppTextStyle.bold24)),
                       ),
                     ],
                   ),

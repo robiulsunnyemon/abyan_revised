@@ -40,7 +40,7 @@ class AppNotification {
   final String userId;
   final String title;
   final String message;
-  final bool isRead;
+   bool isRead;
   final String role;
   final DateTime createdAt;
   final DateTime updatedAt;

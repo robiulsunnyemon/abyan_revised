@@ -24,12 +24,12 @@ class MessageScreenForListing extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsetsGeometry.only(left: 16),
-            child: CustomAppBar(title: '' /*serviceData!.name*/),
+            child: CustomAppBar(title: ''),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SafeArea(
           child: Obx(() {
             final serviceData = _listingWhatsappController.listingData.value;
@@ -141,7 +141,7 @@ class MessageScreenForListing extends StatelessWidget {
                                 }
                               },
 
-                              child: const Text('WhatsApp'),
+                              child:  Text('WhatsApp',style: AppTextStyle.regular16.copyWith(color: AppColors.white),),
                             ),
                           ],
                         ),

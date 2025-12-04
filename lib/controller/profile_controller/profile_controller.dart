@@ -7,6 +7,9 @@ import '../../api_services/profile_api_services/profile_api_services.dart';
 import '../../models/user_profile_models/user_model.dart';
 
 class ProfileController extends GetxController {
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
   final Rx<UserModel?> user = Rx<UserModel?>(null);
   final RxBool isLoading = false.obs;
   final RxString errorMessage = ''.obs;
@@ -41,7 +44,7 @@ class ProfileController extends GetxController {
         nameController.text = userResponseData.name ?? '';
         imageController.text = userResponseData.profilePic ?? '';
         update();
-        Get.to(CustomBottomBar());
+       // Get.to(CustomBottomBar());
       } else {
         throw Exception('Failed to load user profile');
       }
@@ -62,77 +65,83 @@ class ProfileController extends GetxController {
     nameController.text = '';
     imageController.text = '';
   }
-
-  // Future<void> updateUserProfile() async {
-  //   try {
-  //     isLoading(true);
-  //     errorMessage('');
-  //     final response= await ProfileApiServices.updateUserProfile(
-  //         name: nameController.text,
-  //         phone: phoneController.text
-  //     );
-  //
-  //     if(response.statusCode==200){
-  //       await fetchUserProfile();
-  //       Get.snackbar('Success', 'Profile updated successfully');
-  //     }else{
-  //      Get.snackbar('Error', 'Failed to update profile');
-  //     }
-  //
-  //
-  //   } catch (e) {
-  //     errorMessage(e.toString());
-  //     Get.snackbar('Error', 'Failed to update profile: ${e.toString()}');
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
-
   Future<void> updateUserProfile() async {
     try {
       isLoading(true);
       errorMessage('');
 
-      // Create a map to hold only the changed fields
       Map<String, dynamic> updatedFields = {};
 
-      // Check which fields have changed compared to the original user data
       if (user.value != null) {
-        if (nameController.text != user.value!.name) {
-          updatedFields['name'] = nameController.text;
+        if (nameController.text.trim().isNotEmpty &&
+            nameController.text.trim() != (user.value!.name ?? '')) {
+          updatedFields['name'] = nameController.text.trim();
         }
-        if (phoneController.text != user.value!.whatsapp) {
-          updatedFields['whatsapp'] = phoneController.text;
+        if (phoneController.text.trim().isNotEmpty &&
+            phoneController.text.trim() != (user.value!.whatsapp ?? '')) {
+          updatedFields['whatsapp'] = phoneController.text.trim();
         }
-        // Add other fields similarly if needed
+        if (emailController.text.trim().isNotEmpty &&
+            emailController.text.trim() != (user.value!.email ?? '')) {
+          updatedFields['email'] = emailController.text.trim();
+        }
       }
 
-      // Only proceed if there are actually any changes
-      if (updatedFields.isNotEmpty) {
-        final response = await ProfileApiServices.updateUserProfile(data: updatedFields);
+      // Password validation
+      if (passwordController.text.isNotEmpty ||
+          confirmPasswordController.text.isNotEmpty) {
+        if (passwordController.text != confirmPasswordController.text) {
+          Get.snackbar("Error", "Password & Confirm Password do not match");
+          return;
+        }
+        if (passwordController.text.length < 6) {
+          Get.snackbar("Error", "Password must be at least 6 characters");
+          return;
+        }
+        updatedFields['password'] = passwordController.text;
+      }
 
-        if (response.statusCode == 200) {
-          final responseData = jsonDecode(response.body);
+      if (updatedFields.isEmpty) {
+        Get.snackbar('Info', 'No changes detected to update');
+        return;
+      }
 
-          if (responseData['success'] == true) {
+      print("Update body sent to API: $updatedFields");
+
+      final response = await ProfileApiServices.updateUserProfile(data: updatedFields);
+
+      if (response.statusCode == 200) {
+        // JSON parsing
+        try {
+          final res = jsonDecode(response.body);
+          if (res['success'] == true) {
             await fetchUserProfile();
-            Get.snackbar('Success', responseData['message'] ?? 'Profile updated successfully');
+            passwordController.clear();
+            confirmPasswordController.clear();
+            Get.snackbar('Success', res['message'] ?? 'Profile updated');
           } else {
-            Get.snackbar('Error', responseData['message'] ?? 'Failed to update profile');
+            Get.snackbar('Error', res['message'] ?? 'Update failed');
           }
-        } else {
-          Get.snackbar('Error', 'Failed to update profile');
+        } catch (e) {
+          print("Non-JSON response: ${response.body}");
+          Get.snackbar("Error", "API rejected request: ${response.body}");
         }
       } else {
-        Get.snackbar('Info', 'No changes detected to update');
+        Get.snackbar('Error', 'Failed to update profile. Status code: ${response.statusCode}');
+        print("Response body: ${response.body}");
       }
     } catch (e) {
       errorMessage(e.toString());
-      Get.snackbar('Error', 'Failed to update profile: ${e.toString()}');
+      Get.snackbar('Error', 'Update failed: $e');
+      print(e);
     } finally {
       isLoading(false);
     }
   }
+
+
+
+
 
 
 

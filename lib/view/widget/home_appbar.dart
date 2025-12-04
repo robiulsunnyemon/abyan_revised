@@ -133,7 +133,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return TextStyle(
       fontSize: fontSize,
       fontWeight: AppStyles.weightMedium,
-      fontFamily: "Inter",
+      fontFamily: "copperplategothic",
       color: AppColors.goldenTextColor,
     );
   }

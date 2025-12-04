@@ -28,7 +28,8 @@ class SignupScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.goldenTextColor,
-                  fontSize: 40.sp,
+                  fontSize: 36.sp,
+                  fontFamily: "copperplategothic",
                   fontWeight: AppStyles.weightBold,
                 ),
               ),
@@ -75,7 +76,7 @@ class SignupScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
-
+                          fontFamily: "copperplategothic",
                           fontWeight: FontWeight.w500,
                         ),
                       ),

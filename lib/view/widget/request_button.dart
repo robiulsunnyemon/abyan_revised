@@ -28,7 +28,7 @@ class RequestButton extends StatelessWidget {
               style: TextStyle(
                 color: const Color(0xFF1A1A1A) /* Woodsmoke-950 */,
                 fontSize: 16,
-                fontFamily: 'PlayfairDisplay',
+                fontFamily: 'copperplategothic',
                 fontWeight: FontWeight.w500,
               ),
             ),

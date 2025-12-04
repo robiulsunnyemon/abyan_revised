@@ -32,33 +32,6 @@ class MiniSubCategoryScreen extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: _onRefresh,
       child: Scaffold(
-        /*appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.goldenTextColor,
-                    ),
-                    child: const Icon(
-                      Icons.keyboard_arrow_left_outlined,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          surfaceTintColor: Colors.white,
-        ),*/
         body: SafeArea(
           child: Column(
             children: [

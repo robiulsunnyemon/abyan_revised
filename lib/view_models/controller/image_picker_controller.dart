@@ -9,7 +9,8 @@ import '../../view/widget/custom_bottom_bar.dart';
 class ImagePickerController extends GetxController {
   final Rx<File?> selectedImage = Rx<File?>(null);
 
-  final _profileController=Get.put(ProfileController());
+ // final _profileController=Get.put(ProfileController());
+  final ProfileController _profileController = Get.put(ProfileController());
 
 
   Future<void> pickImage() async {
@@ -19,10 +20,15 @@ class ImagePickerController extends GetxController {
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
       print("selected image ${selectedImage.value}");
+
+      final profileController = Get.find<ProfileController>();
+      profileController.imageController.text = pickedFile.path;
+      profileController.update();
+
       final response = await ProfileApiServices.uploadImage(imageFile: selectedImage.value);
       if(response){
-        _profileController.fetchUserProfile();
-        Get.to(()=>CustomBottomBar());
+       await _profileController.fetchUserProfile();
+        Get.offAll(()=>CustomBottomBar());
       }
 
     }
