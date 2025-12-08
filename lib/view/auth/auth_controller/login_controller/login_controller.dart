@@ -17,6 +17,8 @@ class LoginController extends GetxController{
       print(response.statusCode);
 
       if(response.statusCode==200){
+        emailTEController.clear();
+        passwordTEController.clear();
         final decodedResponse=jsonDecode(response.body);
         final String token=decodedResponse['token'];
         AuthPrefService.saveToken(token);

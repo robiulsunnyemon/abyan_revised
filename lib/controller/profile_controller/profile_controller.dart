@@ -65,6 +65,7 @@ class ProfileController extends GetxController {
     nameController.text = '';
     imageController.text = '';
   }
+
   Future<void> updateUserProfile() async {
     try {
       isLoading(true);
@@ -81,6 +82,7 @@ class ProfileController extends GetxController {
             phoneController.text.trim() != (user.value!.whatsapp ?? '')) {
           updatedFields['whatsapp'] = phoneController.text.trim();
         }
+
         if (emailController.text.trim().isNotEmpty &&
             emailController.text.trim() != (user.value!.email ?? '')) {
           updatedFields['email'] = emailController.text.trim();
@@ -109,6 +111,7 @@ class ProfileController extends GetxController {
       print("Update body sent to API: $updatedFields");
 
       final response = await ProfileApiServices.updateUserProfile(data: updatedFields);
+ print("response ////////////${response.body},${response.statusCode}");
 
       if (response.statusCode == 200) {
         // JSON parsing

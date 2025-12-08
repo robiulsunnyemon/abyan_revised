@@ -94,7 +94,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(16),
                               child: Text(
                                 'To learn more about this service in detail, contact now on WhatsApp.',
-                                style: AppTextStyle.bold16,
+                                style: AppTextStyle.bold16.copyWith(color: AppColors.blackColor),
                                 textAlign: TextAlign.center,
                               ),
                             ),

@@ -47,7 +47,6 @@ class ProfileApiServices {
         },
         body: json.encode(data),
       );
-      print("update body: ${jsonEncode({"name": data["name"], "whatsapp": data["whatsapp"]})}");
       print("profile update response body ${response.body}");
       print("profile update response status code ${response.statusCode}");
       return response;
