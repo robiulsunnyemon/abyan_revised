@@ -79,7 +79,7 @@ class CustomBookingEventWidget extends StatelessWidget {
                         Text(
                           bookingEvent.event.title,
                           style: TextStyle(
-                            fontFamily: "PlayfairDisplay",
+                            fontFamily: "copperplategothic",
                             fontSize: AppStyles.fontL.sp,
                             fontWeight: AppStyles.weightBold,
                             color: AppColors.blackColor,
