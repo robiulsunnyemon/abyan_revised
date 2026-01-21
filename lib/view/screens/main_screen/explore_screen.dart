@@ -105,6 +105,12 @@ class ExploreScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
+                                          /*print("subcategory name: ${subCategory.name}");
+
+                                          if(subCategory.name=="ASF Other cites"){
+                                            Get.to(() => JetsScreen(id: 6));
+
+                                          }*/
                                           if (subCategory.hasSpecificCategory) {
                                             _specificCategoryController
                                                 .fetchSubcategoryDetails(
