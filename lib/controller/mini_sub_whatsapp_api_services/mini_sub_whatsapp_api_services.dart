@@ -15,7 +15,7 @@ class ServiceController extends GetxController {
   var errorMessage = ''.obs;
 
   // Fetch service details by ID
-  Future<void> fetchServiceDetails(int miniSubCategory) async {
+  Future<void> fetchServiceDetails(int miniSubCategory , int index) async {
     try {
       isLoading.value = true;
       errorMessage.value = '';
@@ -35,7 +35,7 @@ class ServiceController extends GetxController {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         serviceData.value = ServiceResponse.fromJson(jsonResponse).data;
-        Get.to(()=>MiniWhatsappMessageScreen());
+        Get.to(()=>MiniWhatsappMessageScreen(index: index,));
       } else {
         print(response.statusCode);
         print(response.body);

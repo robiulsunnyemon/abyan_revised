@@ -104,7 +104,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                                     .fetchServiceDetails(
                                       _miniSubCategoryController
                                           .miniSubCategories[index]
-                                          .id,
+                                          .id,index
                                     );
                               }
                               if (_miniSubCategoryController

@@ -4,17 +4,19 @@ import 'package:abyansf_asfmanagment_app/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../controller/mini_sub_category_controller/mini_sub_category_controller.dart';
 import '../../../controller/mini_sub_whatsapp_api_services/mini_sub_whatsapp_api_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/style/appColor.dart';
 import '../../../utils/style/app_text_styles.dart';
 
 class MiniWhatsappMessageScreen extends StatelessWidget {
-  MiniWhatsappMessageScreen({super.key});
-
+  MiniWhatsappMessageScreen( {super.key, required this.index});
+  final int index;
   final ServiceController _contactWhatsappController = Get.put(
     ServiceController(),
   );
+  final _miniSubCategoryController = Get.put(MiniSubCategoryController());
 
   @override
   @override
@@ -41,7 +43,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
             return Center(
               child: SingleChildScrollView(
                 child: Column(
-                 mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
@@ -92,12 +94,71 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(16),
-                              child: Text(
-                                'To learn more about this service in detail, contact now on WhatsApp.',
-                                style: AppTextStyle.bold16.copyWith(color: AppColors.blackColor),
-                                textAlign: TextAlign.center,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: [
+                                    if (_miniSubCategoryController
+                                            .miniSubCategories[index].name==
+                                        "Bali Luxury Concierge Services")
+                                      Text(
+                                        //not working
+                                        'To learn more about this Cities in detail, contact now on WhatsApp',
+                                        style: AppTextStyle.bold16.copyWith(
+                                          color: AppColors.blackColor,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )
+                                      else if (_miniSubCategoryController
+                                        .miniSubCategories[index].name==
+                                        "Miami Luxury Concierge Services")
+                                      Text(
+                                        //not working
+                                        'To learn more about this Cities in detail, contact now on WhatsApp',
+                                        style: AppTextStyle.bold16.copyWith(
+                                          color: AppColors.blackColor,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )
+                                    else if (_miniSubCategoryController
+                                          .miniSubCategories[index].name==
+                                          "Europe Luxury Concierge Services")
+                                        Text(
+                                          //not working
+                                          'To learn more about this Cities in detail, contact now on WhatsApp',
+                                          style: AppTextStyle.bold16.copyWith(
+                                            color: AppColors.blackColor,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      else if (_miniSubCategoryController
+                                            .miniSubCategories[index].name==
+                                            "Courchevel Winter Luxury Concierge Services")
+                                          Text(
+                                            //not working
+                                            'To learn more about this Cities in detail, contact now on WhatsApp',
+                                            style: AppTextStyle.bold16.copyWith(
+                                              color: AppColors.blackColor,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          )
+                                    else
+                                      Text(
+                                        'To learn more about this service in detail, contact now on WhatsApp',
+                                        style: AppTextStyle.bold16.copyWith(
+                                          color: AppColors.blackColor,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
+                            /*Text(
+                              'To learn more about this service in detail, contact now on WhatsApp.',
+                              style: AppTextStyle.bold16.copyWith(color: AppColors.blackColor),
+                              textAlign: TextAlign.center,
+                            ),*/
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(elevation: 0),
                               onPressed: () async {
