@@ -58,7 +58,6 @@ class SubCategoryApiService {
           'Restaurants',
           'Beach Clubs',
           'Luxury Yachts',
-          'Super Cars',
         ];
 
         // Match case-insensitively and tolerate small name differences

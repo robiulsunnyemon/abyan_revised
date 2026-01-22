@@ -100,10 +100,10 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                   children: [
                                     if (_miniSubCategoryController
                                             .miniSubCategories[index].name==
-                                        "Bali Luxury Concierge Services")
+                                        "Bali")
                                       Text(
                                         //not working
-                                        'To learn more about this Cities in detail, contact now on WhatsApp',
+                                        'To learn more about this City in detail, contact now on WhatsApp',
                                         style: AppTextStyle.bold16.copyWith(
                                           color: AppColors.blackColor,
                                         ),
@@ -111,10 +111,10 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                       )
                                       else if (_miniSubCategoryController
                                         .miniSubCategories[index].name==
-                                        "Miami Luxury Concierge Services")
+                                        "Miami")
                                       Text(
                                         //not working
-                                        'To learn more about this Cities in detail, contact now on WhatsApp',
+                                        'To learn more about this City in detail, contact now on WhatsApp',
                                         style: AppTextStyle.bold16.copyWith(
                                           color: AppColors.blackColor,
                                         ),
@@ -122,10 +122,10 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                       )
                                     else if (_miniSubCategoryController
                                           .miniSubCategories[index].name==
-                                          "Europe Luxury Concierge Services")
+                                          "Europe (Ibiza, Italy, Mykonos, South of France)")
                                         Text(
                                           //not working
-                                          'To learn more about this Cities in detail, contact now on WhatsApp',
+                                          'To learn more about this City in detail, contact now on WhatsApp',
                                           style: AppTextStyle.bold16.copyWith(
                                             color: AppColors.blackColor,
                                           ),
@@ -133,10 +133,10 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                         )
                                       else if (_miniSubCategoryController
                                             .miniSubCategories[index].name==
-                                            "Courchevel Winter Luxury Concierge Services")
+                                            "Courchevel")
                                           Text(
                                             //not working
-                                            'To learn more about this Cities in detail, contact now on WhatsApp',
+                                            'To learn more about this City in detail, contact now on WhatsApp',
                                             style: AppTextStyle.bold16.copyWith(
                                               color: AppColors.blackColor,
                                             ),

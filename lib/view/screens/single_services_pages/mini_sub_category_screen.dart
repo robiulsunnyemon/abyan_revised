@@ -74,10 +74,11 @@ class MiniSubCategoryScreen extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.all(16),
                   // Add padding
-                  itemCount: _miniSubCategoryController.miniSubCategories.length,
+                  itemCount:
+                      _miniSubCategoryController.miniSubCategories.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 213,
+                    mainAxisExtent: 210,
                     crossAxisSpacing: 10, // Add spacing between items
                     mainAxisSpacing: 13, // Add spacing between rows
                   ),
@@ -104,7 +105,8 @@ class MiniSubCategoryScreen extends StatelessWidget {
                                     .fetchServiceDetails(
                                       _miniSubCategoryController
                                           .miniSubCategories[index]
-                                          .id,index
+                                          .id,
+                                      index,
                                     );
                               }
                               if (_miniSubCategoryController
@@ -147,15 +149,52 @@ class MiniSubCategoryScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add spacing
-                          Text(
-                            _miniSubCategoryController
-                                .miniSubCategories[index]
-                                .name,
-                            style: AppTextStyle.bold16,
-                            maxLines: 1, // Prevent text overflow
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          SizedBox(height: 4),
+
+                          // Add spacing
+                          if (_miniSubCategoryController
+                                  .miniSubCategories[index]
+                                  .name ==
+                              "Europe (Ibiza, Italy, Mykonos, South of France)")
+                            Row(
+                              children: [
+                                Text(
+                                  "Europe ",
+                                  style: AppTextStyle.bold16,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  "(Ibiza, Italy, Mykonos, South of France)",
+                                  style: AppTextStyle.bold12.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                              ],
+                            ),
+                          if (_miniSubCategoryController
+                                  .miniSubCategories[index]
+                                  .name !=
+                              "Europe (Ibiza, Italy, Mykonos, South of France)")
+                            Text(
+                              _miniSubCategoryController
+                                  .miniSubCategories[index]
+                                  .name,
+                              style: AppTextStyle.bold16,
+                              maxLines: 2, // Prevent text overflow
+                              overflow: TextOverflow.ellipsis,
+                            ),
+
+                          /* Text(
+                    _miniSubCategoryController
+                        .miniSubCategories[index]
+                        .name,
+                    style: AppTextStyle.bold16,
+                    maxLines: 2, // Prevent text overflow
+                    overflow: TextOverflow.ellipsis,
+                    ),*/
                         ],
                       ),
                     );
