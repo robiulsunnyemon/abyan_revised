@@ -78,7 +78,7 @@ class MiniSubCategoryScreen extends StatelessWidget {
                       _miniSubCategoryController.miniSubCategories.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 210,
+                    mainAxisExtent: 230,
                     crossAxisSpacing: 10, // Add spacing between items
                     mainAxisSpacing: 13, // Add spacing between rows
                   ),
@@ -155,29 +155,29 @@ class MiniSubCategoryScreen extends StatelessWidget {
                           if (_miniSubCategoryController
                                   .miniSubCategories[index]
                                   .name ==
-                              "Europe (Ibiza, Italy, Mykonos, South of France)")
+                              "Euro Summer (Ibiza, Italy, Mykonos, South of France)")
                             Row(
                               children: [
                                 Text(
-                                  "Europe ",
-                                  style: AppTextStyle.bold16,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  "(Ibiza, Italy, Mykonos, South of France)",
-                                  style: AppTextStyle.bold12.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    overflow: TextOverflow.ellipsis,
+                                  "Euro Summer ",
+                                  style: AppTextStyle.bold14.copyWith(
+                                    fontSize: 14
                                   ),
                                   maxLines: 2,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "(Ibiza, Italy, Mykonos, South of France)",
+                                    style: AppTextStyle.bold10,overflow: TextOverflow.ellipsis,
+
+                                  ),
                                 ),
                               ],
                             ),
                           if (_miniSubCategoryController
                                   .miniSubCategories[index]
                                   .name !=
-                              "Europe (Ibiza, Italy, Mykonos, South of France)")
+                              "Euro Summer (Ibiza, Italy, Mykonos, South of France)")
                             Text(
                               _miniSubCategoryController
                                   .miniSubCategories[index]
