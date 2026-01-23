@@ -122,7 +122,7 @@ class MiniWhatsappMessageScreen extends StatelessWidget {
                                       )
                                     else if (_miniSubCategoryController
                                           .miniSubCategories[index].name==
-                                          "Euro Summer (Ibiza, Italy, Mykonos, South of France)")
+                                          "Euro Summer")
                                         Text(
                                           //not working
                                           'To learn more about this City in detail, contact now on WhatsApp',
