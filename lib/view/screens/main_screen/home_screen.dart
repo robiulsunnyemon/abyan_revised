@@ -114,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 6),
                                 Text(
-                                  'More',
+                                  'All Services',
                                   style: AppTextStyle.bold14.copyWith(
                                     fontFamily: 'copperplategothic',
                                   ),
